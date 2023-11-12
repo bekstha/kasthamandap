@@ -3,6 +3,7 @@ import About from "./components/About";
 import AboutMenu from "./components/AboutMenu";
 import HeroSection from "./components/HeroSection";
 import TopNavBar from "./components/TopNavBar";
+import { ReviewSection } from "./components/ReviewSection";
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
       <HeroSection />
       <About />
       <AboutMenu />
+      <ReviewSection />
       <Footer />
     </>
   );
