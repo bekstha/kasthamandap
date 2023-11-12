@@ -3,7 +3,7 @@ const AboutMenu = () => {
     <section
       className="flex flex-col min-h-screen relative"
       style={{
-        backgroundImage: `url($../../public/assets/images/nepali_spices.jpeg)`,
+        backgroundImage: `url(./assets/images/nepali_spices.jpeg)`,
         backgroundSize: "cover",
       }}
     >

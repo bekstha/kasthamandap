@@ -3,7 +3,7 @@ const HeroSection = () => {
     <section
       className="flex flex-col min-h-screen relative"
       style={{
-        backgroundImage: `url($../../public/assets/images/spices2.jpg)`,
+        backgroundImage: `url(./assets/images/spices2.jpg)`,
         backgroundSize: "cover",
       }}
     >
