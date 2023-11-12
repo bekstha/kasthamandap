@@ -16,10 +16,10 @@ const AboutMenu = () => {
           <h1 className="font-cursive text-7xl lg:text-9xl font-extrabold my-4">
             Our Menu{" "}
           </h1>
-          <p className="text-xl font-medium lg:text-2xl  text-justify ">
+          <p className="text-xl  lg:text-2xl max-w-screen-lg flex items-center justify-center italic">
             All dishes include basmati rice, naan bread and a dash of sauce. The
             food can be increased if heat is needed. Remember to inform the
-            staff about allergies. l= Lactose-free (the raita sauce and naan
+            staff about allergies. <br />l = Lactose-free (the raita sauce and naan
             bread included in the portions contain lactose.) g= Lactose-free
             (the naan bread included in the portions contains gluten.) v= Vegan
             (It is possible to get the serving as vegan.)
