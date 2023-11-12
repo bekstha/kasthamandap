@@ -13,13 +13,17 @@ const HourList = ({ openingHour, closingHour, day }) => {
 };
 
 const OpeningHours = () => {
-  const { weekdayOpeningHours, saturdayOpeningHours, sundayOpeningHours } =
-    useOpeningHours();
+  const {
+    weekdayOpeningHours,
+    saturdayOpeningHours,
+    sundayOpeningHours,
+    lunchHours,
+  } = useOpeningHours();
   const { exceptionalHours } = useExceptionalHours();
-  console.log(exceptionalHours);
+  //console.log(exceptionalHours);
 
   return (
-    <ul className="bg-gray-300">
+    <ul>
       {weekdayOpeningHours && (
         <HourList
           day="Monday - Friday"
@@ -35,6 +39,18 @@ const OpeningHours = () => {
         />
       )}
       {sundayOpeningHours && <HourList day="Sunday" />}
+
+      {lunchHours && (
+        <>
+          <h3 className="font-bold mt-8">Lunch Hour</h3>
+          <HourList
+            day="Monday - Friday"
+            openingHour={lunchHours.openingHour}
+            closingHour={lunchHours.closingHour}
+          />
+        </>
+      )}
+
       {exceptionalHours && exceptionalHours[0]?.status === "active" && (
         <li>{exceptionalHours[0]?.exceptionMessage}</li>
       )}

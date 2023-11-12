@@ -31,7 +31,9 @@ const useOpeningHours = () => {
   );
   const sundayOpeningHours = openingHours.find((info) => info.id === "sunday");
 
-  return { weekdayOpeningHours, saturdayOpeningHours, sundayOpeningHours };
+  const lunchHours = openingHours.find((info) => info.id === "LunchHour");
+
+  return { weekdayOpeningHours, saturdayOpeningHours, sundayOpeningHours, lunchHours };
 };
 
 export default useOpeningHours;

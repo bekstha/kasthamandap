@@ -12,6 +12,15 @@
   scroll-behavior: smooth;
 }
 
+.slick-slide > div {
+  margin:  0 10px;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: gray;
+}
+
 @layer components {
   .max-container {
     max-width: 1440px;
