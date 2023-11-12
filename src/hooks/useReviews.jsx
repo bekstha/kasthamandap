@@ -16,7 +16,6 @@ const useReviews = () => {
             id: doc.id,
           }));
           setReviews(filteredData);
-          console.log(reviews)
         } catch (error) {
           console.error(error);
         }
