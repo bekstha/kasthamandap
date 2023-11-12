@@ -42,7 +42,7 @@ export const ReviewSection = () => {
 
       <div className="flex justify-end mt-5">
         <button className="bg-orange-500 p-5 rounded-full">
-          <img src="../../public/icons/write.svg" width={30} height={30}></img>
+          <img src="./assets/icons/write.svg" width={30} height={30}></img>
         </button>
       </div>
     </div>
