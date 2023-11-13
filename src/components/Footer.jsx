@@ -1,6 +1,7 @@
 import React from "react";
 
 import OpeningHours from "./OpeningHours";
+import Contact from "./Contact";
 
 const FooterItemTitle = ({ title }) => (
   <p className="text-lg font-semibold">{title}</p>
@@ -27,20 +28,9 @@ const Footer = () => {
           <FooterItemTitle title="Opening hours" />
           <OpeningHours />
         </div>
-        <div>
+        <div className="bg-gray-300 justify-center items-center">
           <FooterItemTitle title="Contact us" />
-          <ul>
-            <li>
-              <span className="inline-block mr-4">
-                <a href="tel:0442371195">Phone: +358442371195</a>
-              </span>
-            </li>
-            <span className="inline-block mr-4">
-              <a href="mailto:kasthamandap.fin@gmail.com">
-                Email : kasthamandap.fin@gmail.com
-              </a>
-            </span>
-          </ul>
+          <Contact />
         </div>
       </div>
     </footer>
