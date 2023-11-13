@@ -4,16 +4,12 @@ import AboutMenu from "./components/AboutMenu";
 import HeroSection from "./components/HeroSection";
 import TopNavBar from "./components/TopNavBar";
 import { ReviewSection } from "./components/ReviewSection";
+import AdminSidebar from "./components/AdminSidebar";
 
 const App = () => {
   return (
     <>
-      <TopNavBar />
-      <HeroSection />
-      <About />
-      <AboutMenu />
-      <ReviewSection />
-      <Footer />
+      <AdminSidebar />
     </>
   );
 };
