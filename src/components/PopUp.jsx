@@ -34,7 +34,7 @@ const PopUp = ({ openPopUp, closePopUp, dishType}) => {
             <button
                 onClick={() => handleCardClick(item, id)}
                 type="button"
-                className={`font-medium italic rounded-md text-sm px-1 py-1 border border-black ${selectedButton === id ? 'bg-green-500 text-white' : ''}`}>
+                className={`font-medium italic rounded-md text-sm px-1 py-1 border border-black ${selectedButton === id ? 'bg-green-500 text-white animate-wiggle' : ''}`}>
                 {item}
             </button>
         </div>
@@ -48,7 +48,7 @@ const PopUp = ({ openPopUp, closePopUp, dishType}) => {
       id='ModelContainer'
       onClick={handleclosePopUp}
       className='fixed left-0 top-5 z-[1055] h-full w-full overflow-y-auto overflow-x-hidden outline-none'>
-      <div className='pointer-events-none relative w-auto translate-y-[-50px] transition-all duration-500 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[700px]'>
+      <div className='pointer-events-none relative w-auto translate-y-[-50px] transition duration-500 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[700px]'>
         <div className='min-[576px]:shadow-[0_0.5rem_1rem_rgba(#000, 0.15)] pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-white bg-clip-padding text-current shadow-lg outline-none'>
           <div className='flex flex-shrink-0 mt-5 items-center justify-between rounded-t-md border-b-2 border-gray p-4'>
             <h5
@@ -69,7 +69,7 @@ const PopUp = ({ openPopUp, closePopUp, dishType}) => {
                     <button
                       onClick={() => handleCardClick("Starters", 1)}
                       type="button"
-                      className={`font-medium italic rounded-md text-sm px-1 py-1 border border-black ${selectedButton === 1 ? 'bg-green-500 text-white' : ''}`}>
+                      className={`font-medium italic rounded-md text-sm px-1 py-1 border border-black ${selectedButton === 1 ? 'bg-green-500 text-white animate-wiggle' : ''}`}>
                       Starters
                    </button>
                         <Category id="2" item="Vegetarian" />
@@ -91,7 +91,7 @@ const PopUp = ({ openPopUp, closePopUp, dishType}) => {
                           <button
                             onClick={() => handleCardClick("Sunday", 1)}
                             type="button"
-                            className={`font-medium italic rounded-md text-sm px-1 py-1 border border-black ${selectedButton === 1 ? 'bg-green-500 text-white' : ''}`}>
+                            className={`font-medium italic rounded-md text-sm px-1 py-1 border border-black ${selectedButton === 1 ? 'bg-green-500 text-white animate-wiggle' : ''}`}>
                             Sunday
                         </button>
                         <Category id="2" item="Monday" />

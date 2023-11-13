@@ -9,15 +9,15 @@ const MenuCardItems = ({name}) => {
     const { starters, chickenDish, lambDish, vegDish, tandoorDish, veganFood } = useFoodMenu();
 
     const DishItems = ({dishName, index}) => {
-            return (
-                <React.Fragment key={index}>
-                    <div className="bg-slate-200 p-2 mt-2">
-                        <CardHeader dish={dishName.title} price={dishName.price} />
-                        <Divider />
-                        <CardBody desc={dishName.description} />
-                    </div>
-                </React.Fragment>
-            )
+        return (
+            <React.Fragment key={index}>
+                <div className="bg-slate-100 p-2 mt-3 shadow-md rounded-lg">
+                    <CardHeader dish={dishName.title} price={dishName.price} />
+                    <Divider />
+                    <CardBody desc={dishName.description} />
+                </div>
+            </React.Fragment>
+        )
     }
     return(
       <div className="w-full p-3">

@@ -61,6 +61,18 @@ const AboutMenu = () => {
               {" "}
               A La Carte{" "}
             </a>
+            <a
+              onClick={() => handleClick("Special")}
+              className="px-10 py-2 inline-block bg-orange-500 text-white font-bold text-xl hover:bg-orange-700 transition-colors mt-10 rounded"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ maxWidth: "250px" }}
+            >
+              {" "}
+              Today's Special{" "}
+            </a>
+            
+            
           </div>
         </div>
       </div>
