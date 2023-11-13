@@ -1,4 +1,19 @@
+import { useState } from "react";
+import PopUp from "./PopUp";
+
 const AboutMenu = () => {
+  const [openPopup, setOpenPopup] = useState(false);
+  const [dishType, setDishType] = useState("");
+
+  const handleClick = (name) => {
+    // Handle the card click event here
+    console.log(name);
+    setDishType(name)
+    setOpenPopup(true)
+  };
+
+  const HandleRemovePopUp = () => setOpenPopup(false);
+
   return (
     <section
       className="flex flex-col min-h-screen relative"
@@ -27,6 +42,7 @@ const AboutMenu = () => {
 
           <div className="flex flex-col md:flex-row items-center justify-center md:gap-16">
             <a
+              onClick={() => handleClick("Lunch")}
               className="px-10 py-2 inline-block bg-orange-500 text-white font-bold text-xl hover:bg-orange-700 transition-colors mt-10 rounded"
               target="_blank"
               rel="noopener noreferrer"
@@ -36,6 +52,7 @@ const AboutMenu = () => {
               Lunch Menu{" "}
             </a>
             <a
+              onClick={() => handleClick("Alacarte")}
               className="px-10 py-2 inline-block  bg-orange-500 text-white font-bold text-xl hover:bg-orange-700 transition-colors mt-10 rounded"
               target="_blank"
               rel="noopener noreferrer"
@@ -44,8 +61,23 @@ const AboutMenu = () => {
               {" "}
               A La Carte{" "}
             </a>
+            <a
+              onClick={() => handleClick("Special")}
+              className="px-10 py-2 inline-block bg-orange-500 text-white font-bold text-xl hover:bg-orange-700 transition-colors mt-10 rounded"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ maxWidth: "250px" }}
+            >
+              {" "}
+              Today's Special{" "}
+            </a>
+            
+            
           </div>
         </div>
+      </div>
+      <div>
+          <PopUp openPopUp={openPopup} closePopUp={HandleRemovePopUp} dishType={dishType}/>   
       </div>
     </section>
   );

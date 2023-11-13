@@ -21,7 +21,15 @@ export default {
         boxShadow: {
           '3xl': '0 10px 40px rgba(0, 0, 0, 0.1)'
         },
-        
+        keyframes: {
+          wiggle: {
+            "0%, 100%": { transform: "rotate(-3deg)" },
+            "50%": { transform: "rotate(3deg)" }
+          }
+        },
+        animation: {
+          wiggle: "wiggle 200ms ease-in-out",
+        }
       },
     },
     plugins: [],
