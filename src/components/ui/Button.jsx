@@ -1,23 +1,55 @@
 import React from "react";
 
-const sizes = {
-  small: "px-3 py-2 text-xs",
-  default: "px-4 py-2",
-  large: "px-5 py-3 text-lg",
-};
+const btnClasses = "w-36 md:w-48 text-lg rounded-md duration-200";
 
 const colors = {
-  primary: "bg-white text-black hover:bg-black hover:text-white",
-  secondary: "",
+  blue: "border-blue-600 bg-blue-600 hover:bg-blue-500 hover:border-blue-500",
+  orange:
+    "border-orange-600 bg-orange-600 hover:bg-orange-500 hover:border-orange-500 text-white",
+  pink: "border-pink-600 bg-pink-600 hover:bg-pink-500 hover:border-pink-500",
 };
 
-const Button = ({ color = "primary", size = "default", onClick, children }) => {
-  let sizeClasses = sizes[size];
+const sizes = {
+  small: " p-1 text-sm",
+  default: "p-3 text-sm",
+  large: "px-5 py-2",
+};
+
+const Button = ({
+  children,
+  href,
+  className,
+  title,
+  color = "orange",
+  size = "default",
+  isExternal = false,
+  outlined = false,
+  onClick,
+}) => {
   let colorClasses = colors[color];
+  let sizeClasses = sizes[size];
+
+  if (href)
+    return (
+      <a
+        href={href}
+        className={`${btnClasses} ${colorClasses} ${sizeClasses} ${className}`}
+        title={title}
+        target={isExternal ? "_blank" : ""}
+        rel={isExternal ? "noopener noreferrer" : ""}
+      >
+        {children}
+      </a>
+    );
 
   return (
     <button
-      className={`rounded-full  ${sizeClasses} ${colorClasses} transition-colors duration-500 sm`}
+      title={title}
+      className={`border-2 ${btnClasses} ${colorClasses} ${sizeClasses} ${
+        outlined
+          ? "bg-transparent hover:bg-transparent hover:!text-orange-500"
+          : ""
+      } ${className}`}
       onClick={() => onClick && onClick()}
     >
       {children}
