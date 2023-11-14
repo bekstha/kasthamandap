@@ -3,7 +3,7 @@ import React from 'react'
 const AdminSidebar = () => {
     const activeMenu = true;
   return (
-    <div className='flex-col bg-sky-900 w-72 rounded-lg ml-3 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10'>
+    <div className='flex-col bg-sky-900 w-96 rounded-lg ml-3 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10'>
         {activeMenu && (
             <>
                 <div className='flex justify-center text-white mt-5 text-2xl font-extrabold'>
