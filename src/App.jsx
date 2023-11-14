@@ -6,13 +6,14 @@ import TopNavBar from "./components/TopNavBar";
 import { ReviewSection } from "./components/ReviewSection";
 import AdminSidebar from "./components/AdminSidebar";
 import AdminMenu from "./components/AdminMenu";
+import { LunchMenu } from "./components/LunchMenu";
 
 const App = () => {
   return (
     <>
       <div className="flex">
-        <AdminSidebar />
-        <AdminMenu />
+          <AdminSidebar />
+          <AdminMenu />
       </div>
     </>
   );
