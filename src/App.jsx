@@ -4,17 +4,18 @@ import AboutMenu from "./components/AboutMenu";
 import HeroSection from "./components/HeroSection";
 import TopNavBar from "./components/TopNavBar";
 import { ReviewSection } from "./components/ReviewSection";
-import AdminSidebar from "./components/AdminSidebar";
-import AdminMenu from "./components/AdminMenu";
-import { LunchMenu } from "./components/LunchMenu";
+import LunchMenu from "./components/LunchMenu";
 
 const App = () => {
   return (
     <>
-      <div className="flex">
-          <AdminSidebar />
-          <AdminMenu />
-      </div>
+      <TopNavBar />
+      <HeroSection />
+      <About />
+      <AboutMenu />
+      <ReviewSection />
+      <Footer />
+      <LunchMenu day="Keskiviikko" />
     </>
   );
 };

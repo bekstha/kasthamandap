@@ -15,13 +15,7 @@ import { addDoc, collection } from "firebase/firestore";
 export const ReviewSection = () => {
   const { reviews } = useReviews();
 
-  {reviews.map((review) => (
-    console.log("Review Rating:", String(review.rating))
-  ))}
-
   
-
-
   const [inputName, setInputName] = useState("");
   const [inputEmail, setInputEmail] = useState("");
   const [inputReview, setInputReview] = useState("");
@@ -99,7 +93,7 @@ export const ReviewSection = () => {
   
         closeModal();
   
-        console.log("Review added to Firestore successfully with ID: ", reviewRef.id);
+        //console.log("Review added to Firestore successfully with ID: ", reviewRef.id);
       } else {
         console.error("Positive category not found");
       }

@@ -1,55 +1,48 @@
-import React, { useEffect, useState } from 'react';
+import useLunchItems from "../hooks/useLunchItems";
 
-export function LunchMenu({selectedDay}) {
-    const [lunchItems, setLunchItems] = useState([]);
-    const [loading, setLoading] = useState(true);
+const LunchMenu = ({ day }) => {
+  const { weeklyLunch, loading } = useLunchItems();
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('https://tassa.fi/resources/search/nearest?k=kasthamandap&lat=60.17124761&lon=24.94102048&page=0&size=12&u=lownk201&uit=mobi-web-prod&l=fi');
-                const data = await response.json();
+  const filterDescription = (desc) => {
+    const startIndex = desc.indexOf(day); // Find the index of the day
+    const endIndex = desc.indexOf('<div class="lunchHeader', startIndex); // Find the index of the next day header
+    let filteredDesc = desc.slice(startIndex, endIndex).trim(); // Extract the portion between the day and the next header
 
-                // Extract data from the response similar to your previous implementation
-                const bodyContent = data.items[0].ads[0].ad.body;
-                const divClasses = bodyContent.match(/<div class="lunchHeader day\d+">(.*?)<\/div><div class="lunchDesc">(.*?)<\/div>/gs);
+    // Remove numbers like 1), 2), etc.
+    filteredDesc = filteredDesc.replace(/\d+\)/g, "").trim();
 
-                const lunchItemsData = divClasses.map((divClass, index) => {
-                    const [, headerContent, descContent] = divClass.match(/<div class="lunchHeader day\d+">(.*?)<\/div><div class="lunchDesc">(.*?)<\/div>/);
-                    const cleanedDescContent = descContent.replace(/\d+\)/g, '');
-                    const publishContent = cleanedDescContent.replace(/<br>lounas tarjolla klo 11 am - 16pm<br>/g, '<br>');
+    // Filter out any lines that contain "lounaan Hinta" and "lounas tarjolla"
+    const lines = filteredDesc.split("<br>");
+    const filteredLines = lines
+      .filter(
+        (line) =>
+          !line.includes("lounaan Hinta") &&
+          !line.includes("lounas tarjolla") &&
+          !line.includes("kello")
+      )
+      .join("<br>")
+      .trim();
 
-                    return {
-                        header: headerContent,
-                        desc: publishContent,
-                    };
-                });
+    return filteredLines;
+  };
 
-                setLunchItems(lunchItemsData);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, []); // Empty dependency array ensures that useEffect runs only once on mount
-
-    const filteredLunchItems = lunchItems.filter(item => item.header.includes(selectedDay));
-
-
-    return (
-        <div>
-            {loading ? (
-                <p>Loading...</p>
-            ) : (
-                filteredLunchItems.map((item, index) => (
-                    <div key={index} className="item-container">
-                        <div dangerouslySetInnerHTML={{ __html: item.desc }} />
-                    </div>
-                ))
-            )}
+  return (
+    <div>
+      {loading ? (
+        <p>Loading...</p>
+      ) : weeklyLunch ? (
+        <div className="item-container">
+          <div
+            dangerouslySetInnerHTML={{
+              __html: filterDescription(weeklyLunch.desc),
+            }}
+          />
         </div>
-    );
-}
+      ) : (
+        <p>No weekly lunch available.</p>
+      )}
+    </div>
+  );
+};
+
+export default LunchMenu;
