@@ -4,6 +4,7 @@ import CardBody from "../components/ui/CardBody";
 import CardHeader from "../components/ui/CardHeader";
 import CardTitle from "../components/ui/CardTitle";
 import Divider from "../components/ui/Divider";
+import useLunchItems from "../hooks/useLunchItems";
 
 const MenuCardItems = ({name}) => {
     const { starters, chickenDish, lambDish, vegDish, tandoorDish, veganFood } = useFoodMenu();
@@ -12,13 +13,14 @@ const MenuCardItems = ({name}) => {
         return (
             <React.Fragment key={index}>
                 <div className="bg-slate-100 p-2 mt-3 shadow-md rounded-lg">
-                    <CardHeader dish={dishName.title} price={dishName.price} />
+                    <CardHeader dish={dishName.title} price={dishName.price + `\u20AC`} />
                     <Divider />
                     <CardBody desc={dishName.description} />
                 </div>
             </React.Fragment>
         )
-    }
+    };
+
     return(
       <div className="w-full p-3">
         <CardTitle dishName={name}></CardTitle>

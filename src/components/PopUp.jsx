@@ -1,4 +1,5 @@
 import React, { useEffect, useState} from 'react';
+import LunchMenu from './LunchMenu';
 import MenuCardItems from './MenuCardItems';
 
 const PopUp = ({ openPopUp, closePopUp, dishType}) => {
@@ -17,7 +18,7 @@ const PopUp = ({ openPopUp, closePopUp, dishType}) => {
     if(dishType === "Alacarte") {
       handleCardClick("Starters", 1)
     } else if (dishType === "Lunch") {
-      handleCardClick("Sunday", 1)
+      handleCardClick("Maanantai", 1)
     }
   }, [dishType]);
 
@@ -48,7 +49,7 @@ const PopUp = ({ openPopUp, closePopUp, dishType}) => {
       id='ModelContainer'
       onClick={handleclosePopUp}
       className='fixed left-0 top-5 z-[1055] h-full w-full overflow-y-auto overflow-x-hidden outline-none'>
-      <div className='pointer-events-none relative w-auto translate-y-[-50px] transition duration-500 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[700px]'>
+      <div className='pointer-events-none relative translate-y-[-50px] transition duration-500 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[750px]'>
         <div className='min-[576px]:shadow-[0_0.5rem_1rem_rgba(#000, 0.15)] pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-white bg-clip-padding text-current shadow-lg outline-none'>
           <div className='flex flex-shrink-0 mt-5 items-center justify-between rounded-t-md border-b-2 border-gray p-4'>
             <h5
@@ -89,20 +90,20 @@ const PopUp = ({ openPopUp, closePopUp, dishType}) => {
                 <div className='flex-col'>
                     <div className="flex flex-wrap m-5 gap-3 justify-center items-center">
                           <button
-                            onClick={() => handleCardClick("Sunday", 1)}
+                            onClick={() => handleCardClick("Maanantai", 1)}
                             type="button"
                             className={`font-medium italic rounded-md text-sm px-1 py-1 border border-black ${selectedButton === 1 ? 'bg-green-500 text-white animate-wiggle' : ''}`}>
-                            Sunday
+                            Maanantai
                         </button>
-                        <Category id="2" item="Monday" />
-                        <Category id="3" item="Tuesday" />
-                        <Category id="4" item="Wednesday" />
-                        <Category id="5" item="Thursday" />
-                        <Category id="6" item="Friday" />
-                        <Category id="7" item="Saturday" />
+                        <Category id="2" item="Tiistai" />
+                        <Category id="3" item="Keskiviikko" />
+                        <Category id="4" item="Torstai" />
+                        <Category id="5" item="Perjantai" />
+                        <Category id="6" item="Lauantai" />
+                        <Category id="7" item="Sunnuntai" />
                     </div>
                     {showMenu && (
-                        <MenuCardItems name={dishName} />
+                        <LunchMenu day={dishName} />
                     )}
                 </div>
             )}
