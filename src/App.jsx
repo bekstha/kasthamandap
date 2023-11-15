@@ -4,6 +4,7 @@ import AboutSection from "./components/AboutSection";
 import MenuSection from "./components/MenuSection";
 import ReviewSection from "./components/ReviewSection";
 import Footer from "./components/Footer";
+import ReservationSection from "./components/ReservationSection";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <HeroSection />
         <AboutSection />
         <MenuSection />
+        <ReservationSection />
         <ReviewSection />
       </main>
       <Footer />
