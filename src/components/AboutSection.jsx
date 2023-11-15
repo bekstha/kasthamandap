@@ -1,8 +1,9 @@
+import OpeningHours from "./OpeningHours";
 import { Section, SectionTitle } from "./ui/Section";
 
 const AboutSection = () => {
   return (
-    <Section id="about-us" sectionClass="bg-white text-black text-center">
+    <Section id="about-us" sectionClass="bg-white text-black text-center ">
       <SectionTitle label="About us" />
       <p className="mt-4 text-lg">
         Kasthamandap (Sanskrit: काष्ठमण्डप, Nepal Bhasa:मरु सत: Maru Satta:;
@@ -24,6 +25,11 @@ const AboutSection = () => {
         gluten-free and vegeterian options. The resturant has a cozy atmosphere
         where you can enjoy delicious Nepalese food with friends and family.
       </p>
+
+      <div className="py-8">
+          <h3 className="font-bold text-center text-2xl mb-5">Opening hours</h3>
+          <OpeningHours />
+        </div>
     </Section>
   );
 };

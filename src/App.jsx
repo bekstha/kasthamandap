@@ -3,7 +3,6 @@ import HeroSection from "./components/HeroSection";
 import AboutSection from "./components/AboutSection";
 import MenuSection from "./components/MenuSection";
 import ReviewSection from "./components/ReviewSection";
-import LunchMenu from "./components/LunchMenu";
 import Footer from "./components/Footer";
 import ReservationSection from "./components/ReservationSection";
 
