@@ -15,7 +15,6 @@ const App = () => {
       <AboutMenu />
       <ReviewSection />
       <Footer />
-      <LunchMenu day="Lauantai" />
     </>
   );
 };

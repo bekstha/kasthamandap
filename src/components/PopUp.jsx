@@ -99,8 +99,6 @@ const PopUp = ({ openPopUp, closePopUp, dishType}) => {
                         <Category id="3" item="Keskiviikko" />
                         <Category id="4" item="Torstai" />
                         <Category id="5" item="Perjantai" />
-                        <Category id="6" item="Lauantai" />
-                        <Category id="7" item="Sunnuntai" />
                     </div>
                     {showMenu && (
                         <LunchMenu day={dishName} />
