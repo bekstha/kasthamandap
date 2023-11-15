@@ -1,50 +1,40 @@
+import React from "react";
+import ButtonGroup from "./ui/ButtonGroup";
+import Button from "./ui/Button";
+import { Section } from "./ui/Section";
+import Overlay from "./ui/Overlay";
+
 const HeroSection = () => {
   return (
-    <section
-      className="flex flex-col min-h-screen relative"
-      style={{
-        backgroundImage: `url(./assets/images/spices2.jpg)`,
-        backgroundSize: "cover",
-      }}
-    >
-      <div
-        className="absolute inset-0 bg-black opacity-60"
-        style={{ zIndex: 1 }}
-      ></div>
-      <div className="flex-1 flex items-center relative z-10 px-2">
-        <div className="text-center mx-auto text-white">
-          <h1 className="font-cursive text-7xl lg:text-9xl font-extrabold my-4 ">
-            Welcome to Kasthamandap{" "}
-          </h1>
-          <p className="text-3xl font-medium lg:text-4xl font-cursive">
-            Experience the Flavors of Nepal in the Heart of Kotka
-          </p>
-
-          <div className="flex flex-col md:flex-row items-center justify-center md:gap-16">
-            <a
-              className="px-10 py-2 inline-block bg-cyan-500 text-white font-bold text-xl hover:bg-cyan-700 transition-colors mt-10 rounded"
-              href="https://wolt.com/en/fin/kotka/restaurant/ravintola-kasthamandap"
-              target="_blank"
-              rel="noopener noreferrer" 
-              style={{ maxWidth: "200px" }} 
-            >
-              {" "}
-              Wolt{" "}
-            </a>
-            <a
-              className="px-10 py-2 inline-block bg-pink-500 text-white font-bold text-xl hover:bg-pink-700 transition-colors mt-10 rounded"
-              href="https://www.foodora.fi/restaurant/ydzj/ravintola-kasthamandap"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ maxWidth: "200px" }} 
-            >
-              {" "}
-              Foodora{" "}
-            </a>
-          </div>
-        </div>
+    <Section sectionClass="h-[65vh] lg:h-[90vh] max-w-screen flex items-center justify-center bg-hero-section bg-cover bg-center">
+      <Overlay />
+      <div className="relative z-40 text-center">
+        <h1 className="text-5xl md:text-8xl font-bold font-cursive leading-tight">
+          Welcome to Kasthamandap
+        </h1>
+        <p className="mt-4 text-lg md:text-4xl font-cursive">
+          Experience the Flavors of Nepal in the Heart of Kotka
+        </p>
+        <ButtonGroup>
+          <Button
+            color="blue"
+            className="md:text-lg"
+            href="https://wolt.com/en/fin/kotka/restaurant/ravintola-kasthamandap"
+            isExternal
+          >
+            Wolt
+          </Button>
+          <Button
+            color="pink"
+            className="md:text-lg"
+            href="https://www.foodora.fi/restaurant/ydzj/ravintola-kasthamandap"
+            isExternal
+          >
+            Foodora
+          </Button>
+        </ButtonGroup>
       </div>
-    </section>
+    </Section>
   );
 };
 
