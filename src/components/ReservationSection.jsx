@@ -1,6 +1,7 @@
 import Overlay from "./ui/Overlay";
 import { Section, SectionTitle } from "./ui/Section";
 import Button from "./ui/Button";
+import { useActionData } from "react-router-dom";
 
 const ReservationSection = () => {
   return (
@@ -83,7 +84,7 @@ const ReservationSection = () => {
           </div>
 
           <div className="mb-5">
-            <label className="mb-3 block text-base font-medium text-white">
+            <label className="mb-3 block text-base font-medium text-white text-left">
               Are you coming to the event?
             </label>
             <div className="flex items-center space-x-6">
@@ -105,7 +106,7 @@ const ReservationSection = () => {
                   id="radioButton2"
                   className="h-5 w-5"
                 />
-                <label className="pl-3 text-base font-medium text-white">
+                <label className="pl-3 text-base font-medium text-white ">
                   No
                 </label>
               </div>
@@ -115,6 +116,10 @@ const ReservationSection = () => {
           <div>
             <Button className="w-48">Submit</Button>
           </div>
+          <div className="mb-5"></div>
+
+          <span>More than 14?</span>
+          <a href="">Contact us</a>
         </form>
       </div>
     </Section>
