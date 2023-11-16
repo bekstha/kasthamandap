@@ -26,7 +26,7 @@ function useFoodMenu() {
         ...doc.data(),
         id: doc.id,
       }));
-
+      setLunchItem(filteredFood)
 
     } catch (error) {
       console.error(error);
@@ -78,7 +78,7 @@ function useFoodMenu() {
     }
   };
 
-  return { starters, chickenDish, lambDish, vegDish, tandoorDish, veganFood };
+  return { starters, chickenDish, lambDish, vegDish, tandoorDish, veganFood, lunchItem };
 }
 
 export default useFoodMenu;

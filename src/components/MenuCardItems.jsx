@@ -4,7 +4,6 @@ import CardBody from "../components/ui/CardBody";
 import CardHeader from "../components/ui/CardHeader";
 import CardTitle from "../components/ui/CardTitle";
 import Divider from "../components/ui/Divider";
-import useLunchItems from "../hooks/useLunchItems";
 
 const MenuCardItems = ({name}) => {
     const { starters, chickenDish, lambDish, vegDish, tandoorDish, veganFood } = useFoodMenu();

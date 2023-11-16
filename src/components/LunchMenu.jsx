@@ -1,4 +1,5 @@
 import { useState } from "react";
+import useFoodMenu from "../hooks/useFoodMenu";
 import useLunchItems from "../hooks/useLunchItems";
 import CardBody from "./ui/CardBody";
 import CardHeader from "./ui/CardHeader";
@@ -7,7 +8,9 @@ import Divider from "./ui/Divider";
 
 const LunchMenu = ({ day }) => {
   const { weeklyLunch, loading } = useLunchItems();
- 
+  const { lunchItem } = useFoodMenu();
+
+  const filteredMenu = lunchItem.filter(item => item.days.includes(day));
 
   const filterDescription = (desc) => {
     const startIndex = desc.indexOf(day); // Find the index of the day
@@ -38,14 +41,9 @@ const LunchMenu = ({ day }) => {
       <CardTitle dishName={day}></CardTitle>
       {loading ? (
         <p>Loading...</p>
-      ) : weeklyLunch ? (
+      ) : !weeklyLunch ? (
         <div className="p-3">
-            
-           {day === "Sunnuntai"? (
-             <CardHeader dish="Ravintola Kiini" />
-           ) : (
-            <CardHeader dish="Lounaan Hinta" price={"12.50 \u20AC"} />
-           )}
+           <CardHeader dish="Lounaan Hinta" price={"12.50 \u20AC"} />
            <Divider />
           {filterDescription(weeklyLunch.desc).map((line, index) => (
             <div key={index} className="w-full bg-slate-100 p-3 mt-2 shadow-md rounded-lg">
@@ -54,7 +52,16 @@ const LunchMenu = ({ day }) => {
           ))}
         </div>
       ) : (
-        <p>No weekly lunch available.</p>
+        <div className="p-3">
+           <CardHeader dish="Lounaan Hinta" price={"12.50 \u20AC"} />
+           <Divider />
+           {filteredMenu.map((item, index) => (
+            <div key={index} className="w-full bg-slate-100 p-3 mt-2 shadow-md rounded-lg">
+              <CardBody desc={item.description} />
+            </div>
+          ))}           
+           
+        </div>
       )}
     </div>
   );
