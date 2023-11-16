@@ -11,9 +11,9 @@ const ReviewSection = () => {
 
   return (
     <Section sectionClass="bg-white text-black text-center">
-      <span className="uppercase font-semibold text-orange-400">
+{/*       <span className="uppercase font-semibold text-orange-400">
         Testimonials
-      </span>
+      </span> */}
       <SectionTitle label="Our Customer's Review" />
       <AddReview />
       {reviews?.length > 0 ? (
