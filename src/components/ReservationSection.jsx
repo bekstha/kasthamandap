@@ -1,6 +1,7 @@
 import Overlay from "./ui/Overlay";
 import { Section, SectionTitle } from "./ui/Section";
 import Button from "./ui/Button";
+import { firestore } from "firebase";
 
 const ReservationSection = () => {
   return (
