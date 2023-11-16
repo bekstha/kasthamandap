@@ -1,38 +1,51 @@
-import React from "react";
-
 import OpeningHours from "./OpeningHours";
 import Contact from "./Contact";
 
-const FooterItemTitle = ({ title }) => (
-  <p className="text-lg font-semibold">{title}</p>
+import logo from "../assets/images/temple_n_fork_n_spoon_II.svg";
+
+const FooterItemTitle = ({ label }) => (
+  <h3 className="py-4 text-xl font-semibold">{label}</h3>
 );
 
 const Footer = () => {
   return (
-    <footer className="bottom-0 w-full h-80  md:flex bg-gray-300 text-black">
-      <div className="bg-gray-300 md:w-1/2 h-full flex flex-col justify-center items-center gap-5">
-        <FooterItemTitle title="Address" />
-        <div className="h-60 w-2/3 bg-gray-200">
-          <iframe
-            title="Google Map"
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyCwegKtCIqjsEt0yIRi8RUgfWiW-08B7-8&q=60.4666° N, 26.9442° E`}
-            allowFullScreen
-          ></iframe>
+    <footer id="contact-us" className="max-container bg-black/80 md:pt-10">
+      <div className="md:flex justify-between gap-8  pb-6 md:pb-10">
+        <div className="flex justify-center md:block md:w-40">
+          <img
+            src={logo}
+            alt="Kasthamandap logo"
+            className="w-20 object-contain"
+          />
         </div>
-      </div>
-      <div className="bg-gray-300 md:w-1/2 h-full p-5 flex flex-col justify-center items-center gap-10">
-        <div className="bg-gray-300 justify-center items-center">
-          <FooterItemTitle title="Opening hours" />
+        <div className="flex-1 mt-6 md:mt-0">
+          <FooterItemTitle label="Address" />
+          <div className="rounded-md overflow-hidden bg-red-400 h-60 md:h-72">
+            <iframe
+              title="Google Map"
+              style={{ border: 0 }}
+              className="h-full w-full"
+              src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyCwegKtCIqjsEt0yIRi8RUgfWiW-08B7-8&q=60.4666° N, 26.9442° E`}
+              allowFullScreen
+            ></iframe>
+          </div>
+        </div>
+        <div className="mt-6 md:mt-0">
+          <FooterItemTitle label="Opening hours" />
           <OpeningHours />
-        </div>
-        <div className="bg-gray-300 justify-center items-center">
-          <FooterItemTitle title="Contact us" />
-          <Contact />
+
+          <div className="mt-6">
+            <FooterItemTitle title="Contact us" />
+            <span className="block font-light">
+              <Contact />
+            </span>
+          </div>
         </div>
       </div>
+      <hr className="border-white/30" />
+      <p className="py-6 md:py-10 text-center">
+        &copy; 2023. All Rights Reserved.
+      </p>
     </footer>
   );
 };
