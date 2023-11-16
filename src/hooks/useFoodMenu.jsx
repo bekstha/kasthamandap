@@ -9,12 +9,29 @@ function useFoodMenu() {
   const [vegDish, setVegDish] = useState([]);
   const [tandoorDish, setTandoorDish] = useState([]);
   const [veganFood, setVeganFood] = useState([]);
+  const [lunchItem, setLunchItem] = useState([]);
 
   const aLaCarteRef = collection(db, "A_La_Carte");
+  const lunchMenuRef = collection(db, "LunchMenu");
 
   useEffect(() => {
     getFoodList();
+    getLunchList();
   }, []);
+
+  const getLunchList = async () => {
+    try {
+      const food = await getDocs(lunchMenuRef);
+      const filteredFood = food.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const getFoodList = async () => {
     try {

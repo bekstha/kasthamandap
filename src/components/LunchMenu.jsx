@@ -46,7 +46,6 @@ const LunchMenu = ({ day }) => {
            ) : (
             <CardHeader dish="Lounaan Hinta" price={"12.50 \u20AC"} />
            )}
-           
            <Divider />
           {filterDescription(weeklyLunch.desc).map((line, index) => (
             <div key={index} className="w-full bg-slate-100 p-3 mt-2 shadow-md rounded-lg">
