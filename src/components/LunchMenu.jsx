@@ -41,7 +41,7 @@ const LunchMenu = ({ day }) => {
       <CardTitle dishName={day}></CardTitle>
       {loading ? (
         <p>Loading...</p>
-      ) : !weeklyLunch ? (
+      ) : weeklyLunch ? (
         <div className="p-3">
            <CardHeader dish="Lounaan Hinta" price={"12.50 \u20AC"} />
            <Divider />
