@@ -6,7 +6,7 @@ const HourList = ({ openingHour, closingHour, day }) => {
     <li>
       <span className="inline-block w-48">{day}</span>
       {openingHour || closingHour
-        ? `${openingHour}:00 - ${closingHour}:00`
+        ? `${openingHour} - ${closingHour}`
         : "Closed"}
     </li>
   );
@@ -27,15 +27,15 @@ const OpeningHours = () => {
       {weekdayOpeningHours && (
         <HourList
           day="Monday - Friday"
-          openingHour={weekdayOpeningHours.openingHour}
-          closingHour={weekdayOpeningHours.closingHour}
+          openingHour={weekdayOpeningHours.opens}
+          closingHour={weekdayOpeningHours.closes}
         />
       )}
       {saturdayOpeningHours && (
         <HourList
           day="Saturday"
-          openingHour={saturdayOpeningHours.openingHour}
-          closingHour={saturdayOpeningHours.closingHour}
+          openingHour={saturdayOpeningHours.opens}
+          closingHour={saturdayOpeningHours.closes}
         />
       )}
       {sundayOpeningHours && <HourList day="Sunday" />}
@@ -45,8 +45,8 @@ const OpeningHours = () => {
           <h3 className="font-bold mt-8">Lunch Hour</h3>
           <HourList
             day="Monday - Friday"
-            openingHour={lunchHours.openingHour}
-            closingHour={lunchHours.closingHour}
+            openingHour={lunchHours.opens}
+            closingHour={lunchHours.closes}
           />
         </>
       )}
