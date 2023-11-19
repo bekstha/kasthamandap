@@ -126,7 +126,7 @@ const AddReview = () => {
         <div className="mb-2">
           <InputLabel label="Name" />
           <Input
-            placeholder="Write a name"
+            placeholder="Full name"
             value={name}
             onChange={handleNameChange}
           />

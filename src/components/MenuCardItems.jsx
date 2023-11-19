@@ -11,7 +11,7 @@ const MenuCardItems = ({name}) => {
     const DishItems = ({dishName, index}) => {
         return (
             <React.Fragment key={index}>
-                <div className="bg-slate-100 p-2 mt-3 shadow-md rounded-lg">
+                <div className="bg-slate-100 p-2 mt-8 shadow-md rounded-lg">
                     <CardHeader dish={dishName.title} price={dishName.price + `\u20AC`} />
                     <Divider />
                     <CardBody desc={dishName.description} />
