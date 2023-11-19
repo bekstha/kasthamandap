@@ -1,220 +1,144 @@
 import { useState } from "react";
-import Overlay from "./ui/Overlay";
-import { Section, SectionTitle } from "./ui/Section";
-import Button from "./ui/Button";
+
 import { Input, InputLabel } from "./ui/Input";
-import { db } from "../config/firebase";
+import Overlay from "./ui/Overlay";
+import { Section } from "./ui/Section";
+
 import { addDoc, collection } from "firebase/firestore";
+import { db } from "../config/firebase";
+import Button from "./ui/Button";
+import { POST } from "../services/sendEmail";
 
 const ReservationSection = () => {
-  const [fname, setFName] = useState("");
-  const [lname, setLName] = useState("");
-  const [guestCount, setGuestCount] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [isComing, setIsComing] = useState("false");
+  const [state, setState] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    phoneNumber: "",
+    guestCount: 1,
+    reservationDate: "",
+    reservationTime: "",
+  });
 
-  const handleFNameChange = (event) => setFName(event.target.value);
-  const handleLNameChange = (event) => setLName(event.target.value);
-  const handleDateChange = (event) => setDate(event.target.value);
-  const handleTimeChange = (event) => setTime(event.target.value);
-  const handleGuestCountChange = (event) => setGuestCount(event.target.value);
-  const handleEmailChange = (event) => setEmail(event.target.value);
-  const handlePhoneNumberChange = (event) => setPhoneNumber(event.target.value);
-  const handleYesChange = () => setIsComing(true);
-  const handleNoChange = () => setIsComing(false);
+  const clearState = () => setState((prev) => prev);
 
-  const handleSubmit = async (event) => {
+  const handleInputChange = (event) =>
+    setState({ ...state, [event.target.name]: event.target.value });
+
+  const handleReservationSubmit = async (event) => {
     event.preventDefault();
     try {
-      const reservationCollection = collection(db, "Reservations");
-      const reservationRef = await addDoc(reservationCollection, {
-        fname,
-        lname,
-        guestCount,
-        date,
-        time,
+      const {
+        firstname,
+        lastname,
         email,
         phoneNumber,
-        isComing,
+        guestCount,
+        reservationDate,
+        reservationTime,
+      } = state;
+      const reservationCollection = collection(db, "Reservations");
+      await addDoc(reservationCollection, {
+        firstname,
+        lastname,
+        email,
+        phoneNumber,
+        guestCount,
+        reservationDate,
+        reservationTime,
+      });
+      await POST("email/response", {
+        useremail: email,
+        username: firstname,
+      });
+      await POST("email/response", {
+        useremail: "kasthamandap.fin@gmail.com",
+        username: "Kasthamandap",
       });
 
-      setFName("");
-      setLName("");
-      setGuestCount("");
-      setDate("");
-      setTime("");
-      setEmail("");
-      setPhoneNumber("");
-      setIsComing(false);
+      clearState();
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error("Error submitting form:", { error });
     }
   };
+
   return (
-    <Section sectionClassName="bg-reservation-section bg-cover bg-center leading-snug">
+    <Section sectionClass="bg-reservation-section">
       <Overlay color="bg-black/80" />
-      <div className="relative text-center max-w-2xl mx-auto">
-        <SectionTitle label="Reserve a table" />
-        <form onSubmit={handleSubmit}>
-          <div className="-mx-3 flex flex-wrap text-left">
-            <div className="w-full px-3 sm:w-1/2">
-              <div className="mb-5">
-                <InputLabel
-                  label="First Name"
-                  className="mb-3 block text-base font-medium text-white"
-                />
-                <Input
-                  type="text"
-                  className="fName"
-                  placeholder="First Name"
-                  value={fname}
-                  onChange={handleFNameChange}
-                />
-              </div>
+      <div className="relative max-w-md mx-auto p-6 rounded-2xl bg-white/20 shadow-lg shadow-[rgba(0,0,0,0.1)] backdrop-blur">
+        {/* <SectionTitle label="Reserve a table" /> */}
+        <h3 className="font-bold text-3xl mb-6 text-center">Reserve a table</h3>
+        <form onSubmit={handleReservationSubmit}>
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <InputLabel label="First name" />
+              <Input
+                placeholder="John"
+                name="firstname"
+                onChange={handleInputChange}
+              />
             </div>
-            <div className="w-full px-3 sm:w-1/2">
-              <div className="mb-5">
-                <InputLabel
-                  label="Last Name"
-                  className="mb-3 block text-base font-medium text-white"
-                />
-                <Input
-                  type="text"
-                  className="lName"
-                  placeholder="Last Name"
-                  value={lname}
-                  onChange={handleLNameChange}
-                />
-              </div>
+            <div>
+              <InputLabel label="Last name" />
+              <Input
+                placeholder="Doe"
+                name="lastname"
+                onChange={handleInputChange}
+              />
             </div>
           </div>
-          <div className="mb-5">
+          <div className="mt-2">
+            <InputLabel label="Email" />
+            <Input
+              type="email"
+              placeholder="example@mail.com"
+              name="email"
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="mt-2">
+            <InputLabel label="Phone number" />
+            <Input
+              type="tel"
+              placeholder="+358411103121"
+              name="phoneNumber"
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="mt-2">
             <InputLabel label="How many guest are you bringing?" />
             <Input
               type="number"
-              className="guestCount"
-              placeholder="0"
-              value={guestCount}
-              min="0"
+              placeholder="1"
+              min="1"
               max="14"
-              onChange={handleGuestCountChange}
+              name="guestCount"
+              onChange={handleInputChange}
             />
           </div>
-
-          <div className="-mx-3 flex flex-wrap text-left">
-            <div className="w-full px-3 sm:w-1/2">
-              <div className="mb-5">
-                <InputLabel
-                  label="Date"
-                  className="mb-3 block text-base font-medium text-white"
-                />
-                <Input
-                  type="date"
-                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                  placeholder=""
-                  value={date}
-                  onChange={handleDateChange}
-                />
-              </div>
+          <div className="mt-2 flex items-center justify-between gap-4">
+            <div className="flex-1">
+              <InputLabel label="Date" />
+              <Input
+                type="date"
+                name="reservationDate"
+                onChange={handleInputChange}
+              />
             </div>
-            <div className="w-full px-3 sm:w-1/2">
-              <div className="mb-5">
-                <InputLabel
-                  label="Time"
-                  className="mb-3 block text-base font-medium text-white"
-                />
-                <Input
-                  type="time"
-                  // className="time"
-                  placeholder=""
-                  value={time}
-                  onChange={handleTimeChange}
-                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                />
-              </div>
+            <div className="flex-1">
+              <InputLabel label="Time" />
+              <Input
+                type="time"
+                name="reservationTime"
+                onChange={handleInputChange}
+              />
             </div>
           </div>
-          <div className="-mx-3 flex flex-wrap text-left">
-            <div className="w-full px-3 sm:w-1/2">
-              <div className="mb-5">
-                <InputLabel
-                  label="Email"
-                  className="mb-3 block text-base font-medium text-white"
-                />
-
-                <Input
-                  type="email"
-                  placeholder=""
-                  value={email}
-                  onChange={handleEmailChange}
-                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                />
-              </div>
-            </div>
-            <div className="w-full px-3 sm:w-1/2">
-              <div className="mb-5">
-                <InputLabel
-                  label="Phone Number"
-                  className="mb-3 block text-base font-medium text-white"
-                />
-                <Input
-                  type="tel"
-                  value={phoneNumber}
-                  placeholder=""
-                  onChange={handlePhoneNumberChange}
-                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="mb-5">
-            <label className="mb-3 block text-base font-medium text-white text-left">
-              Are you coming to the event?
-            </label>
-            <div className="flex items-center space-x-6">
-              <div className="flex items-center">
-                <input
-                  type="radio"
-                  name="isComing"
-                  id="radioButton1"
-                  className="h-5 w-5"
-                  checked={isComing}
-                  onChange={handleYesChange}
-                />
-                <label className="pl-3 text-base font-medium text-white">
-                  Yes
-                </label>
-              </div>
-              <div className="flex items-center">
-                <input
-                  type="radio"
-                  name="isComing"
-                  id="radioButton2"
-                  className="h-5 w-5"
-                  checked={!isComing}
-                  onChange={handleNoChange}
-                />
-                <label className="pl-3 text-base font-medium text-white ">
-                  No
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <Button className="w-48">Submit</Button>
-          </div>
-          <div className="mb-5"></div>
-
-          <span>More than 14?</span>
-          <a href="">Contact us</a>
+          <Button className="md:w-full w-full mt-8">Submit Reservation</Button>
         </form>
       </div>
     </Section>
   );
 };
+
 export default ReservationSection;

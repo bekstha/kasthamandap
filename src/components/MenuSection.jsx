@@ -19,10 +19,7 @@ const MenuSection = () => {
   const HandleRemovePopUp = () => setOpenPopup(false);
 
   return (
-    <Section
-      id="menu"
-      sectionClass="bg-about-menu bg-cover bg-center leading-snug"
-    >
+    <Section id="menu" sectionClass="bg-about-menu leading-snug">
       <Overlay color="bg-black/80" />
       <div className="relative text-center max-w-4xl mx-auto">
         <SectionTitle label="Our Menu" />
