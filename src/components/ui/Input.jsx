@@ -17,7 +17,7 @@ const Input = ({ type = "text", onChange, value, placeholder }) => (
   />
 );
 
-const Textarea = ({ rows = 4, onChange, value }) => (
+const Textarea = ({ rows = 6, onChange, value }) => (
   <textarea
     rows={rows}
     className={inputClasses}

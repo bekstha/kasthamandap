@@ -25,6 +25,7 @@ const Button = ({
   isExternal = false,
   outlined = false,
   onClick,
+  id,
 }) => {
   let colorClasses = colors[color];
   let sizeClasses = sizes[size];
@@ -51,6 +52,7 @@ const Button = ({
           : ""
       } ${className}`}
       onClick={() => onClick && onClick()}
+      id={id}
     >
       {children}
     </button>

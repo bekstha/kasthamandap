@@ -5,6 +5,7 @@ import MenuSection from "./components/MenuSection";
 import ReviewSection from "./components/ReviewSection";
 import Footer from "./components/Footer";
 import ReservationSection from "./components/ReservationSection";
+import './App.css';
 
 const App = () => {
   return (

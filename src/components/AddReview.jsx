@@ -1,27 +1,30 @@
-import { Modal, Rate } from "antd";
+import { Modal, Rate, Tooltip } from "antd";
 import { useEffect, useState } from "react";
-import { PlusOutlined } from "@ant-design/icons";
 import {
   TextClassifier,
   FilesetResolver,
 } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-text@0.10.0";
-import { db } from "../config/firebase";
-import { addDoc, collection } from "firebase/firestore";
-
-import { Input, InputLabel, Textarea } from "./ui/Input";
+import { InputLabel, Textarea } from "./ui/Input";
 import ButtonGroup from "./ui/ButtonGroup";
 import Button from "./ui/Button";
+import InfoIcon from "@mui/icons-material/Info";
+import RateReviewIcon from "@mui/icons-material/RateReview";
+import useReviews from "../hooks/useReviews";
 
-const AddReview = () => {
+const AddReview = ({ displayName, userId, userEmail }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [review, setReview] = useState("");
   const [textClassifier, setTextClassifier] = useState(null);
   const [positiveScore, setPositiveScore] = useState(null);
+  const [manualRating, setManualRating] = useState(0);
+  const { addReview } = useReviews(); // Import the addReview function
 
   const showModal = () => setIsOpen(true);
   const hideModal = () => setIsOpen(false);
+
+  const isSubmitDisabled = () => {
+    return !(review.trim() !== "" && manualRating > 0 && manualRating <= 5);
+  };
 
   useEffect(() => {
     const initializeTextClassifier = async () => {
@@ -45,13 +48,18 @@ const AddReview = () => {
     initializeTextClassifier();
   }, []);
 
-  const handleNameChange = (event) => setName(event.target.value);
-  const handleEmailChange = (event) => setEmail(event.target.value);
-  const handleReviewChange = (event) => setReview(event.target.value);
+  // Update the manual rating when the user changes it manually
+  const handleManualRatingChange = (value) => {
+    setManualRating(value);
+  };
+
+  const handleReviewChange = (event) => {
+    setReview(event.target.value);
+  };
 
   const handleClassifyClick = async () => {
-    if (name === "" || email === "" || review === "") {
-      alert("Please fill all the fields");
+    if (review === "") {
+      alert("Please fill the review section.");
       return;
     }
     if (!textClassifier) {
@@ -72,19 +80,8 @@ const AddReview = () => {
         const outOfFive = (parseFloat(rawScore) * 5) / 1.0; // Convert to a scale out of 5
         const roundedScore = Math.round(outOfFive * 2) / 2; // Round to the nearest 0.5
         setPositiveScore(roundedScore);
-
-        // Add the review to Firestore
-        const reviewsCollection = collection(db, "Reviews");
-
-        // Note: Using 'await' to make sure the review is added before logging
-        const reviewRef = await addDoc(reviewsCollection, {
-          name,
-          email,
-          review,
-          rating: roundedScore, // Use the rounded score here
-        });
-
-        hideModal();
+        setManualRating(roundedScore);
+        console.log(roundedScore);
       } else {
         console.error("Positive category not found");
       }
@@ -93,58 +90,83 @@ const AddReview = () => {
     }
   };
 
+  const handleSubmit = async () => {
+    if (review.trim() === "" || !(manualRating > 0 && manualRating <= 5)) {
+      alert("Please fill the review section and provide a valid rating.");
+      return;
+    }
+
+    try {
+      // Use the addReview function from the useReviews hook
+      await addReview(
+        userId,
+        userEmail,
+        review,
+        displayName,
+        manualRating,
+        new Date()
+      );
+      hideModal();
+      setManualRating(0);
+      setReview("");
+    } catch (error) {
+      console.error("Error adding review:", error);
+    }
+  };
   return (
     <>
-      <Button
-        onClick={showModal}
-        className="!w-12 h-12  mb-4"
-        title="Add a Review"
-      >
-        <PlusOutlined />
-      </Button>
+      <Tooltip title="Add a review" placement="top">
+        <button
+          className="!w-12 h-12 font-orange bg-orange-500 text-white rounded-full"
+          onClick={showModal}
+        >
+          {" "}
+          <RateReviewIcon />{" "}
+        </button>
+      </Tooltip>
+
       <Modal
         open={isOpen}
         onOk={hideModal}
         onCancel={hideModal}
-        title="Add a review"
         width={350}
         footer={() => (
           <ButtonGroup className="!mt-6">
-            <Button
-              outlined
-              className="!text-black flex-1 border-gray-600"
-              onClick={hideModal}
-            >
-              Cancel
-            </Button>
             <Button className="flex-1" onClick={handleClassifyClick}>
+              Auto rate
+            </Button>
+            <Button
+              className={`flex-1 ${
+                isSubmitDisabled()
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:bg-gray-800"
+              }`}
+              onClick={handleSubmit}
+              disabled={isSubmitDisabled()}
+            >
               Submit Review
             </Button>
           </ButtonGroup>
         )}
       >
-        <div className="mb-2">
-          <InputLabel label="Name" />
-          <Input
-            placeholder="Full name"
-            value={name}
-            onChange={handleNameChange}
-          />
-        </div>
-        <div className="mb-2">
-          <InputLabel label="Email" />
-          <Input
-            type="email"
-            placeholder="example@mail.com"
-            value={email}
-            onChange={handleEmailChange}
-          />
-        </div>
-        <div className="mb-2">
+        <div className="mb-2 flex flex-col justify-center items-center gap-5">
           <InputLabel label="Write a Review" />
+
+          <div className="flex justify-center items-center gap-3">
+            <Rate
+              allowHalf
+              value={manualRating} // Set the manual rating as the initial value
+              onChange={handleManualRatingChange} // Handle manual rating changes
+            />{" "}
+            <Tooltip title="You can either manually set a rating or use our AI model below to generate a rating based on your review.">
+              <InfoIcon className="hover:cursor-pointer" />
+            </Tooltip>
+          </div>
+
           <Textarea value={review} onChange={handleReviewChange} />
         </div>
-        <div>{positiveScore !== null && <Rate value={positiveScore} />}</div>
+
+        {/* <div>{positiveScore !== null && <Rate value={positiveScore} />}</div> */}
       </Modal>
     </>
   );
