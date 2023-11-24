@@ -52,6 +52,7 @@ const ReviewSection = () => {
 
       // Set user information in the state
       setUser(user);
+      console.log(user.credentials)
 
       // Add user to Firebase Firestore
       await setDoc(doc(db, "Reviewers", user.uid), {

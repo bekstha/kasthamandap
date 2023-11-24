@@ -1,6 +1,7 @@
 import { Modal, Rate, Tooltip } from "antd";
 import { useEffect, useState } from "react";
 import {
+  LanguageDetector,
   TextClassifier,
   FilesetResolver,
 } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-text@0.10.0";
@@ -15,6 +16,8 @@ const AddReview = ({ displayName, userId, userEmail }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [review, setReview] = useState("");
   const [textClassifier, setTextClassifier] = useState(null);
+  const [languageDetector, setLanguageDetector] = useState(null);
+
   const [positiveScore, setPositiveScore] = useState(null);
   const [manualRating, setManualRating] = useState(0);
   const { addReview } = useReviews(); // Import the addReview function
@@ -27,6 +30,22 @@ const AddReview = ({ displayName, userId, userEmail }) => {
   };
 
   useEffect(() => {
+    const initializeLanguageDetection = async () => {
+      try {
+        const text = await FilesetResolver.forTextTasks(
+          "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-text@0.10.0/wasm"
+        );
+        const detector = await LanguageDetector.createFromOptions(text, {
+          baseOptions: {
+            modelAssetPath: "/src/assets/language_detector.tflite",
+          },
+        });
+        setLanguageDetector(detector);
+      } catch (error) {
+        console.error("Error initializing language detector:", error);
+      }
+    };
+
     const initializeTextClassifier = async () => {
       try {
         const text = await FilesetResolver.forTextTasks(
@@ -41,10 +60,9 @@ const AddReview = ({ displayName, userId, userEmail }) => {
         setTextClassifier(classifier);
       } catch (error) {
         console.error("Error initializing text classifier:", error);
-        // Handle the error appropriately, e.g., set an error state
       }
     };
-
+    initializeLanguageDetection();
     initializeTextClassifier();
   }, []);
 
@@ -62,13 +80,23 @@ const AddReview = ({ displayName, userId, userEmail }) => {
       alert("Please fill the review section.");
       return;
     }
-    if (!textClassifier) {
-      // Handle the case where textClassifier is not initialized yet
-      console.error("Text classifier is not initialized");
+    if (!textClassifier || !languageDetector) {
+      // Handle the case where textClassifier or languageDetector is not initialized yet
+      console.error("Text classifier or language detector is not initialized");
       return;
     }
     try {
-      const result = await textClassifier.classify(review);
+      // Use the language detector to detect the language of the review
+      const languageResult = await languageDetector.detect(review);
+      const detectedLanguage =
+        languageResult.languages && languageResult.languages[0]?.languageCode;
+
+      console.log("Detected Language:", detectedLanguage);
+      const result = await textClassifier.classify(review, {
+        displayNamesLocale: detectedLanguage,
+      });
+
+      console.log("Detected result:", result.classifications[0].categories);
 
       // Find the category with the name "positive"
       const positiveCategory = result.classifications[0].categories.find(

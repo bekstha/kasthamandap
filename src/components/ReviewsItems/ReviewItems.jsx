@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Rate, Tooltip } from "antd";
+import { Rate, Tooltip, Modal } from "antd";
 import DeleteIcon from "@mui/icons-material/Delete";
 import useReviews from "../../hooks/useReviews";
 
@@ -14,26 +14,35 @@ const ReviewItems = ({
   const { deleteReview } = useReviews();
   const reviewDate = timestamp instanceof Date ? timestamp : timestamp.toDate();
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
 
   // Check if reviewDate is valid before formatting
   const formattedDate =
     reviewDate instanceof Date ? reviewDate.toLocaleString() : "Invalid Date";
 
+  const showDeleteModal = () => setIsDeleteModalVisible(true);
+  const hideDeleteModal = () => setIsDeleteModalVisible(false);
+
   const handleDeleteReview = async () => {
     try {
-      const confirmDelete = window.confirm(
-        "Are you sure you want to delete this review?"
-      );
-
-      if (confirmDelete) {
-        setIsDeleting(true);
-        await deleteReview(reviewId);
-      }
+      setIsDeleting(true);
+      await deleteReview(reviewId);
     } catch (error) {
       console.error("Error deleting review:", error);
     } finally {
       setIsDeleting(false);
+      hideDeleteModal();
     }
+  };
+
+  const confirmDelete = () => {
+    Modal.confirm({
+      title: "Confirm Delete",
+      content: "Are you sure you want to delete this review?",
+      okButtonProps: { className: "bg-green-500 text-white" },
+      onOk: handleDeleteReview,
+      onCancel: hideDeleteModal,
+    });
   };
 
   return (
@@ -44,7 +53,7 @@ const ReviewItems = ({
         <Tooltip title="Delete review" placement="top">
           <button
             className="hover:cursor"
-            onClick={handleDeleteReview}
+            onClick={confirmDelete}
             disabled={isDeleting}
           >
             <DeleteIcon style={{ color: "#f50057" }} />

@@ -57,6 +57,9 @@ const HeroSection = () => {
             </Button>
           </ButtonGroup>
         </div>
+
+        {/* Slide 3 */}
+        
       </Slider>
     </Section>
   );
