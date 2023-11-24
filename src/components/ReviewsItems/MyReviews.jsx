@@ -37,7 +37,7 @@ const MyReviews = ({ userId }) => {
       // Hardcoded valid password for testing
       const credential = EmailAuthProvider.credential(
         auth.currentUser.email,
-        "Fuck146219haters!"
+        ""
       );
 
       reauthenticateWithCredential(user, credential)
