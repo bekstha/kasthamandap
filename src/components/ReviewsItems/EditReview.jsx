@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { MainContext } from "../../context/MainContext";
 import useReviews from "../../hooks/useReviews";
-import { Modal, Rate, Tooltip } from "antd";
+import { Modal, Rate, Tooltip, message } from "antd";
 import ButtonGroup from "../ui/ButtonGroup";
 import Button from "../ui/Button";
 import { InputLabel, Textarea } from "../ui/Input";
@@ -37,7 +37,7 @@ const EditReview = ({oldReview, oldRating, reviewId}) => {
   
     const handleClassifyClick = async () => {
       if (updatedReview === "") {
-        alert("Please fill the review section.");
+        message.warning("Please fill the review section.");
         return;
       }
       if (!textClassifier || !languageDetector) {
@@ -53,9 +53,7 @@ const EditReview = ({oldReview, oldRating, reviewId}) => {
           const result = await textClassifier.classify(updatedReview, {
           displayNamesLocale: detectedLanguage,
         });
-  
-        console.log("Detected result:", result.classifications[0].categories);
-  
+    
         const positiveCategory = result.classifications[0].categories.find(
           (category) => category.categoryName === "positive"
         );
@@ -78,7 +76,7 @@ const EditReview = ({oldReview, oldRating, reviewId}) => {
     const handleSubmit = async () => {
         try {
           if (updatedReview.trim() === "" || !(updatedRating > 0 && updatedRating <= 5)) {
-            alert("Please fill the review section and provide a valid rating.");
+            message.warning("Please fill the review section and provide a valid rating.");
             return;
           }
     

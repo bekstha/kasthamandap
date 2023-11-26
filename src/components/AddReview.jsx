@@ -1,4 +1,4 @@
-import { Modal, Rate, Tooltip } from "antd";
+import { Modal, Rate, Tooltip, message } from "antd";
 import { useContext, useEffect, useState } from "react";
 import {
   LanguageDetector,
@@ -13,12 +13,12 @@ import RateReviewIcon from "@mui/icons-material/RateReview";
 import useReviews from "../hooks/useReviews";
 import { MainContext } from "../context/MainContext";
 
-const AddReview = ({ displayName, userId, userEmail}) => {
+const AddReview = ({ displayName, userId, userEmail }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [review, setReview] = useState("");
   const [positiveScore, setPositiveScore] = useState(null);
   const [manualRating, setManualRating] = useState(0);
-  const { addReview } = useReviews(); 
+  const { addReview } = useReviews();
 
   const showModal = () => setIsOpen(true);
   const hideModal = () => setIsOpen(false);
@@ -83,7 +83,7 @@ const AddReview = ({ displayName, userId, userEmail}) => {
 
   const handleSubmit = async () => {
     if (review.trim() === "" || !(manualRating > 0 && manualRating <= 5)) {
-      alert("Please fill the review section and provide a valid rating.");
+      message.warning("Please fill the review section and provide a valid rating.");
       return;
     }
 
