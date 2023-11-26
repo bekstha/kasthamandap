@@ -1,10 +1,15 @@
-import { useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import LunchMenu from './LunchMenu';
 import MenuCardItems from './MenuCardItems';
+import SpecialMenu from './SpecialMenu';
+import CardBody from './ui/CardBody';
+import CardHeader from './ui/CardHeader';
+import Divider from './ui/Divider';
 
-const PopUp = ({ openPopUp, closePopUp, dishType}) => {
+const PopUp = ({ openPopUp, closePopUp, dishType, special }) => {
     const[showMenu, setShowMenu] = useState(true);
     const [dishName, setDishName] = useState("");
+    const [mainCourse, setMaincourse] = useState([]);
     const [selectedButton, setSelectedButton] = useState();
 
   const handleclosePopUp = (e) => {
@@ -14,7 +19,7 @@ const PopUp = ({ openPopUp, closePopUp, dishType}) => {
   };
 
   useEffect(() => {
-    console.log("I am now running");
+
     if(dishType === "Alacarte") {
       handleCardClick("Starters", 1)
     } else if (dishType === "Lunch") {
@@ -40,7 +45,7 @@ const PopUp = ({ openPopUp, closePopUp, dishType}) => {
             </button>
         </div>
       )
-  }
+  };
 
   if (openPopUp !== true) return null
 
@@ -104,6 +109,10 @@ const PopUp = ({ openPopUp, closePopUp, dishType}) => {
                         <LunchMenu day={dishName} />
                     )}
                 </div>
+            )}
+
+            {dishType === "Special" && (
+                <SpecialMenu dishName={special} />
             )}
           </div>
           <div
