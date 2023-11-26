@@ -19,7 +19,6 @@ const App = () => {
         <MenuSection />
         <ReviewSection />
         <ReservationSection />
-        <ReviewSection />
       </main>
       <Footer />
     </>
