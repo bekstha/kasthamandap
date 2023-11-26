@@ -39,7 +39,6 @@ const MyReviews = ({ userId, email }) => {
 
       if (user) {
         const provider = new GoogleAuthProvider();
-
         await reauthenticateWithPopup(user, provider);
         console.log("Reauthentication successful");
         return true;
@@ -59,12 +58,11 @@ const MyReviews = ({ userId, email }) => {
       const isReauthenticated = await reauthenticate();
 
       if (!isReauthenticated) {
-        // Handle the case where reauthentication fails
         message.error("Reauthentication failed. Please try again."); // Display an error message
         return;
       }
 
-      // If reauthentication is successful, proceed to delete the account
+      // If reauthentication is successful, proceeding to delete the account
       Modal.confirm({
         title: "Confirm Delete",
         content: "This action will delete your reviews as well. Are you sure you want to delete your account?",
@@ -74,9 +72,10 @@ const MyReviews = ({ userId, email }) => {
 
             deleteAllReviewsForUser(userId);
 
-            // Delete user account from Firebase
+            // Delete auth 
             await auth.currentUser.delete();
 
+            // Delete user account from firestore
             deleteUser(email)
 
             // Clear session storage
@@ -87,18 +86,16 @@ const MyReviews = ({ userId, email }) => {
 
             // Close the modal
             hideModal();
+
           } catch (error) {
             console.error("Error deleting account:", error);
-            // Handle error as needed
           }
         },
         onCancel: () => {
-          // Optional: Handle cancellation if needed
         },
       });
     } catch (error) {
-      console.error("Error during reauthentication:", error);
-      // Handle error as needed
+      message.error("Error during reauthentication:", error);
     }
   };
 
@@ -112,7 +109,6 @@ const MyReviews = ({ userId, email }) => {
         hideModal();
       },
       onCancel: () => {
-        // Optional: Handle cancellation if needed
       },
     });
   };

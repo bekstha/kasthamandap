@@ -1,5 +1,5 @@
 import { Modal, Rate, Tooltip, message } from "antd";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import {
   LanguageDetector,
   TextClassifier,
@@ -44,12 +44,11 @@ const AddReview = ({ displayName, userId, userEmail }) => {
       return;
     }
     if (!textClassifier || !languageDetector) {
-      // Handle the case where textClassifier or languageDetector is not initialized yet
       console.error("Text classifier or language detector is not initialized");
       return;
     }
     try {
-      // Use the language detector to detect the language of the review
+      // Using the language detector to detect the language of the review
       const languageResult = await languageDetector.detect(review);
       const detectedLanguage =
         languageResult.languages && languageResult.languages[0]?.languageCode;
@@ -88,7 +87,6 @@ const AddReview = ({ displayName, userId, userEmail }) => {
     }
 
     try {
-      // Use the addReview function from the useReviews hook
       await addReview(
         userId,
         userEmail,
@@ -146,8 +144,8 @@ const AddReview = ({ displayName, userId, userEmail }) => {
           <div className="flex justify-center items-center gap-3">
             <Rate
               allowHalf
-              value={manualRating} // Set the manual rating as the initial value
-              onChange={handleManualRatingChange} // Handle manual rating changes
+              value={manualRating}
+              onChange={handleManualRatingChange}
             />{" "}
             <Tooltip title="You can either manually set a rating or use our AI model below to generate a rating based on your review.">
               <InfoIcon className="hover:cursor-pointer" />
@@ -156,8 +154,6 @@ const AddReview = ({ displayName, userId, userEmail }) => {
 
           <Textarea value={review} onChange={handleReviewChange} />
         </div>
-
-        {/* <div>{positiveScore !== null && <Rate value={positiveScore} />}</div> */}
       </Modal>
     </>
   );

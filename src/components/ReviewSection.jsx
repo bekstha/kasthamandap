@@ -31,11 +31,9 @@ const ReviewSection = () => {
     // Set up a listener for changes in authentication state
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        // User is signed in
         setUser(user);
         sessionStorage.setItem("user", JSON.stringify(user));
       } else {
-        // User is signed out
         setUser(null);
         sessionStorage.removeItem("user");
       }
@@ -49,8 +47,6 @@ const ReviewSection = () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-
-      // Set user information in the state
       setUser(user);
 
       // Check if the user already exists in Firebase Firestore
@@ -74,12 +70,8 @@ const ReviewSection = () => {
   const signOut = async () => {
     try {
       await firebaseSignOut(auth);
-      // Additional logic after successful sign-out if needed
-      console.log("User signed out successfully");
+      message.success("User signed out successfully");
     } catch (error) {
-      console.error(error.message);
-      // Handle any error that occurs during sign-out
-      // You might want to show an error message to the user
       message.error("An error occurred during sign-out. Please try again.");
     }
   };

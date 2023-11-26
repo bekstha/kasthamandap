@@ -5,9 +5,6 @@ import {
   addDoc,
   query,
   onSnapshot,
-  where,
-  writeBatch,
-  setDoc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../config/firebase";
@@ -16,7 +13,7 @@ const useUsers = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const q = query(collection(db, "Reviewers")); // Assuming "Reviewers" is the collection for users
+    const q = query(collection(db, "Reviewers"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       let userArr = [];
       querySnapshot.forEach((doc) => {
@@ -29,7 +26,7 @@ const useUsers = () => {
 
   const deleteUser = async (email) => {
     try {
-      await deleteDoc(doc(db, "Reviewers", email)); // Assuming "Reviewers" is the collection for users
+      await deleteDoc(doc(db, "Reviewers", email));
       console.log("User deleted successfully!");
     } catch (error) {
       console.error("Error deleting user:", error);
@@ -54,9 +51,7 @@ const useUsers = () => {
     }
   };
 
-  // Add more CRUD operations as needed
-
-  return { users, deleteUser, addUser }; // Add more functions as needed
+  return { users, deleteUser, addUser };
 };
 
 export default useUsers;
