@@ -1,4 +1,4 @@
-import { Button, Modal, Tooltip } from "antd";
+import { Button, Modal, Tooltip, message } from "antd";
 import { useEffect, useState } from "react";
 import PersonIcon from "@mui/icons-material/Person";
 import useReviews from "../../hooks/useReviews";
@@ -6,12 +6,13 @@ import ReviewItems from "./ReviewItems";
 import { ButtonGroup } from "@mui/material";
 import {
   getAuth,
-  EmailAuthProvider,
-  reauthenticateWithCredential,
-  deleteUser,
+  GoogleAuthProvider,
+  reauthenticateWithPopup,
 } from "firebase/auth";
+import { auth } from "../../config/firebase";
+import useUsers from "../../hooks/useUser";
 
-const MyReviews = ({ userId }) => {
+const MyReviews = ({ userId, email }) => {
   const { reviews, deleteAllReviewsForUser } = useReviews();
   const [isOpen, setIsOpen] = useState(false);
   const [filteredReviews, setFilteredReviews] = useState([]);
@@ -21,6 +22,9 @@ const MyReviews = ({ userId }) => {
   const showModal = () => setIsOpen(true);
   const hideModal = () => setIsOpen(false);
 
+  const { deleteUser } = useUsers();
+
+
   useEffect(() => {
     // Filter reviews based on the user ID
     const userReviews = reviews.filter((review) => review.userId === userId);
@@ -28,38 +32,73 @@ const MyReviews = ({ userId }) => {
     setIsDeleteAllReviewsDisabled(userReviews.length === 0); // Disable if no reviews
   }, [reviews, userId]);
 
-  const handleDeleteMyAccount = () => {
-    const auth = getAuth();
-    const user = auth.currentUser;
+  const reauthenticate = async () => {
+    try {
+      const auth = getAuth();
+      const user = auth.currentUser;
 
+      if (user) {
+        const provider = new GoogleAuthProvider();
 
-    if (user) {
-      // Hardcoded valid password for testing
-      const credential = EmailAuthProvider.credential(
-        auth.currentUser.email,
-        ""
-      );
+        await reauthenticateWithPopup(user, provider);
+        console.log("Reauthentication successful");
+        return true;
+      } else {
+        console.log("User not authenticated");
+        return false;
+      }
+    } catch (e) {
+      console.error("Error during reauthentication:", e);
+      return false;
+    }
+  };
 
-      reauthenticateWithCredential(user, credential)
-        .then(() => {
-          deleteUser(user);
+  const handleDeleteMyAccount = async () => {
+    try {
+      // Reauthenticate the user
+      const isReauthenticated = await reauthenticate();
 
-          // Clear session storage
-          sessionStorage.clear();
+      if (!isReauthenticated) {
+        // Handle the case where reauthentication fails
+        message.error("Reauthentication failed. Please try again."); // Display an error message
+        return;
+      }
 
-          // Logout the user
-          auth.signOut();
+      // If reauthentication is successful, proceed to delete the account
+      Modal.confirm({
+        title: "Confirm Delete",
+        content: "This action will delete your reviews as well. Are you sure you want to delete your account?",
+        okButtonProps: { className: "bg-rose-600 text-white" },
+        onOk: async () => {
+          try {
 
-          // Close the modal
-          hideModal();
-        })
-        .catch((error) => {
-          console.error("Error reauthenticating or deleting account:", error.code, error.message, error);
-        });
-        
-        
-    } else {
-      console.error("User not signed in.");
+            deleteAllReviewsForUser(userId);
+
+            // Delete user account from Firebase
+            await auth.currentUser.delete();
+
+            deleteUser(email)
+
+            // Clear session storage
+            sessionStorage.clear();
+
+            // Logout the user
+            auth.signOut();
+
+            // Close the modal
+            hideModal();
+          } catch (error) {
+            console.error("Error deleting account:", error);
+            // Handle error as needed
+          }
+        },
+        onCancel: () => {
+          // Optional: Handle cancellation if needed
+        },
+      });
+    } catch (error) {
+      console.error("Error during reauthentication:", error);
+      // Handle error as needed
     }
   };
 
@@ -91,13 +130,13 @@ const MyReviews = ({ userId }) => {
       </Tooltip>
 
       <Modal
-        visible={isOpen}
+        open={isOpen}
         onCancel={hideModal}
         footer={() => (
-          <ButtonGroup>
+          <ButtonGroup className="flex-col md:flex-row">
             <Button
               outlined="true"
-              className="!text-black flex-1 border-gray-600 !mt-6"
+              className="flex-1 border-gray-600 mt-6 md:mt-0 md:mr-2"
               onClick={handleDeleteAllReviews}
               disabled={isDeleteAllReviewsDisabled}
             >
@@ -105,7 +144,7 @@ const MyReviews = ({ userId }) => {
             </Button>
             <Button
               outlined="true"
-              className="!text-white flex-1 border-red-600 bg-rose-600 !mt-6"
+              className="flex-1 border-red-600 bg-rose-600 mt-6 md:mt-0 text-white"
               onClick={handleDeleteMyAccount}
             >
               Delete My Account

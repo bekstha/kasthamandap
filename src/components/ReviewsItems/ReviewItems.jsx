@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Rate, Tooltip, Modal } from "antd";
 import DeleteIcon from "@mui/icons-material/Delete";
 import useReviews from "../../hooks/useReviews";
+import EditReview from "./EditReview";
+import useUsers from "../../hooks/useUser";
 
 const ReviewItems = ({
   review,
@@ -48,17 +50,20 @@ const ReviewItems = ({
   return (
     <div className="flex flex-col bg-slate-100 p-2 mt-8 shadow-md rounded-lg justify-between gap-3 w-full">
       <Rate allowHalf value={rating} />
-      <div className="flex justify-between gap-3">
+      <div className="flex justify-between gap-3 my-3">
         {review}
-        <Tooltip title="Delete review" placement="top">
-          <button
-            className="hover:cursor"
-            onClick={confirmDelete}
-            disabled={isDeleting}
-          >
-            <DeleteIcon style={{ color: "#f50057" }} />
-          </button>
-        </Tooltip>
+        <div className="flex gap-5">
+        <EditReview oldReview={review} oldRating={rating} reviewId={reviewId} />
+          <Tooltip title="Delete review" placement="top">
+            <button
+              className="hover:cursor"
+              onClick={confirmDelete}
+              disabled={isDeleting}
+            >
+              <DeleteIcon style={{ color: "#f50057" }} />
+            </button>
+          </Tooltip>
+        </div>
       </div>
       <p className="font-light italic text-end">{formattedDate}</p>
     </div>

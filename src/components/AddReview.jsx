@@ -1,5 +1,5 @@
 import { Modal, Rate, Tooltip } from "antd";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   LanguageDetector,
   TextClassifier,
@@ -11,60 +11,23 @@ import Button from "./ui/Button";
 import InfoIcon from "@mui/icons-material/Info";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import useReviews from "../hooks/useReviews";
+import { MainContext } from "../context/MainContext";
 
-const AddReview = ({ displayName, userId, userEmail }) => {
+const AddReview = ({ displayName, userId, userEmail}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [review, setReview] = useState("");
-  const [textClassifier, setTextClassifier] = useState(null);
-  const [languageDetector, setLanguageDetector] = useState(null);
-
   const [positiveScore, setPositiveScore] = useState(null);
   const [manualRating, setManualRating] = useState(0);
-  const { addReview } = useReviews(); // Import the addReview function
+  const { addReview } = useReviews(); 
 
   const showModal = () => setIsOpen(true);
   const hideModal = () => setIsOpen(false);
 
+  const { textClassifier, languageDetector } = useContext(MainContext);
+
   const isSubmitDisabled = () => {
     return !(review.trim() !== "" && manualRating > 0 && manualRating <= 5);
   };
-
-  useEffect(() => {
-    const initializeLanguageDetection = async () => {
-      try {
-        const text = await FilesetResolver.forTextTasks(
-          "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-text@0.10.0/wasm"
-        );
-        const detector = await LanguageDetector.createFromOptions(text, {
-          baseOptions: {
-            modelAssetPath: "/src/assets/language_detector.tflite",
-          },
-        });
-        setLanguageDetector(detector);
-      } catch (error) {
-        console.error("Error initializing language detector:", error);
-      }
-    };
-
-    const initializeTextClassifier = async () => {
-      try {
-        const text = await FilesetResolver.forTextTasks(
-          "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-text@0.10.0/wasm"
-        );
-        const classifier = await TextClassifier.createFromOptions(text, {
-          baseOptions: {
-            modelAssetPath: "/src/assets/bert_classifier.tflite",
-          },
-          maxResults: 5,
-        });
-        setTextClassifier(classifier);
-      } catch (error) {
-        console.error("Error initializing text classifier:", error);
-      }
-    };
-    initializeLanguageDetection();
-    initializeTextClassifier();
-  }, []);
 
   // Update the manual rating when the user changes it manually
   const handleManualRatingChange = (value) => {

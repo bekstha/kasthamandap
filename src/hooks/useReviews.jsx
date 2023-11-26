@@ -8,6 +8,7 @@ import {
   onSnapshot,
   where,
   writeBatch,
+  setDoc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../config/firebase";
@@ -76,7 +77,18 @@ const useReviews = () => {
     }
   };
 
-  return { reviews, deleteReview, addReview, deleteAllReviewsForUser };
+  const updateReview = async (reviewId, newData) => {
+    try {
+      const reviewRef = doc(db, "Reviews", reviewId);
+      await setDoc(reviewRef, newData, { merge: true });
+      console.log("Review updated successfully!");
+    } catch (error) {
+      console.error("Error updating review:", error);
+      throw error;
+    }
+  };
+
+  return { reviews, deleteReview, addReview, deleteAllReviewsForUser, updateReview };
 };
 
 export default useReviews;
