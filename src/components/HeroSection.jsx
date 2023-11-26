@@ -8,7 +8,7 @@ import useContact from "../hooks/useContact";
 const HeroSection = () => {
   const { contact } = useContact();
   return (
-    <Section sectionClass="h-[65vh] lg:h-[90vh] flex items-center justify-center max-w-screen bg-hero-section bg-cover bg-center">
+    <Section sectionClass="h-[65vh] lg:h-screen flex items-center justify-center max-w-screen bg-hero-section bg-cover bg-center">
       <Overlay />
       <Slider sliderType="heroSection">
         {/* Slide 1 */}
