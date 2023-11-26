@@ -10,7 +10,7 @@ const FooterItemTitle = ({ label }) => (
 const Footer = () => {
   return (
     <footer id="contact-us" className="max-container bg-black/80 md:pt-10">
-      <div className="md:flex justify-between gap-8  pb-6 md:pb-10">
+      <div className="lg:flex justify-between gap-8 pb-6 md:pb-10">
         <div className="flex justify-center md:block md:w-40">
           <img
             src={logo}
