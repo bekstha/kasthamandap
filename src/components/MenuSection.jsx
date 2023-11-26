@@ -1,13 +1,17 @@
 import { Section, SectionTitle } from "./ui/Section";
 import Overlay from "./ui/Overlay";
-import ButtonGroup from "./ui/ButtonGroup";
-import Button from "./ui/Button";
 import { useEffect, useState } from "react";
 import PopUp from "./PopUp";
+import useSpecialMenu from "../hooks/useSpecialMenu";
 
 const MenuSection = () => {
   const [openPopup, setOpenPopup] = useState(false);
   const [dishType, setDishType] = useState("");
+  const { specialMenu } = useSpecialMenu();
+  const [todaysSpecial, setTodaysSpecial] = useState([]);
+  const [isToday, setIsToday] = useState(false);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
   const handleClick = (name) => {
     // Handle the card click event here
@@ -15,6 +19,24 @@ const MenuSection = () => {
     setDishType(name);
     setOpenPopup(true);
   };
+
+  useEffect(() => {
+    for (let i = 0; i < specialMenu.length; i++) {
+      const fetchedDateObject = new Date(specialMenu[i].day);
+      fetchedDateObject.setHours(0, 0, 0, 0);
+
+      if (fetchedDateObject > today) {
+        console.log("Fetched date is in the future");
+      } else if (fetchedDateObject < today) {
+        console.log("Fetched date is in the past");
+      } else {
+        setIsToday(true)
+        setTodaysSpecial(specialMenu[i])
+      }
+    }
+  }, [today]);
+
+  console.log(todaysSpecial);
 
   const HandleRemovePopUp = () => setOpenPopup(false);
 
@@ -61,16 +83,18 @@ const MenuSection = () => {
             {" "}
             A La Carte{" "}
           </a>
-          <a
-            onClick={() => handleClick("Special")}
-            className="px-10 py-2 inline-block bg-orange-500 text-white font-bold text-xl hover:bg-orange-700 transition-colors mt-10 rounded"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ maxWidth: "250px" }}
-          >
-            {" "}
-            Today's Special{" "}
+          {isToday && (
+            <a
+              onClick={() => handleClick("Special")}
+              className="px-10 py-2 inline-block bg-orange-500 text-white font-bold text-xl hover:bg-orange-700 transition-colors mt-10 rounded"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ maxWidth: "250px" }}
+            >
+              {" "}
+              Today's Special{" "}
           </a>
+          )}
         </div>
       </div>
       <div>
@@ -78,6 +102,7 @@ const MenuSection = () => {
           openPopUp={openPopup}
           closePopUp={HandleRemovePopUp}
           dishType={dishType}
+          special={todaysSpecial}
         />
       </div>
     </Section>

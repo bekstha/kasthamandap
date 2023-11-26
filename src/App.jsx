@@ -5,17 +5,20 @@ import MenuSection from "./components/MenuSection";
 import ReviewSection from "./components/ReviewSection";
 import Footer from "./components/Footer";
 import ReservationSection from "./components/ReservationSection";
+import Banner  from "./components/Banner";
 
 const App = () => {
   return (
     <>
       <Navbar />
+      <Banner />
       <main className="overflow-x-hidden">
         <HeroSection />
         <AboutSection />
         <MenuSection />
         <ReservationSection />
         <ReviewSection />
+        
       </main>
       <Footer />
     </>
