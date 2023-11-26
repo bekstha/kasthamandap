@@ -22,7 +22,7 @@ const Contact = () => {
       </span>
       <div className="mb-5"></div>
       <span>
-        <div className="flex">
+        <div className="flex flex-column">
           <a
             href={contact[0]?.facebookUrl}
             role="button"
