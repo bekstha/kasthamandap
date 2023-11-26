@@ -1,24 +1,19 @@
-import { Modal, Rate, Tooltip, message } from "antd";
 import { useContext, useState } from "react";
-import {
-  LanguageDetector,
-  TextClassifier,
-  FilesetResolver,
-} from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-text@0.10.0";
-import { InputLabel, Textarea } from "./ui/Input";
-import ButtonGroup from "./ui/ButtonGroup";
-import Button from "./ui/Button";
+import { MainContext } from "../../context/MainContext";
+import useReviews from "../../hooks/useReviews";
+import { Modal, Rate, Tooltip, message } from "antd";
+import ButtonGroup from "../ui/ButtonGroup";
+import Button from "../ui/Button";
+import { InputLabel, Textarea } from "../ui/Input";
 import InfoIcon from "@mui/icons-material/Info";
-import RateReviewIcon from "@mui/icons-material/RateReview";
-import useReviews from "../hooks/useReviews";
-import { MainContext } from "../context/MainContext";
+import EditIcon from "@mui/icons-material/Edit";
 
-const AddReview = ({ displayName, userId, userEmail }) => {
+const EditReview = ({ oldReview, oldRating, reviewId }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [review, setReview] = useState("");
-  const [positiveScore, setPositiveScore] = useState(null);
-  const [manualRating, setManualRating] = useState(0);
-  const { addReview } = useReviews();
+  const [updatedReview, setReview] = useState(oldReview);
+  const [updatedPositiveScore, setPositiveScore] = useState(oldRating);
+  const [updatedRating, setManualRating] = useState(oldRating);
+  const { updateReview } = useReviews();
 
   const showModal = () => setIsOpen(true);
   const hideModal = () => setIsOpen(false);
@@ -26,7 +21,7 @@ const AddReview = ({ displayName, userId, userEmail }) => {
   const { textClassifier, languageDetector } = useContext(MainContext);
 
   const isSubmitDisabled = () => {
-    return !(review.trim() !== "" && manualRating > 0 && manualRating <= 5);
+    return !(updatedReview !== "" && updatedRating > 0 && updatedRating <= 5);
   };
 
   // Update the manual rating when the user changes it manually
@@ -39,28 +34,24 @@ const AddReview = ({ displayName, userId, userEmail }) => {
   };
 
   const handleClassifyClick = async () => {
-    if (review === "") {
-      alert("Please fill the review section.");
+    if (updatedReview === "") {
+      message.warning("Please fill the review section.");
       return;
     }
     if (!textClassifier || !languageDetector) {
+      // Handle the case where textClassifier or languageDetector is not initialized yet
       console.error("Text classifier or language detector is not initialized");
       return;
     }
     try {
-      // Using the language detector to detect the language of the review
-      const languageResult = await languageDetector.detect(review);
+      // Use the language detector to detect the language of the review
+      const languageResult = await languageDetector.detect(updatedReview);
       const detectedLanguage =
         languageResult.languages && languageResult.languages[0]?.languageCode;
-
-      console.log("Detected Language:", detectedLanguage);
-      const result = await textClassifier.classify(review, {
+      const result = await textClassifier.classify(updatedReview, {
         displayNamesLocale: detectedLanguage,
       });
 
-      console.log("Detected result:", result.classifications[0].categories);
-
-      // Find the category with the name "positive"
       const positiveCategory = result.classifications[0].categories.find(
         (category) => category.categoryName === "positive"
       );
@@ -81,39 +72,38 @@ const AddReview = ({ displayName, userId, userEmail }) => {
   };
 
   const handleSubmit = async () => {
-    if (review.trim() === "" || !(manualRating > 0 && manualRating <= 5)) {
-      message.warning("Please fill the review section and provide a valid rating.");
-      return;
-    }
-
     try {
-      await addReview(
-        userId,
-        userEmail,
-        review,
-        displayName,
-        manualRating,
-        new Date()
-      );
+      if (
+        updatedReview.trim() === "" ||
+        !(updatedRating > 0 && updatedRating <= 5)
+      ) {
+        message.warning(
+          "Please fill the review section and provide a valid rating."
+        );
+        return;
+      }
+
+      // Prepare the updated data
+      const newData = {
+        review: updatedReview,
+        rating: updatedRating,
+      };
+
+      // Call the updateReview function
+      await updateReview(reviewId, newData);
       hideModal();
-      setManualRating(0);
-      setReview("");
     } catch (error) {
-      console.error("Error adding review:", error);
+      console.error("Error updating review:", error);
     }
   };
+
   return (
     <>
-      <Tooltip title="Add a review" placement="top">
-        <button
-          className="!w-12 h-12 font-orange bg-orange-500 text-white rounded-full"
-          onClick={showModal}
-        >
-          {" "}
-          <RateReviewIcon />{" "}
+      <Tooltip title="Edit review" placement="top">
+        <button className="hover:cursor" onClick={showModal}>
+          <EditIcon />
         </button>
       </Tooltip>
-
       <Modal
         open={isOpen}
         onOk={hideModal}
@@ -133,18 +123,18 @@ const AddReview = ({ displayName, userId, userEmail }) => {
               onClick={handleSubmit}
               disabled={isSubmitDisabled()}
             >
-              Submit Review
+              Update
             </Button>
           </ButtonGroup>
         )}
       >
         <div className="mb-2 flex flex-col justify-center items-center gap-5">
-          <InputLabel label="Write a Review" />
+          <InputLabel label="Edit your review" />
 
           <div className="flex justify-center items-center gap-3">
             <Rate
               allowHalf
-              value={manualRating}
+              value={updatedRating}
               onChange={handleManualRatingChange}
             />{" "}
             <Tooltip title="You can either manually set a rating or use our AI model below to generate a rating based on your review.">
@@ -152,11 +142,11 @@ const AddReview = ({ displayName, userId, userEmail }) => {
             </Tooltip>
           </div>
 
-          <Textarea value={review} onChange={handleReviewChange} />
+          <Textarea value={updatedReview} onChange={handleReviewChange} />
         </div>
       </Modal>
     </>
   );
 };
 
-export default AddReview;
+export default EditReview;
