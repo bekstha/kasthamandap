@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Alert } from 'antd';
+import Marquee from 'react-fast-marquee';
 import useSpecialMenu from '../hooks/useSpecialMenu';
 
 const Banner = () => {
@@ -26,17 +27,22 @@ const Banner = () => {
       }, [today]);
 
     return (
-        <div>
+        <div className='absolute fixed top-0 w-full lg:w-2/3 text-xl justify-center px-3'>
             {isToday && (
+              <div className='text-center'>
                 <Alert
-                style={{textAlign: 'center', fontWeight: 'bold' }}
-                message="Information to the customers"
-                description={description}
-                type="info"
-                banner
-                showIcon
-                closable
-            />
+                  style={{borderRadius: '0 0 20px 20px', backgroundColor: '#ea580c', fontSize: '18px'}}
+                  message={
+                    <Marquee pauseOnHover gradient={false}>
+                      {description}
+                    </Marquee>
+                  }
+                  type="info"
+                  banner
+                  showIcon
+                  closable
+              />
+              </div>
             )}
         </div>
     )

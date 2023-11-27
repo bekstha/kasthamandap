@@ -4,12 +4,39 @@ import { Section } from "./ui/Section";
 import Overlay from "./ui/Overlay";
 import Slider from "./ui/Slider";
 import useContact from "../hooks/useContact";
+import Banner from "./Banner";
+import useSpecialMenu from "../hooks/useSpecialMenu";
+import { useEffect, useState } from "react";
+
 
 const HeroSection = () => {
   const { contact } = useContact();
+  const { specialMenu } = useSpecialMenu();
+  const [todaysSpecial, setTodaysSpecial] = useState([]);
+  const [isToday, setIsToday] = useState(false);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  useEffect(() => {
+    for (let i = 0; i < specialMenu.length; i++) {
+      const fetchedDateObject = new Date(specialMenu[i].day);
+      fetchedDateObject.setHours(0, 0, 0, 0);
+
+      if (fetchedDateObject > today) {
+        console.log("Fetched date is in the future");
+      } else if (fetchedDateObject < today) {
+        console.log("Fetched date is in the past");
+      } else {
+        setIsToday(true)
+        setTodaysSpecial(specialMenu[i])
+      }
+    }
+  }, [today]);
+
   return (
     <Section sectionClass="h-[65vh] lg:h-screen flex items-center justify-center max-w-screen bg-hero-section bg-cover bg-center">
       <Overlay />
+      <Banner />
       <Slider sliderType="heroSection">
         {/* Slide 1 */}
         <div className="relative z-40 text-center my-6 text-white">
@@ -57,8 +84,17 @@ const HeroSection = () => {
             </Button>
           </ButtonGroup>
         </div>
-
         {/* Slide 3 */}
+        {isToday && (
+          <div className="relative z-40 text-center my-6 text-white">
+            <h1 className="text-3xl md:text-8xl font-extrabold font-cursive leading-tight">
+                {todaysSpecial.title}
+            </h1>
+            <p className="mt-4 text-base md:text-4xl font-cursive">
+              Special Menu available today. Check menu to see the available dishes.
+            </p>
+          </div>
+        )}
         
       </Slider>
     </Section>

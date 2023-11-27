@@ -2,14 +2,10 @@ import React, { useEffect, useState} from 'react';
 import LunchMenu from './LunchMenu';
 import MenuCardItems from './MenuCardItems';
 import SpecialMenu from './SpecialMenu';
-import CardBody from './ui/CardBody';
-import CardHeader from './ui/CardHeader';
-import Divider from './ui/Divider';
 
 const PopUp = ({ openPopUp, closePopUp, dishType, special }) => {
     const[showMenu, setShowMenu] = useState(true);
     const [dishName, setDishName] = useState("");
-    const [mainCourse, setMaincourse] = useState([]);
     const [selectedButton, setSelectedButton] = useState();
 
   const handleclosePopUp = (e) => {
@@ -53,10 +49,10 @@ const PopUp = ({ openPopUp, closePopUp, dishType, special }) => {
     <div
       id='ModelContainer'
       onClick={handleclosePopUp}
-      className='fixed left-0 top-5 z-[1055] h-full w-full overflow-y-auto overflow-x-hidden outline-none'>
+      className='fixed left-0 top-10 z-[1055] h-full w-full overflow-y-auto overflow-x-hidden outline-none'>
       <div className='pointer-events-none relative translate-y-[-50px] transition duration-500 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[750px]'>
         <div className='min-[576px]:shadow-[0_0.5rem_1rem_rgba(#000, 0.15)] pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-white bg-clip-padding text-black shadow-lg outline-none'>
-          <div className='flex flex-shrink-0 mt-5 items-center justify-between rounded-t-md border-b-2 border-gray p-4'>
+          <div className='flex flex-shrink-0 min-[576px]:mt-5 mt-10 items-center justify-between rounded-t-md border-b-2 border-gray p-3'>
             <h5
               className="text-xl font-medium leading-normal text-black">
               {dishType}
