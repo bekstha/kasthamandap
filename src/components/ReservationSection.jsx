@@ -19,14 +19,41 @@ const ReservationSection = () => {
     reservationDate: "",
     reservationTime: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
-  const clearState = () => setState((prev) => prev);
+  const clearState = () =>
+    setState({
+      firstname: "",
+      lastname: "",
+      email: "",
+      phoneNumber: "",
+      guestCount: 1,
+      reservationDate: "",
+      reservationTime: "",
+    });
+  const getCurrentDate = () => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // January is 0!
+    let dd = today.getDate();
+
+    if (mm < 10) {
+      mm = `0${mm}`;
+    }
+
+    if (dd < 10) {
+      dd = `0${dd}`;
+    }
+
+    return `${yyyy}-${mm}-${dd}`;
+  };
 
   const handleInputChange = (event) =>
     setState({ ...state, [event.target.name]: event.target.value });
 
   const handleReservationSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     try {
       const {
         firstname,
@@ -47,18 +74,32 @@ const ReservationSection = () => {
         reservationDate,
         reservationTime,
       });
-      await POST("email/response", {
-        useremail: email,
-        username: firstname,
-      });
-      await POST("email/response", {
-        useremail: "kasthamandap.fin@gmail.com",
+      const response = await POST("email/response", {
+        useremail: "ujstha27@gmail.com",
         username: "Kasthamandap",
+        customerName: `${firstname} ${lastname}`,
+        phoneNumber,
+        guestCount,
+        reservationDate,
+        reservationTime,
       });
+
+      if (response?.success) {
+        await POST("email/response", {
+          useremail: email,
+          username: firstname,
+          reservationDate,
+          reservationTime,
+          phoneNumber,
+          guestCount,
+        });
+      }
 
       clearState();
     } catch (error) {
       console.error("Error submitting form:", { error });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -123,6 +164,7 @@ const ReservationSection = () => {
                 type="date"
                 name="reservationDate"
                 onChange={handleInputChange}
+                min={getCurrentDate()}
               />
             </div>
             <div className="flex-1">
@@ -134,7 +176,9 @@ const ReservationSection = () => {
               />
             </div>
           </div>
-          <Button className="md:w-full w-full mt-8">Submit Reservation</Button>
+          <Button className="md:w-full w-full mt-8" disabled={isLoading}>
+            {isLoading ? "Submitting..." : "Submit Reservation"}
+          </Button>
         </form>
       </div>
     </Section>
