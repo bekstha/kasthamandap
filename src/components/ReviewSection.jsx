@@ -2,7 +2,6 @@ import { Popconfirm, Rate, Tooltip, message } from "antd";
 
 import { Section, SectionTitle } from "./ui/Section";
 import Slider from "./ui/Slider";
-import Button from "./ui/Button";
 import useReviews from "../hooks/useReviews";
 import { auth, db, provider } from "../config/firebase";
 import {
@@ -16,10 +15,12 @@ import { setDoc, doc, getDoc } from "firebase/firestore";
 import AddReview from "./AddReview";
 import { formatDistanceToNow } from "date-fns";
 import MyReviews from "../components/ReviewsItems/MyReviews";
+import PrivacyPolicyDrawer from "./PrivacyPolicyDrawer";
 
 const ReviewSection = () => {
   const { reviews } = useReviews();
   const [user, setUser] = useState(null);
+  const [privacyPolicyVisible, setPrivacyPolicyVisible] = useState(false);
 
   useEffect(() => {
     // Check if there is a user in sessionStorage on component mount
@@ -53,6 +54,8 @@ const ReviewSection = () => {
       const userDocRef = doc(db, "Reviewers", user.email);
       const userDocSnapshot = await getDoc(userDocRef);
 
+      const timestamp = new Date();
+
       if (!userDocSnapshot.exists()) {
         // Add user to Firebase Firestore with email as the document ID
         await setDoc(userDocRef, {
@@ -60,6 +63,8 @@ const ReviewSection = () => {
           displayName: user.displayName,
           email: user.email,
           emailVerified: user.emailVerified,
+          acceptedTerms: true, // Add a field indicating user has accepted terms
+          termsAcceptedAt: timestamp,
         });
       }
     } catch (err) {
@@ -76,17 +81,16 @@ const ReviewSection = () => {
     }
   };
 
-
   const cancel = (e) => {
-    console.log(e); 
-    message.error("Signing out cancelled"); 
-    };
+    console.log(e);
+    message.error("Signing out cancelled");
+  };
 
   return (
     <Section sectionClass="bg-white text-black text-center flex flex-col items-center gap-3">
       <SectionTitle label="Review" />
 
-      <div className="h-64 flex justify-center items-center my-10">
+      <div className="h-64 flex justify-center items-center my-20">
         {reviews?.length > 0 ? (
           <Slider>
             {reviews?.map((review, index) => (
@@ -135,7 +139,7 @@ const ReviewSection = () => {
                 okText="Yes"
                 cancelText="No"
                 okButtonProps={{
-                  style: { background: 'green', color: 'white' },
+                  style: { background: "green", color: "white" },
                 }}
               >
                 <button className="!w-12 h-12 bg-orange-500 text-white rounded-full">
@@ -151,7 +155,77 @@ const ReviewSection = () => {
           </span>
         </>
       ) : (
-        <Button onClick={showSignIn}>Sign in with google</Button>
+        <>
+{/*           <Popconfirm
+            title={
+              <span>
+                Agree to{" "}
+                <span
+                  style={{ color: "blue", cursor: "pointer" }}
+                  onClick={() => {
+                    setPrivacyPolicyVisible(true);
+                    setPopconfirmVisible(false);
+                  }}
+                >
+                  terms and conditions
+                </span>
+              </span>
+            }
+            description="Before signing in, please agree to terms and conditions."
+            onConfirm={showSignIn}
+            okText="Agree"
+            cancelText="Cancel"
+            open={popconfirmVisible}
+            onOpenChange={(visible) => setPopconfirmVisible(visible)}
+            okButtonProps={{
+              style: { background: "green", color: "white" },
+            }}
+            cancelButtonProps={{
+              style: { background: "red", color: "white" },
+            }}
+          > */}
+            <button
+              type="button"
+              onClick={showSignIn}
+              className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-between dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
+            >
+              <svg
+                className="mr-2 -ml-1 w-4 h-4"
+                aria-hidden="true"
+                focusable="false"
+                data-prefix="fab"
+                data-icon="google"
+                role="img"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 488 512"
+              >
+                <path
+                  fill="currentColor"
+                  d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"
+                ></path>
+              </svg>
+              Sign in with Google
+            </button>
+{/*           </Popconfirm>
+ */}          <p>
+              By signing in, you agree with our{" "}
+              <span
+                style={{ color: "blue", cursor: "pointer" }}
+                onClick={() => {
+                  setPrivacyPolicyVisible(true);
+                }}
+              > Terms of Service and Privacy Policy</span>
+            </p>
+
+          {privacyPolicyVisible && (
+            <PrivacyPolicyDrawer
+              onClose={() => {
+                setPrivacyPolicyVisible(false);
+              }}
+              open={privacyPolicyVisible}
+            />
+          )}
+        </>
       )}
     </Section>
   );

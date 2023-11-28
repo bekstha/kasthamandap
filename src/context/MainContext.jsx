@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { FilesetResolver, LanguageDetector, TextClassifier } from "@mediapipe/tasks-text";
+import LoadingScreen from "../components/LoadingScreen";
 
 const MainContext = createContext();
 
@@ -52,8 +53,7 @@ const MainProvider = ({ children }) => {
   }, []);
 
   if (loading) {
-    // You might want to render a loading spinner or message here
-    return <div>Loading...</div>;
+    return <LoadingScreen /> ;
   }
 
   return (
