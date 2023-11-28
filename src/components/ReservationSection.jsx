@@ -21,7 +21,7 @@ const ReservationSection = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  const clearState = () =>
+  const clearState = () => {
     setState({
       firstname: "",
       lastname: "",
@@ -31,6 +31,8 @@ const ReservationSection = () => {
       reservationDate: "",
       reservationTime: "",
     });
+  };
+
   const getCurrentDate = () => {
     const today = new Date();
     const yyyy = today.getFullYear();
@@ -94,7 +96,6 @@ const ReservationSection = () => {
           guestCount,
         });
       }
-
       clearState();
     } catch (error) {
       console.error("Error submitting form:", { error });
