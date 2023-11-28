@@ -10,7 +10,7 @@ const LunchMenu = ({ day }) => {
   const { weeklyLunch, loading } = useLunchItems();
   const { lunchItem } = useFoodMenu();
 
-  const filteredMenu = lunchItem.filter(item => item.days.includes(day));
+  const filteredMenu = lunchItem.filter(item => item.day.includes(day));
 
   const filterDescription = (desc) => {
     const startIndex = desc.indexOf(day); // Find the index of the day
