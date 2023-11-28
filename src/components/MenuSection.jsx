@@ -89,7 +89,7 @@ const MenuSection = () => {
               style={{ maxWidth: "250px" }}
             >
               {" "}
-              Today's Special{" "}
+              Today&apos;s Special{" "}
           </a>
           )}
         </div>
