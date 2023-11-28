@@ -8,6 +8,8 @@ const FooterItemTitle = ({ label }) => (
 );
 
 const Footer = () => {
+  const googleMapsUrl =
+    "https://www.google.com/maps/dir/?api=1&destination=60.4666° N, 26.9442° E";
   return (
     <footer id="contact-us" className="max-container bg-black/80 md:pt-10">
       <div className="lg:flex justify-between gap-8 pb-6 md:pb-10">
@@ -20,6 +22,7 @@ const Footer = () => {
         </div>
         <div className="flex-1 mt-6 md:mt-0">
           <FooterItemTitle label="Address" />
+
           <div className="rounded-md overflow-hidden bg-red-400 h-60 md:h-72">
             <iframe
               title="Google Map"
@@ -29,6 +32,14 @@ const Footer = () => {
               allowFullScreen
             ></iframe>
           </div>
+          <a
+            href={googleMapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-md overflow-hidden  h-10 md:h-7 block text-sm"
+          >
+            Get Directions on Google Maps
+          </a>
         </div>
         <div className="mt-6 md:mt-0">
           <FooterItemTitle label="Opening hours" />
