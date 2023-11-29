@@ -40,10 +40,10 @@ const HeroSection = () => {
       <Slider sliderType="heroSection">
         {/* Slide 1 */}
         <div className="relative z-40 text-center my-6 text-white">
-          <h1 className="text-3xl md:text-8xl font-extrabold font-cursive leading-tight">
+          <h1 className="text-2xl md:text-8xl font-extrabold font-cursive leading-tight">
             Welcome to Kasthamandap
           </h1>
-          <p className="mt-4 text-base md:text-4xl font-cursive">
+          <p className="mt-4 text-base text-sm md:text-3xl font-cursive">
             Experience the Flavors of Nepal in the Heart of Kotka
           </p>
         </div>
