@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { updateDoc, deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc } from "firebase/firestore";
 import useReservation from "../hooks/useReservation";
 import { db } from "../config/firebase";
-import { POST } from "../services/sendEmail";
 
 const CancelPage = () => {
   const { reservationID } = useParams();
   const { reservations } = useReservation(reservationID);
   const history = useHistory();
-  const [showConfirmation, setShowConfirmation] = useState(true);
+  const [cancellationComplete, setCancellationComplete] = useState(false);
 
   const handleCancel = async () => {
     try {
-      await updateDoc(doc(db, "reservations", reservationID), {
-        status: "cancelled",
-      });
+      await deleteDoc(doc(db, "reservations", reservationID));
+      setCancellationComplete(true);
       setTimeout(() => {
         history.push("/");
       }, 2000);
@@ -25,7 +23,7 @@ const CancelPage = () => {
   };
 
   const handleNo = () => {
-    setShowConfirmation(false);
+    setCancellationComplete(false);
     history.push("/email");
   };
   return (
