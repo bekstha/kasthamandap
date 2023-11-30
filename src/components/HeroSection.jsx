@@ -19,7 +19,7 @@ const HeroSection = () => {
 
   useEffect(() => {
     for (let i = 0; i < specialMenu.length; i++) {
-      const fetchedDateObject = new Date(specialMenu[i].day);
+      const fetchedDateObject = new Date(specialMenu[i].end_date);
       fetchedDateObject.setHours(0, 0, 0, 0);
 
       if (fetchedDateObject > today) {

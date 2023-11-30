@@ -12,16 +12,17 @@ const Banner = () => {
 
     useEffect(() => {
         for (let i = 0; i < specialMenu.length; i++) {
-          const fetchedDateObject = new Date(specialMenu[i].day);
-          fetchedDateObject.setHours(0, 0, 0, 0);
-    
-          if (fetchedDateObject > today) {
-            console.log("Fetched date is in the future");
-          } else if (fetchedDateObject < today) {
-            console.log("Fetched date is in the past");
-          } else {
+          const startDate = new Date(specialMenu[i].start_date);
+          const endDate = new Date(specialMenu[i].end_date);
+
+          startDate.setHours(0, 0, 0, 0);
+          endDate.setHours(0,0,0,0);
+          
+          if (startDate <= today && today <= endDate) {
             setIsToday(true)
             setDescription(specialMenu[i].message)
+          } else  {
+            console.log("Fetched date is not within range");
           }
         }
       }, [today]);
@@ -31,16 +32,16 @@ const Banner = () => {
             {isToday && (
               <div className='text-center'>
                 <Alert
-                  style={{borderRadius: '0 0 20px 20px', backgroundColor: '#ea580c', fontSize: '18px'}}
+                  className={'text-white bg-orange-500'}
+                  style={{borderRadius: '0 0 20px 20px', fontSize: '18px'}}
                   message={
                     <Marquee pauseOnHover gradient={false}>
-                      {description}
+                      {description} 
                     </Marquee>
                   }
-                  type="info"
+                  showIcon={false}
                   banner
-                  showIcon
-                  closable
+                  closeIcon={true}
               />
               </div>
             )}
