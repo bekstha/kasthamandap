@@ -4,7 +4,7 @@ import useExceptionalHours from "../hooks/useExceptionalHours";
 const HourList = ({ openingHour, closingHour, day }) => {
   return (
     <li>
-      <span className="inline-block w-48">{day}</span>
+      <span className="inline-block w-48 text-black">{day}</span>
       {openingHour || closingHour
         ? `${openingHour} - ${closingHour}`
         : "Closed"}
@@ -23,7 +23,7 @@ const OpeningHours = () => {
   //console.log(exceptionalHours);
 
   return (
-    <ul>
+    <ul className="text-black">
       {weekdayOpeningHours && (
         <HourList
           day="Monday - Friday"

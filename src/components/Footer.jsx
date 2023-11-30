@@ -4,14 +4,14 @@ import Contact from "./Contact";
 import logo from "../assets/images/temple_n_fork_n_spoon_II.svg";
 
 const FooterItemTitle = ({ label }) => (
-  <h3 className="py-4 text-xl font-semibold">{label}</h3>
+  <h3 className="py-4 text-xl font-semibold text-black">{label}</h3>
 );
 
 const Footer = () => {
   const googleMapsUrl =
     "https://www.google.com/maps/dir/?api=1&destination=60.4666° N, 26.9442° E";
   return (
-    <footer id="contact-us" className="max-container bg-black/80 md:pt-10">
+    <footer id="contact-us" className="max-container bg-white md:pt-10">
       <div className="lg:flex justify-between gap-8 pb-6 md:pb-10">
         <div className="flex justify-center md:block md:w-40">
           <img
@@ -36,7 +36,7 @@ const Footer = () => {
             href={googleMapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-md overflow-hidden  h-10 md:h-7 block text-sm"
+            className="rounded-md overflow-hidden  h-10 md:h-7 block text-sm text-black"
           >
             Get Directions on Google Maps
           </a>
