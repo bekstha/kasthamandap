@@ -75,7 +75,7 @@ const ReservationSection = () => {
         reservationTime,
       });
       const response = await POST("email/response", {
-        useremail: "ujstha27@gmail.com",
+        useremail: "shresrthaasmita@gmail.com",
         username: "Kasthamandap",
         customerName: `${firstname} ${lastname}`,
         phoneNumber,
