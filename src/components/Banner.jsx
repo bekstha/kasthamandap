@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Alert } from 'antd';
 import Marquee from 'react-fast-marquee';
 import useSpecialMenu from '../hooks/useSpecialMenu';
+import CloseIcon from '@mui/icons-material/Close';
+
 
 const Banner = () => {
     const [isToday, setIsToday] = useState(false);
@@ -41,7 +43,7 @@ const Banner = () => {
                   }
                   showIcon={false}
                   banner
-                  closeIcon={true}
+                  closeIcon={<CloseIcon style={{ color: '#fff', fontSize: '18px'}} />}
               />
               </div>
             )}

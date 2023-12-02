@@ -5,55 +5,48 @@ import CardHeader from "../components/ui/CardHeader";
 import CardTitle from "../components/ui/CardTitle";
 import Divider from "../components/ui/Divider";
 
-const MenuCardItems = ({name}) => {
-    const { starters, chickenDish, lambDish, vegDish, tandoorDish, veganFood } = useFoodMenu();
+const MenuCardItems = ({ itemName }) => {
+  const { alaCarte } = useFoodMenu();
 
-    const DishItems = ({dishName, index}) => {
-        return (
-            <React.Fragment key={index}>
-                <div className="bg-slate-100 p-2 mt-8 shadow-md rounded-lg">
-                    <CardHeader dish={dishName.title} price={dishName.price + `\u20AC`} />
-                    <Divider />
-                    <CardBody desc={dishName.description} />
-                </div>
-            </React.Fragment>
-        )
-    };
+  const DishItems = ({ dishName, index }) => {
+    return (
+      <React.Fragment key={index}>
+        <div className="bg-slate-100 p-3 mt-6 border shadow-md rounded-lg h-24">
+          <CardHeader dish={dishName.title} price={dishName.price + `\u20AC`} />
+          <Divider />
+          <CardBody desc={dishName.description} />
+        </div>
+      </React.Fragment>
+    );
+  };
 
-    return(
-      <div className="w-full p-3">
-        <CardTitle dishName={name}></CardTitle>
-        {name === "Starters" &&
-            starters.map((starter, index) => (
-            <DishItems dishName={starter} key={index} />
-        ))}
+  const itemFilters = {
+    Starters: 'starter',
+    Vegetarian: 'veg_dish',
+    Lamb: 'lamb_dish',
+    Chicken: 'chicken_dish',
+    Tandoor: 'tandoor_dish',
+    Vegan: 'vegan',
+    Drinks : 'drinks'
+  };
 
-        {name === "Vegetarian" &&
-            vegDish.map((veg, index) => (
-            <DishItems dishName={veg} key={index} />
-        ))}
+  const filteredItems = alaCarte
+    .filter((item) => item[itemFilters[itemName]])
+    .map((filteredItem, index) => (
+      <DishItems dishName={filteredItem} key={index} />
+  ));
 
-        {name === "Lamb" &&
-            lambDish.map((lamb, index) => (
-                <DishItems dishName={lamb} key={index} />
-        ))}
-
-        {name === "Chicken" &&
-            chickenDish.map((chicken, index) => (
-                <DishItems dishName={chicken} key={index} />
-        ))}
-
-        {name === "Tandoor" &&
-            tandoorDish.map((tandoor, index) => (
-                <DishItems dishName={tandoor} key={index} />
-        ))}
-
-        {name === "Vegan" &&
-            veganFood.map((veganfood, index) => (
-                <DishItems dishName={veganfood} key={index} />
-        ))}
-      </div>
-    )
+  return (
+    <div className="w-full p-3">
+      <CardTitle dishName={itemName}></CardTitle>
+      {filteredItems.length > 0 ? (
+        filteredItems
+      ) : (
+        <p className="flex justify-center font-bold text-2xl text-orange-400">No menu found for {itemName}.</p>
+      )}
+      <hr className="mt-10" />
+    </div>
+  );
 };
 
-export default MenuCardItems
+export default MenuCardItems;

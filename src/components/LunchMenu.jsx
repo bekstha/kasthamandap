@@ -46,7 +46,7 @@ const LunchMenu = ({ day }) => {
            <CardHeader dish="Lounaan Hinta" price={"12.50 \u20AC"} />
            <Divider />
           {filterDescription(weeklyLunch.desc).map((line, index) => (
-            <div key={index} className="w-full bg-slate-100 p-3 mt-2 shadow-md rounded-lg">
+            <div key={index} className="w-full bg-slate-100 p-3 mt-6 h-16 border shadow-md rounded-lg">
               <CardBody desc={line} />
             </div>
           ))}
@@ -56,13 +56,13 @@ const LunchMenu = ({ day }) => {
            <CardHeader dish="Lounaan Hinta" price={"12.50 \u20AC"} />
            <Divider />
            {filteredMenu.map((item, index) => (
-            <div key={index} className="w-full bg-slate-100 p-3 mt-2 shadow-md rounded-lg">
+            <div key={index} className="w-full bg-slate-100 p-3 mt-6 shadow-md rounded-lg">
               <CardBody desc={item.description} />
             </div>
-          ))}           
-           
+          ))}    
         </div>
       )}
+      <hr className="my-6" />
     </div>
   );
 };
