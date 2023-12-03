@@ -5,6 +5,7 @@ import {
   addDoc,
   query,
   onSnapshot,
+  getDoc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../config/firebase";
@@ -26,8 +27,16 @@ const useUsers = () => {
 
   const deleteUser = async (email) => {
     try {
-      await deleteDoc(doc(db, "Reviewers", email));
-      console.log("User deleted successfully!");
+      const userRef = doc(db, "Reviewers", email);
+
+      // Check if the document exists before attempting to delete
+      const userSnapshot = await getDoc(userRef);
+      if (userSnapshot.exists()) {
+        await deleteDoc(userRef);
+        console.log("User deleted successfully!");
+      } else {
+        console.log("User does not exist!");
+      }
     } catch (error) {
       console.error("Error deleting user:", error);
       throw error;
@@ -37,12 +46,10 @@ const useUsers = () => {
   const addUser = async (userId, email, name, emailVerified) => {
     try {
       await addDoc(collection(db, "Reviewers"), {
-        
-          userId,
-          email,
-          name,
-          emailVerified
-        
+        userId,
+        email,
+        name,
+        emailVerified,
       });
       console.log("User added successfully!");
     } catch (error) {

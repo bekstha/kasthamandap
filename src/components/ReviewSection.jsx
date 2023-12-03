@@ -63,7 +63,7 @@ const ReviewSection = () => {
           displayName: user.displayName,
           email: user.email,
           emailVerified: user.emailVerified,
-          acceptedTerms: true, // Add a field indicating user has accepted terms
+          acceptedTerms: true,
           termsAcceptedAt: timestamp,
         });
       }

@@ -18,7 +18,7 @@ const PrivacyPolicyDrawer = ({ onClose, open }) => {
         </p>
 
         <h1 className="font-extrabold">2. Information We Collect</h1>
-        <p>
+        <span>
           <strong>Email Address:</strong>
           <ul>
             <li>
@@ -30,10 +30,10 @@ const PrivacyPolicyDrawer = ({ onClose, open }) => {
               use of your email address for these purposes.
             </li>
           </ul>
-        </p>
+        </span>
 
         <h1 className="font-extrabold">3. How We Use Your Information</h1>
-        <p>
+        <span>
           We use your email address to:
           <ul>
             <li>Identify and display your reviews on our website.</li>
@@ -42,7 +42,7 @@ const PrivacyPolicyDrawer = ({ onClose, open }) => {
               your review.
             </li>
           </ul>
-        </p>
+        </span>
 
         <h1 className="font-extrabold">4. Data Security</h1>
         <p>
@@ -68,7 +68,7 @@ const PrivacyPolicyDrawer = ({ onClose, open }) => {
         </p>
 
         <h1 className="font-extrabold">7. Your Rights</h1>
-        <p>
+        <span>
           You have the right to:
           <ul>
             <li>Access the personal data we hold about you.</li>
@@ -84,7 +84,7 @@ const PrivacyPolicyDrawer = ({ onClose, open }) => {
           >
             kasthamandap.fin@gmail.com
           </a>
-        </p>
+        </span>
 
         <h1 className="font-extrabold">8. Changes to This Policy</h1>
         <p>
@@ -103,7 +103,6 @@ const PrivacyPolicyDrawer = ({ onClose, open }) => {
           >
             kasthamandap.fin@gmail.com
           </a>
-          .
         </p>
 
         <p className="text-center mt-3 italic">This Privacy Policy was last updated on 28/11/2023.</p>

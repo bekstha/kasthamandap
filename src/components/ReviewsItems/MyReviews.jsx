@@ -16,14 +16,10 @@ const MyReviews = ({ userId, email }) => {
   const { reviews, deleteAllReviewsForUser } = useReviews();
   const [isOpen, setIsOpen] = useState(false);
   const [filteredReviews, setFilteredReviews] = useState([]);
-  const [isDeleteAllReviewsDisabled, setIsDeleteAllReviewsDisabled] =
-    useState(true);
-
+  const [isDeleteAllReviewsDisabled, setIsDeleteAllReviewsDisabled] = useState(true);
   const showModal = () => setIsOpen(true);
   const hideModal = () => setIsOpen(false);
-
   const { deleteUser } = useUsers();
-
 
   useEffect(() => {
     // Filter reviews based on the user ID
@@ -40,14 +36,11 @@ const MyReviews = ({ userId, email }) => {
       if (user) {
         const provider = new GoogleAuthProvider();
         await reauthenticateWithPopup(user, provider);
-        console.log("Reauthentication successful");
         return true;
       } else {
-        console.log("User not authenticated");
         return false;
       }
     } catch (e) {
-      console.error("Error during reauthentication:", e);
       return false;
     }
   };
@@ -55,28 +48,28 @@ const MyReviews = ({ userId, email }) => {
   const handleDeleteMyAccount = async () => {
     try {
       // Reauthenticate the user
-      const isReauthenticated = await reauthenticate();
+       const isReauthenticated = await reauthenticate();
 
       if (!isReauthenticated) {
-        message.error("Reauthentication failed. Please try again."); // Display an error message
+        message.error("Reauthentication failed. Please try again.");
         return;
       }
 
       // If reauthentication is successful, proceeding to delete the account
       Modal.confirm({
         title: "Confirm Delete",
-        content: "This action will delete your reviews as well. Are you sure you want to delete your account?",
+        content:
+          "This action will delete your reviews as well. Are you sure you want to delete your account?",
         okButtonProps: { className: "bg-rose-600 text-white" },
         onOk: async () => {
           try {
-
             deleteAllReviewsForUser(userId);
 
-            // Delete auth 
+            // Delete auth
             await auth.currentUser.delete();
 
             // Delete user account from firestore
-            deleteUser(email)
+            await deleteUser(email);
 
             // Clear session storage
             sessionStorage.clear();
@@ -86,13 +79,11 @@ const MyReviews = ({ userId, email }) => {
 
             // Close the modal
             hideModal();
-
           } catch (error) {
             console.error("Error deleting account:", error);
           }
         },
-        onCancel: () => {
-        },
+        onCancel: () => {},
       });
     } catch (error) {
       message.error("Error during reauthentication:", error);
@@ -108,8 +99,7 @@ const MyReviews = ({ userId, email }) => {
         deleteAllReviewsForUser(userId);
         hideModal();
       },
-      onCancel: () => {
-      },
+      onCancel: () => {},
     });
   };
 
@@ -129,7 +119,7 @@ const MyReviews = ({ userId, email }) => {
         open={isOpen}
         onCancel={hideModal}
         footer={() => (
-          <ButtonGroup className="flex-col md:flex-row">
+          <ButtonGroup className="flex-col md:flex-row mt-10">
             <Button
               outlined="true"
               className="flex-1 border-gray-600 mt-6 md:mt-0 md:mr-2"
