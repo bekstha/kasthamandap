@@ -40,15 +40,15 @@ const Footer = () => {
             Get Directions on Google Maps
           </a>
         </div>
-        <div className="mt-6 md:mt-0">
-          <FooterItemTitle label="Opening hours" />
-          <OpeningHours />
 
+        <div className="mt-6 lg:mt-0 md:flex gap-12 justify-between lg:block">
+          <div className="mt-6 lg:mt-0">
+            <FooterItemTitle label="Opening hours" />
+            <OpeningHours />
+          </div>
           <div className="mt-6">
-            <FooterItemTitle title="Contact us" />
-            <span className="block font-light">
-              <Contact />
-            </span>
+            <FooterItemTitle label="Contact us" />
+            <Contact />
           </div>
         </div>
       </div>

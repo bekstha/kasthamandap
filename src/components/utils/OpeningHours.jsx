@@ -3,12 +3,12 @@ import useExceptionalHours from "../../hooks/useExceptionalHours";
 
 const HourList = ({ openingHour, closingHour, day }) => {
   return (
-    <li className="flex">
-      <span className="text-start w-48">{day}</span>
+    <span className="block text-black">
+      <span className="inline-block w-48 text-black">{day}</span>
       {openingHour || closingHour
         ? `${openingHour} - ${closingHour}`
         : "Closed"}
-    </li>
+    </span>
   );
 };
 
@@ -22,7 +22,7 @@ const OpeningHours = () => {
   const { exceptionalHours } = useExceptionalHours();
 
   return (
-    <ul className="flex flex-col justify-center items-center">
+    <>
       {weekdayOpeningHours && (
         <HourList
           day="Monday - Friday"
@@ -41,7 +41,7 @@ const OpeningHours = () => {
 
       {lunchHours && (
         <>
-          <h3 className="font-bold mt-8">Lunch Hour</h3>
+          <h3 className="font-bold mt-8 text-black">Lunch Hour</h3>
           <HourList
             day="Monday - Friday"
             openingHour={lunchHours.opens}
@@ -53,7 +53,7 @@ const OpeningHours = () => {
       {exceptionalHours && exceptionalHours[0]?.status === "active" && (
         <li>{exceptionalHours[0]?.exceptionMessage}</li>
       )}
-    </ul>
+    </>
   );
 };
 
