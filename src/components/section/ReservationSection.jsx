@@ -1,13 +1,13 @@
 import { useState } from "react";
 
-import { Input, InputLabel } from "./ui/Input";
-import Overlay from "./ui/Overlay";
-import { Section } from "./ui/Section";
+import { Input, InputLabel } from "../ui/Input";
+import Overlay from "../ui/Overlay";
+import { Section } from "../ui/Section";
 
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "../config/firebase";
-import Button from "./ui/Button";
-import { POST } from "../services/sendEmail";
+import { db } from "../../config/firebase";
+import Button from "../ui/Button";
+import { POST } from "../../services/sendEmail";
 
 const ReservationSection = () => {
   const [state, setState] = useState({

@@ -1,11 +1,11 @@
-import ButtonGroup from "./ui/ButtonGroup";
-import Button from "./ui/Button";
-import { Section } from "./ui/Section";
-import Overlay from "./ui/Overlay";
-import Slider from "./ui/Slider";
-import useContact from "../hooks/useContact";
-import Banner from "./Banner";
-import useSpecialMenu from "../hooks/useSpecialMenu";
+import ButtonGroup from "../ui/ButtonGroup";
+import Button from "../ui/Button";
+import { Section } from "../ui/Section";
+import Overlay from "../ui/Overlay";
+import Slider from "../ui/Slider";
+import useContact from "../../hooks/useContact";
+import Banner from "../ui/Banner";
+import useSpecialMenu from "../../hooks/useSpecialMenu";
 import { useEffect, useState } from "react";
 
 

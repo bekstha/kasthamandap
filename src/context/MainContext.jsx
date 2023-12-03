@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { FilesetResolver, LanguageDetector, TextClassifier } from "@mediapipe/tasks-text";
-import LoadingScreen from "../components/LoadingScreen";
+import LoadingScreen from "../components/ui/LoadingScreen";
 
 const MainContext = createContext();
 

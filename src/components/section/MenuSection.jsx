@@ -1,8 +1,8 @@
-import { Section, SectionTitle } from "./ui/Section";
-import Overlay from "./ui/Overlay";
+import { Section, SectionTitle } from "../ui/Section";
+import Overlay from "../ui/Overlay";
 import { useEffect, useState } from "react";
-import useSpecialMenu from "../hooks/useSpecialMenu";
-import MenuModal from "./MenuModal";
+import useSpecialMenu from "../../hooks/useSpecialMenu";
+import MenuModal from "../menu/MenuModal";
 
 const MenuSection = () => {
   const [isOpen, setIsOpen] = useState(false);

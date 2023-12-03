@@ -1,5 +1,5 @@
-import OpeningHours from "./OpeningHours";
-import { Section, SectionTitle } from "./ui/Section";
+import OpeningHours from "../utils/OpeningHours";
+import { Section, SectionTitle } from "../ui/Section";
 
 const AboutSection = () => {
   return (

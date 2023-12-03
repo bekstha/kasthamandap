@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import LunchMenu from "./LunchMenu";
 import MenuCardItems from "./MenuCardItems";
 import SpecialMenu from "./SpecialMenu";
-import Button from "./ui/Button";
+import Button from "../ui/Button";
 import { Modal } from "antd";
 
 const MenuModal = ({ dishType, special, hideModal, isOpen }) => {

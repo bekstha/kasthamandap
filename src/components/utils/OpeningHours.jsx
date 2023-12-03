@@ -1,5 +1,5 @@
-import useOpeningHours from "../hooks/useOpeningHours";
-import useExceptionalHours from "../hooks/useExceptionalHours";
+import useOpeningHours from "../../hooks/useOpeningHours";
+import useExceptionalHours from "../../hooks/useExceptionalHours";
 
 const HourList = ({ openingHour, closingHour, day }) => {
   return (

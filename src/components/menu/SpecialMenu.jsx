@@ -1,6 +1,6 @@
 import React from "react";
-import CardHeader from "./ui/CardHeader";
-import Divider from "./ui/Divider";
+import { CardHeader } from "../ui/Card";
+import Divider from "../ui/Divider";
 
 const SpecialMenu = ({ dishName }) => {
   const DishItems = ({ itemName }) => {

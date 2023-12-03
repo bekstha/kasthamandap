@@ -1,9 +1,9 @@
 import React from "react";
-import useFoodMenu from "../hooks/useFoodMenu";
-import CardBody from "../components/ui/CardBody";
-import CardHeader from "../components/ui/CardHeader";
-import CardTitle from "../components/ui/CardTitle";
-import Divider from "../components/ui/Divider";
+import useFoodMenu from "../../hooks/useFoodMenu";
+import {CardBody} from "../ui/Card";
+import {CardHeader} from "../ui/Card";
+import {CardTitle} from "../ui/Card";
+import Divider from "../ui/Divider";
 
 const MenuCardItems = ({ itemName }) => {
   const { alaCarte } = useFoodMenu();

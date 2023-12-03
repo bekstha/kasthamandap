@@ -5,13 +5,13 @@ import {
   TextClassifier,
   FilesetResolver,
 } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-text@0.10.0";
-import { InputLabel, Textarea } from "./ui/Input";
-import ButtonGroup from "./ui/ButtonGroup";
-import Button from "./ui/Button";
+import { InputLabel, Textarea } from "../ui/Input";
+import ButtonGroup from "../ui/ButtonGroup";
+import Button from "../ui/Button";
 import InfoIcon from "@mui/icons-material/Info";
 import RateReviewIcon from "@mui/icons-material/RateReview";
-import useReviews from "../hooks/useReviews";
-import { MainContext } from "../context/MainContext";
+import useReviews from "../../hooks/useReviews";
+import { MainContext } from "../../context/MainContext";
 
 const AddReview = ({ displayName, userId, userEmail }) => {
   const [isOpen, setIsOpen] = useState(false);

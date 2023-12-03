@@ -1,9 +1,9 @@
 import { Popconfirm, Rate, Tooltip, message } from "antd";
 
-import { Section, SectionTitle } from "./ui/Section";
-import Slider from "./ui/Slider";
-import useReviews from "../hooks/useReviews";
-import { auth, db, provider } from "../config/firebase";
+import { Section, SectionTitle } from "../ui/Section";
+import Slider from "../ui/Slider";
+import useReviews from "../../hooks/useReviews";
+import { auth, db, provider } from "../../config/firebase";
 import {
   signInWithPopup,
   onAuthStateChanged,
@@ -12,10 +12,10 @@ import {
 import { useEffect, useState } from "react";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import { setDoc, doc, getDoc } from "firebase/firestore";
-import AddReview from "./AddReview";
 import { formatDistanceToNow } from "date-fns";
-import MyReviews from "../components/ReviewsItems/MyReviews";
+import MyReviews from "../reviewsItems/MyReviews";
 import PrivacyPolicyDrawer from "./PrivacyPolicyDrawer";
+import AddReview from "../reviewsItems/AddReview";
 
 const ReviewSection = () => {
   const { reviews } = useReviews();

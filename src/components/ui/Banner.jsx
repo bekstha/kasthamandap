@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Alert } from 'antd';
 import Marquee from 'react-fast-marquee';
-import useSpecialMenu from '../hooks/useSpecialMenu';
+import useSpecialMenu from '../../hooks/useSpecialMenu';
 import CloseIcon from '@mui/icons-material/Close';
 
 

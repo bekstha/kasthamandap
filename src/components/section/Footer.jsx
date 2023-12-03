@@ -1,7 +1,6 @@
-import OpeningHours from "./OpeningHours";
-import Contact from "./Contact";
-
-import logo from "../assets/images/resturantlogo.png";
+import OpeningHours from "../utils/OpeningHours";
+import Contact from "../utils/Contact";
+import logo from "../../assets/images/resturantlogo.png";
 
 const FooterItemTitle = ({ label }) => (
   <h3 className="py-4 text-xl font-semibold text-black">{label}</h3>

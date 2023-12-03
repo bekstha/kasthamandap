@@ -1,5 +1,5 @@
 import Navbar from "./Navbar";
-import Footer from "./Footer";
+import Footer from "../section/Footer";
 import AlaCarteDishCard from "./AlaCarteDishCard";
 
 const AlaCarteMenuPage = () => {

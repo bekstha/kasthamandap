@@ -1,11 +1,9 @@
 import { useState } from "react";
-import useFoodMenu from "../hooks/useFoodMenu";
-import useLunchItems from "../hooks/useLunchItems";
-import CardBody from "./ui/CardBody";
-import CardHeader from "./ui/CardHeader";
-import CardTitle from "./ui/CardTitle";
-import Divider from "./ui/Divider";
-import LoadingScreen from "./LoadingScreen";
+import useFoodMenu from "../../hooks/useFoodMenu";
+import useLunchItems from "../../hooks/useLunchItems";
+import {CardHeader, CardBody, CardTitle} from "../ui/Card";
+import Divider from "../ui/Divider";
+import LoadingScreen from "../ui/LoadingScreen";
 
 const LunchMenu = ({ day }) => {
   const { weeklyLunch, loading } = useLunchItems();

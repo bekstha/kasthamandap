@@ -1,5 +1,5 @@
-import useContact from "../hooks/useContact";
-import tripadvisor from "../assets/icons/tripadvisor.svg";
+import useContact from "../../hooks/useContact";
+import tripadvisor from "../../assets/icons/tripadvisor.svg";
 
 const Contact = () => {
   const { contact } = useContact();
