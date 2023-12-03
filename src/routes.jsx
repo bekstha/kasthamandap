@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 
 import HomePage from "./components/HomePage";
 import ReservationDecision from "./components/ReservationDecision";
+import CancelPage from "./components/CancelPage";
 
 export default (
   <Routes>
@@ -10,6 +11,6 @@ export default (
       path="/reservation/:reservationID/:decision"
       element={<ReservationDecision />}
     />
-    <Route path="/cancel/:reservationId" element={<CancelPage />} />
+    <Route path="/cancel/:reservationID" element={<CancelPage />} />
   </Routes>
 );

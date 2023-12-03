@@ -25,7 +25,6 @@ const ReservationDecision = () => {
         await updateDoc(doc(db, "Reservations", reservationID), {
           status: "approved",
         });
-
         await POST("email/response", {
           useremail: reservations?.email,
           customerName: reservations?.firstname,

@@ -67,7 +67,8 @@ const ReservationSection = () => {
         reservationTime,
       } = state;
       const reservationCollection = collection(db, "Reservations");
-      await addDoc(reservationCollection, {
+
+      const reservationData = await addDoc(reservationCollection, {
         firstname,
         lastname,
         email,
@@ -76,14 +77,16 @@ const ReservationSection = () => {
         reservationDate,
         reservationTime,
       });
+
       const response = await POST("email/response", {
-        useremail: "ujstha27@gmail.com",
+        useremail: "shresrthaasmita@gmail.com",
         username: "Kasthamandap",
         customerName: `${firstname} ${lastname}`,
         phoneNumber,
         guestCount,
         reservationDate,
         reservationTime,
+        reservationID: reservationData?.id,
       });
 
       if (response?.success) {
