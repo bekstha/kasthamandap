@@ -5,6 +5,7 @@ import CardBody from "./ui/CardBody";
 import CardHeader from "./ui/CardHeader";
 import CardTitle from "./ui/CardTitle";
 import Divider from "./ui/Divider";
+import LoadingScreen from "./LoadingScreen";
 
 const LunchMenu = ({ day }) => {
   const { weeklyLunch, loading } = useLunchItems();
@@ -40,7 +41,7 @@ const LunchMenu = ({ day }) => {
     <div>
       <CardTitle dishName={day}></CardTitle>
       {loading ? (
-        <p>Loading...</p>
+        <LoadingScreen />
       ) : weeklyLunch ? (
         <div className="p-3">
            <CardHeader dish="Lounaan Hinta" price={"12.50 \u20AC"} />

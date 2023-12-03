@@ -37,7 +37,7 @@ const MenuSection = () => {
   }, [today]);
 
   return (
-    <Section id="menu" sectionClass="h-[65vh] lg:h-screen flex items-center justify-center max-w-screen bg-hero-section bg-cover bg-center">
+    <Section id="menu" sectionClass="h-[65vh] h-screen flex items-center justify-center max-w-screen bg-hero-section bg-cover bg-center">
       <Overlay color="bg-black/80" />
       <div className="relative text-center max-w-4xl mx-auto">
         <SectionTitle label="Our Menu" />
@@ -80,7 +80,7 @@ const MenuSection = () => {
               style={{ maxWidth: "250px" }}
             >
               {" "}
-              Special Menu{" "}
+              Today&apos;s Special{" "}
           </a>
           )}
         </div>
