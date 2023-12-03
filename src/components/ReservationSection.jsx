@@ -1,129 +1,188 @@
+import { useState } from "react";
+
+import { Input, InputLabel } from "./ui/Input";
 import Overlay from "./ui/Overlay";
-import { Section, SectionTitle } from "./ui/Section";
+import { Section } from "./ui/Section";
+
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../config/firebase";
 import Button from "./ui/Button";
-import { useActionData } from "react-router-dom";
+import { POST } from "../services/sendEmail";
 
 const ReservationSection = () => {
+  const [state, setState] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    phoneNumber: "",
+    guestCount: 1,
+    reservationDate: "",
+    reservationTime: "",
+  });
+  const [isLoading, setIsLoading] = useState(false);
+
+  const clearState = () =>
+    setState({
+      firstname: "",
+      lastname: "",
+      email: "",
+      phoneNumber: "",
+      guestCount: 1,
+      reservationDate: "",
+      reservationTime: "",
+    });
+  const getCurrentDate = () => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // January is 0!
+    let dd = today.getDate();
+
+    if (mm < 10) {
+      mm = `0${mm}`;
+    }
+
+    if (dd < 10) {
+      dd = `0${dd}`;
+    }
+
+    return `${yyyy}-${mm}-${dd}`;
+  };
+
+  const handleInputChange = (event) =>
+    setState({ ...state, [event.target.name]: event.target.value });
+
+  const handleReservationSubmit = async (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+    try {
+      const {
+        firstname,
+        lastname,
+        email,
+        phoneNumber,
+        guestCount,
+        reservationDate,
+        reservationTime,
+      } = state;
+      const reservationCollection = collection(db, "Reservations");
+      await addDoc(reservationCollection, {
+        firstname,
+        lastname,
+        email,
+        phoneNumber,
+        guestCount,
+        reservationDate,
+        reservationTime,
+      });
+      const response = await POST("email/response", {
+        useremail: "shresrthaasmita@gmail.com",
+        username: "Kasthamandap",
+        customerName: `${firstname} ${lastname}`,
+        phoneNumber,
+        guestCount,
+        reservationDate,
+        reservationTime,
+      });
+
+      if (response?.success) {
+        await POST("email/response", {
+          useremail: email,
+          username: firstname,
+          reservationDate,
+          reservationTime,
+          phoneNumber,
+          guestCount,
+        });
+      }
+
+      clearState();
+    } catch (error) {
+      console.error("Error submitting form:", { error });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <Section sectionclassName="bg-reservation-section bg-cover bg-center leading-snug">
+    <Section sectionClass="bg-reservation-section">
       <Overlay color="bg-black/80" />
-      <div className="relative text-center max-w-2xl mx-auto">
-        <SectionTitle label="Reserve a table" />
-        <form>
-          <div className="-mx-3 flex flex-wrap text-left">
-            <div className="w-full px-3 sm:w-1/2">
-              <div className="mb-5">
-                <label className="mb-3 block text-base font-medium text-white">
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  name="fName"
-                  id="fName"
-                  placeholder="First Name"
-                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                />
-              </div>
+      <div className="relative max-w-md mx-auto p-6 rounded-2xl bg-white/20 shadow-lg shadow-[rgba(0,0,0,0.1)] backdrop-blur">
+        {/* <SectionTitle label="Reserve a table" /> */}
+        <h3 className="font-bold text-3xl mb-6 text-center">Reserve a table</h3>
+        <form onSubmit={handleReservationSubmit}>
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <InputLabel label="First name" />
+              <Input
+                placeholder="John"
+                name="firstname"
+                onChange={handleInputChange}
+              />
             </div>
-            <div className="w-full px-3 sm:w-1/2">
-              <div className="mb-5">
-                <label className="mb-3 block text-base font-medium text-white">
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  name="lName"
-                  id="lName"
-                  placeholder="Last Name"
-                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                />
-              </div>
+            <div>
+              <InputLabel label="Last name" />
+              <Input
+                placeholder="Doe"
+                name="lastname"
+                onChange={handleInputChange}
+              />
             </div>
           </div>
-          <div className="mb-5">
-            <label className="mb-3 block text-base font-medium text-white text-left">
-              How many guest are you bringing?
-            </label>
-            <input
-              type="number"
-              name="guest"
-              id="guest"
-              placeholder="5"
-              min="0"
-              max="14"
-              className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+          <div className="mt-2">
+            <InputLabel label="Email" />
+            <Input
+              type="email"
+              placeholder="example@mail.com"
+              name="email"
+              onChange={handleInputChange}
             />
           </div>
-
-          <div className="-mx-3 flex flex-wrap text-left">
-            <div className="w-full px-3 sm:w-1/2">
-              <div className="mb-5">
-                <label className="mb-3 block text-base font-medium text-white">
-                  Date
-                </label>
-                <input
-                  type="date"
-                  name="date"
-                  id="date"
-                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                />
-              </div>
-            </div>
-            <div className="w-full px-3 sm:w-1/2">
-              <div className="mb-5">
-                <label className="mb-3 block text-base font-medium text-white">
-                  Time
-                </label>
-                <input
-                  type="time"
-                  name="time"
-                  id="time"
-                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                />
-              </div>
-            </div>
+          <div className="mt-2">
+            <InputLabel label="Phone number" />
+            <Input
+              type="tel"
+              placeholder="+358411103121"
+              name="phoneNumber"
+              onChange={handleInputChange}
+            />
           </div>
-
-          <div className="mb-5">
-            <label className="mb-3 block text-base font-medium text-white text-left">
-              Are you coming to the event?
-            </label>
-            <div className="flex items-center space-x-6">
-              <div className="flex items-center">
-                <input
-                  type="radio"
-                  name="radio1"
-                  id="radioButton1"
-                  className="h-5 w-5"
-                />
-                <label className="pl-3 text-base font-medium text-white">
-                  Yes
-                </label>
-              </div>
-              <div className="flex items-center">
-                <input
-                  type="radio"
-                  name="radio1"
-                  id="radioButton2"
-                  className="h-5 w-5"
-                />
-                <label className="pl-3 text-base font-medium text-white ">
-                  No
-                </label>
-              </div>
+          <div className="mt-2">
+            <InputLabel label="How many guest are you bringing?" />
+            <Input
+              type="number"
+              placeholder="1"
+              min="1"
+              max="14"
+              name="guestCount"
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="mt-2 flex items-center justify-between gap-4">
+            <div className="flex-1">
+              <InputLabel label="Date" />
+              <Input
+                type="date"
+                name="reservationDate"
+                onChange={handleInputChange}
+                min={getCurrentDate()}
+              />
+            </div>
+            <div className="flex-1">
+              <InputLabel label="Time" />
+              <Input
+                type="time"
+                name="reservationTime"
+                onChange={handleInputChange}
+              />
             </div>
           </div>
-
-          <div>
-            <Button className="w-48">Submit</Button>
-          </div>
-          <div className="mb-5"></div>
-
-          <span>More than 14?</span>
-          <a href="">Contact us</a>
+          <Button className="md:w-full w-full mt-8" disabled={isLoading}>
+            {isLoading ? "Submitting..." : "Submit Reservation"}
+          </Button>
         </form>
       </div>
     </Section>
   );
 };
+
 export default ReservationSection;

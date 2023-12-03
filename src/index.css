@@ -9,7 +9,7 @@
 
 @layer components {
   .max-container {
-    @apply px-4 md:px-32;
+    @apply px-4 md:px-20 lg:px-32;
   }
 }
 

@@ -17,8 +17,8 @@ const App = () => {
         <HeroSection />
         <AboutSection />
         <MenuSection />
-        <ReservationSection />
         <ReviewSection />
+        <ReservationSection />
       </main>
       <Footer />
     </>
