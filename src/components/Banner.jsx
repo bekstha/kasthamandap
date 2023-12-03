@@ -30,7 +30,10 @@ const Banner = () => {
       }, [today]);
 
     return (
-        <div className='absolute fixed top-0 w-full lg:w-2/3 text-xl justify-center px-3'>
+        <a 
+          href='#menu'
+          onClick={() => console.log("Clicked")}
+          className='absolute fixed top-0 w-full lg:w-2/3 text-xl justify-center px-3 cursor-pointer'>
             {isToday && (
               <div className='text-center'>
                 <Alert
@@ -47,7 +50,7 @@ const Banner = () => {
               />
               </div>
             )}
-        </div>
+        </a>
     )
 };
 

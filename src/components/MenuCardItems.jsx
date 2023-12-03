@@ -37,7 +37,7 @@ const MenuCardItems = ({ itemName }) => {
   ));
 
   return (
-    <div className="w-full p-3">
+    <div className="w-full p-3 transform slide-in-down">
       <CardTitle dishName={itemName}></CardTitle>
       {filteredItems.length > 0 ? (
         filteredItems
