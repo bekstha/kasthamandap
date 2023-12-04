@@ -147,7 +147,7 @@ const ReservationSection = () => {
             />
           </div>
           <div className="mt-2">
-            <InputLabel label="How many guest are you bringing?" />
+            <InputLabel label="Total number of guests" />
             <Input
               type="number"
               placeholder="1"
