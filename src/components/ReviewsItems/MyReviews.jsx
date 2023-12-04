@@ -9,17 +9,18 @@ import {
   GoogleAuthProvider,
   reauthenticateWithPopup,
 } from "firebase/auth";
-import { auth } from "../../config/firebase";
 import useUsers from "../../hooks/useUser";
 
 const MyReviews = ({ userId, email }) => {
   const { reviews, deleteAllReviewsForUser } = useReviews();
   const [isOpen, setIsOpen] = useState(false);
   const [filteredReviews, setFilteredReviews] = useState([]);
-  const [isDeleteAllReviewsDisabled, setIsDeleteAllReviewsDisabled] = useState(true);
+  const [isDeleteAllReviewsDisabled, setIsDeleteAllReviewsDisabled] =
+    useState(true);
   const showModal = () => setIsOpen(true);
   const hideModal = () => setIsOpen(false);
   const { deleteUser } = useUsers();
+  const [authEmail, setAuthEmail] = useState("");
 
   useEffect(() => {
     // Filter reviews based on the user ID
@@ -36,57 +37,71 @@ const MyReviews = ({ userId, email }) => {
       if (user) {
         const provider = new GoogleAuthProvider();
         await reauthenticateWithPopup(user, provider);
-        return true;
+        const userEmail = user.email;
+        setAuthEmail(userEmail);
+        console.log(userEmail);
+        return userEmail;
       } else {
-        return false;
+        return null;
       }
     } catch (e) {
-      return false;
+      console.error("Error during reauthentication:", e);
+      return null;
     }
   };
 
   const handleDeleteMyAccount = async () => {
     try {
       // Reauthenticate the user
-       const isReauthenticated = await reauthenticate();
+      const authEmail = await reauthenticate();
 
-      if (!isReauthenticated) {
+      if (!authEmail) {
         message.error("Reauthentication failed. Please try again.");
         return;
       }
 
-      // If reauthentication is successful, proceeding to delete the account
       Modal.confirm({
         title: "Confirm Delete",
         content:
-          "This action will delete your reviews as well. Are you sure you want to delete your account?",
+          "Please note that deleting your account won't remove your reviews. Delete them manually before proceeding. Are you sure you want to delete your account?",
         okButtonProps: { className: "bg-rose-600 text-white" },
         onOk: async () => {
-          try {
-            deleteAllReviewsForUser(userId);
+          // authEmail is already set by reauthenticate
+          await handleDeleteReviewer();
+          // Delete auth after successfully deleting the reviewer
+          const authDeleted = await handleDeleteAuth();
 
-            // Delete auth
-            await auth.currentUser.delete();
-
-            // Delete user account from firestore
-            await deleteUser(email);
-
-            // Clear session storage
+          if (authDeleted) {
             sessionStorage.clear();
-
-            // Logout the user
-            auth.signOut();
-
-            // Close the modal
-            hideModal();
-          } catch (error) {
-            console.error("Error deleting account:", error);
+            message.success("Your account was successfully deleted.");
+          } else {
+            // Handle the case where deleting the auth fails
+            message.error("Your account could not be deleted.");
           }
         },
         onCancel: () => {},
       });
     } catch (error) {
       message.error("Error during reauthentication:", error);
+    }
+  };
+
+  const handleDeleteReviewer = async () => {
+    try {
+      await deleteUser(email);
+      console.log("deleted useer");
+    } catch (error) {
+      console.error("Error deleting reviewer:", error);
+    }
+  };
+
+  const handleDeleteAuth = async () => {
+    try {
+      await getAuth().currentUser.delete();
+      return true;
+    } catch (error) {
+      console.error("Error deleting reviewer:", error);
+      return false;
     }
   };
 

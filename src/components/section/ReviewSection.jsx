@@ -13,9 +13,9 @@ import { useEffect, useState } from "react";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { formatDistanceToNow } from "date-fns";
-import MyReviews from "../reviewsItems/MyReviews";
 import PrivacyPolicyDrawer from "./PrivacyPolicyDrawer";
 import AddReview from "../reviewsItems/AddReview";
+import MyReviews from "../ReviewsItems/MyReviews";
 
 const ReviewSection = () => {
   const { reviews } = useReviews();
