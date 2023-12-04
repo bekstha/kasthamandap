@@ -76,6 +76,7 @@ const ReservationSection = () => {
         guestCount,
         reservationDate,
         reservationTime,
+        status: "pending",
       });
 
       const response = await POST("email/response", {

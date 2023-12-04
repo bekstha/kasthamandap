@@ -11,6 +11,9 @@ export default (
       path="/reservation/:reservationID/:decision"
       element={<ReservationDecision />}
     />
-    <Route path="/cancel/:reservationID" element={<CancelPage />} />
+    <Route
+      path="/cancel/confirmation/:reservationID"
+      element={<CancelPage />}
+    />
   </Routes>
 );

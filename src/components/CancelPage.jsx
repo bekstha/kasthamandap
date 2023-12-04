@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Navigate } from "react-router-dom";
-import { deleteDoc, doc } from "firebase/firestore";
+import { useParams, useNavigate } from "react-router-dom";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import useReservation from "../hooks/useReservation";
 import { db } from "../config/firebase";
 
@@ -8,13 +8,18 @@ const CancelPage = () => {
   const { reservationID } = useParams();
   const { reservations } = useReservation(reservationID);
   const [cancellationComplete, setCancellationComplete] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(true);
+  const navigate = useNavigate();
 
   const handleCancel = async () => {
     try {
-      await deleteDoc(doc(db, "Reservations", reservationID));
+      await updateDoc(doc(db, "Reservations", reservationID), {
+        status: "canceled",
+      });
+      console.log({ sks: "this is it." });
       setCancellationComplete(true);
       setTimeout(() => {
-        Navigate("/");
+        navigate("/");
       }, 2000);
     } catch (error) {
       console.error("Error cancelling reservation:", error);
@@ -23,7 +28,8 @@ const CancelPage = () => {
 
   const handleNo = () => {
     setCancellationComplete(false);
-    Navigate("/");
+    setShowConfirmation(false);
+    navigate("/");
   };
   return (
     <div>

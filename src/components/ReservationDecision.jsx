@@ -32,6 +32,7 @@ const ReservationDecision = () => {
           reservationTime: reservations?.reservationTime,
           phoneNumber: reservations?.phoneNumber,
           guestCount: reservations?.guestCount,
+          reservationID,
           emailType: "booking-accept",
         });
       }
