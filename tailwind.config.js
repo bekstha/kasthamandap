@@ -32,7 +32,7 @@ export default {
       },
       backgroundImage: {
         "hero-section": "url('./assets/images/spices2.jpg')",
-        "about-menu": "url('./assets/images/nepali_spices.jpeg')",
+        "menu-section": "url('./assets/images/nepali_spices.jpeg')",
         "reservation-section": "url('./assets/images/thakali.png')",
       },
     },

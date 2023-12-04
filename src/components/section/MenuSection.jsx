@@ -37,11 +37,11 @@ const MenuSection = () => {
   }, [today]);
 
   return (
-    <Section id="menu" sectionClass="h-[65vh] h-screen flex items-center justify-center max-w-screen bg-hero-section bg-cover bg-center">
+    <Section id="menu" sectionClass="h-[65vh] h-screen flex items-center justify-center max-w-screen bg-menu-section bg-cover bg-center">
       <Overlay color="bg-black/80" />
       <div className="relative text-center max-w-4xl mx-auto">
         <SectionTitle label="Our Menu" />
-        <p className="text-lg">
+        <p className="mt-4  text-lg md:text-2xl text-justify">
           All dishes include basmati rice, naan bread and a dash of sauce. The
           food can be increased if heat is needed. Remember to inform the staff
           about allergies. l= Lactose-free (the raita sauce and naan bread
@@ -53,7 +53,7 @@ const MenuSection = () => {
         <div className="flex flex-col md:flex-row items-center justify-center md:gap-16">
           <a
             onClick={() => showModal("Lunch")}
-            className="px-10 py-2 inline-block bg-orange-500 text-white font-bold text-xl hover:bg-orange-700 transition-colors mt-10 rounded"
+            className="px-10 py-2 inline-block bg-transparent text-white border border-white-400 font-bold text-xl hover:bg-orange-700 hover:cursor-pointer hover:border-orange-700 transition-colors mt-10 rounded"
             target="_blank"
             rel="noopener noreferrer"
             style={{ maxWidth: "200px" }}
@@ -63,7 +63,7 @@ const MenuSection = () => {
           </a>
           <a
             onClick={() => showModal("Alacarte")}
-            className="px-10 py-2 inline-block bg-orange-500 text-white font-bold text-xl hover:bg-orange-700 transition-colors mt-10 rounded"
+            className="px-10 py-2 inline-block bg-transparent text-white border border-white-400 font-bold text-xl hover:bg-orange-700 hover:cursor-pointer hover:border-orange-700 transition-colors mt-10 rounded"
             target="_blank"
             rel="noopener noreferrer"
             style={{ maxWidth: "200px" }}
@@ -74,7 +74,7 @@ const MenuSection = () => {
           {isToday && (
             <a
               onClick={() => showModal("Special Menu")}
-              className="px-10 py-2 inline-block bg-orange-500 text-white font-bold text-xl hover:bg-orange-700 transition-colors mt-10 rounded"
+              className="px-10 py-2 inline-block bg-transparent text-white border border-white-400 font-bold text-xl hover:bg-orange-700 hover:cursor-pointer hover:border-orange-700 transition-colors mt-10 rounded"
               target="_blank"
               rel="noopener noreferrer"
               style={{ maxWidth: "250px" }}

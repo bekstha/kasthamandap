@@ -1,4 +1,4 @@
-import { Modal, Rate, Tooltip, message } from "antd";
+import { Button, ConfigProvider, Modal, Rate, Tooltip, message } from "antd";
 import { useContext, useState } from "react";
 import {
   LanguageDetector,
@@ -7,11 +7,11 @@ import {
 } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-text@0.10.0";
 import { InputLabel, Textarea } from "../ui/Input";
 import ButtonGroup from "../ui/ButtonGroup";
-import Button from "../ui/Button";
 import InfoIcon from "@mui/icons-material/Info";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import useReviews from "../../hooks/useReviews";
 import { MainContext } from "../../context/MainContext";
+import CustomButton from "../ui/CustomButton";
 
 const AddReview = ({ displayName, userId, userEmail }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,8 +20,16 @@ const AddReview = ({ displayName, userId, userEmail }) => {
   const [manualRating, setManualRating] = useState(0);
   const { addReview } = useReviews();
 
+  const resetForm = () => {
+    setManualRating(0);
+    setReview("");
+  };
+
   const showModal = () => setIsOpen(true);
-  const hideModal = () => setIsOpen(false);
+  const hideModal = () => {
+    setIsOpen(false);
+    resetForm();
+  };
 
   const { textClassifier, languageDetector } = useContext(MainContext);
 
@@ -40,11 +48,11 @@ const AddReview = ({ displayName, userId, userEmail }) => {
 
   const handleClassifyClick = async () => {
     if (review === "") {
-      alert("Please fill the review section.");
+      message.warning("Please fill the review section.");
       return;
     }
     if (!textClassifier || !languageDetector) {
-      console.error("Text classifier or language detector is not initialized");
+      // console.error("Text classifier or language detector is not initialized");
       return;
     }
     try {
@@ -57,8 +65,6 @@ const AddReview = ({ displayName, userId, userEmail }) => {
       const result = await textClassifier.classify(review, {
         displayNamesLocale: detectedLanguage,
       });
-
-      console.log("Detected result:", result.classifications[0].categories);
 
       // Find the category with the name "positive"
       const positiveCategory = result.classifications[0].categories.find(
@@ -82,7 +88,9 @@ const AddReview = ({ displayName, userId, userEmail }) => {
 
   const handleSubmit = async () => {
     if (review.trim() === "" || !(manualRating > 0 && manualRating <= 5)) {
-      message.warning("Please fill the review section and provide a valid rating.");
+      message.warning(
+        "Please fill the review section and provide a valid rating."
+      );
       return;
     }
 
@@ -120,15 +128,25 @@ const AddReview = ({ displayName, userId, userEmail }) => {
         onCancel={hideModal}
         width={350}
         footer={() => (
-          <ButtonGroup className="!mt-6">
-            <Button className="flex-1" onClick={handleClassifyClick}>
+          <ButtonGroup className="flex-col md:flex-row mt-10">
+            <Button
+              outlined="true"
+              className="flex-1 mt-6 md:mt-0 md:mr-2"
+              onClick={handleClassifyClick}
+              style={{
+                "&:hover": {
+                  color: "#c91212",
+                },
+              }}
+            >
               Auto rate
             </Button>
+
             <Button
               className={`flex-1 ${
                 isSubmitDisabled()
                   ? "opacity-50 cursor-not-allowed"
-                  : "hover:bg-gray-800"
+                  : "bg-green-500 text-white"
               }`}
               onClick={handleSubmit}
               disabled={isSubmitDisabled()}
@@ -147,7 +165,10 @@ const AddReview = ({ displayName, userId, userEmail }) => {
               value={manualRating}
               onChange={handleManualRatingChange}
             />{" "}
-            <Tooltip title="You can either manually set a rating or use our AI model below to generate a rating based on your review.">
+            <Tooltip
+              title="You can either manually set a rating or use our AI model below to generate a rating based on your review."
+              placement="bottom"
+            >
               <InfoIcon className="hover:cursor-pointer" />
             </Tooltip>
           </div>
