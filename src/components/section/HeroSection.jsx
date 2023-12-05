@@ -17,18 +17,20 @@ const HeroSection = () => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
+  console.log(isToday);
+
   useEffect(() => {
     for (let i = 0; i < specialMenu.length; i++) {
-      const fetchedDateObject = new Date(specialMenu[i].end_date);
-      fetchedDateObject.setHours(0, 0, 0, 0);
+      const startDate = new Date(specialMenu[i].start_date);
+      const endDate = new Date(specialMenu[i].end_date);
 
-      if (fetchedDateObject > today) {
-        console.log("Fetched date is in the future");
-      } else if (fetchedDateObject < today) {
-        console.log("Fetched date is in the past");
-      } else {
+      startDate.setHours(0, 0, 0, 0);
+      endDate.setHours(0,0,0,0);
+
+      if (startDate <= today && today <= endDate) {
         setIsToday(true)
-        setTodaysSpecial(specialMenu[i])
+      } else  {
+        console.log("Fetched date is not within range");
       }
     }
   }, [today]);
@@ -95,7 +97,6 @@ const HeroSection = () => {
             </p>
           </div>
         )}
-        
       </Slider>
     </Section>
   );
