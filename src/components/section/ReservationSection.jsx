@@ -104,7 +104,7 @@ const ReservationSection = () => {
   };
 
   return (
-    <Section sectionClass="bg-reservation-section">
+    <Section id='reservation' sectionClass="bg-reservation-section">
       <Overlay color="bg-black/80" />
       <div className="relative max-w-md mx-auto p-6 rounded-2xl bg-white/20 shadow-lg shadow-[rgba(0,0,0,0.1)] backdrop-blur">
         {/* <SectionTitle label="Reserve a table" /> */}
