@@ -12,6 +12,12 @@ const Banner = () => {
     today.setHours(0, 0, 0, 0);
     const { specialMenu } = useSpecialMenu();
 
+    const handleClick = () => {
+      // Navigate to the specified URL when the Alert is clicked
+      window.location.href = '#menu';
+    };
+  
+
     useEffect(() => {
         for (let i = 0; i < specialMenu.length; i++) {
           const startDate = new Date(specialMenu[i].start_date);
@@ -30,18 +36,18 @@ const Banner = () => {
       }, [today]);
 
     return (
-        <a 
-          href='#menu'
-          onClick={() => console.log("Clicked")}
+        <div
           className='absolute fixed top-0 w-full lg:w-2/3 text-xl justify-center px-3 cursor-pointer'>
             {isToday && (
               <div className='text-center'>
                 <Alert
-                  className={'text-white bg-orange-500'}
+                  className={'text-white bg-orange-500 '}
                   style={{borderRadius: '0 0 20px 20px', fontSize: '18px'}}
                   message={
                     <Marquee pauseOnHover gradient={false}>
-                      {description} 
+                      <p onClick={handleClick}>
+                        {description} 
+                      </p>
                     </Marquee>
                   }
                   showIcon={false}
@@ -50,7 +56,7 @@ const Banner = () => {
               />
               </div>
             )}
-        </a>
+        </div>
     )
 };
 
