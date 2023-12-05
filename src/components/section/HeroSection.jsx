@@ -29,6 +29,7 @@ const HeroSection = () => {
 
       if (startDate <= today && today <= endDate) {
         setIsToday(true)
+        setTodaysSpecial(specialMenu[0])
       } else  {
         console.log("Fetched date is not within range");
       }
@@ -92,8 +93,8 @@ const HeroSection = () => {
             <h1 className="text-3xl md:text-8xl font-extrabold font-cursive leading-tight">
                 {todaysSpecial.title}
             </h1>
-            <p className="mt-4 text-base md:text-4xl font-cursive">
-              Special Menu available today. Check menu to see the available dishes.
+            <p className="mt-4 text-sm md:text-4xl font-cursive">
+            {todaysSpecial.message}
             </p>
           </div>
         )}
