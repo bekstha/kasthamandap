@@ -87,15 +87,15 @@ const ReviewSection = () => {
   };
 
   return (
-    <Section sectionClass="bg-white text-black text-center flex flex-col items-center gap-3">
+    <Section sectionClass="bg-white text-black text-center flex flex-col items-center gap-3 sm:mx-2">
       <SectionTitle label="Review" />
 
-      <div className="h-64 flex justify-center items-center my-20">
+      <div className="h-64 flex justify-center flex-col items-center my-20 ">
         {reviews?.length > 0 ? (
           <Slider>
             {reviews?.map((review, index) => (
-              <div key={index} className="h-64 my-10 mb-10 text-center">
-                <div className="mx-5 h-full px-3 md:px-8 py-6 flex flex-col gap-2 items-center justify-between rounded-xl shadow-md bg-gray-50">
+              <div key={index} className="h-64  my-10 mb-10 text-center">
+                <div className="mx-10 h-full px-3 md:px-8 py-6 flex flex-col gap-2 items-center justify-between rounded-xl shadow-md bg-gray-50">
                   {review?.rating !== undefined && review?.rating !== null && (
                     <Rate allowHalf disabled value={review.rating} />
                   )}
