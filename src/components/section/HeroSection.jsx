@@ -93,7 +93,7 @@ const HeroSection = () => {
             <h1 className="text-3xl md:text-8xl font-extrabold font-cursive leading-tight">
                 {todaysSpecial.title}
             </h1>
-            <p className="mt-4 text-sm md:text-4xl font-cursive">
+            <p className="mt-4 text-xs md:text-4xl font-cursive">
             {todaysSpecial.message}
             </p>
           </div>
