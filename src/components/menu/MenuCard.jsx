@@ -1,5 +1,4 @@
-import Card from "./ui/Card";
-import CardTitle from "./ui/CardTitle";
+import {Card, CardTitle} from "../ui/Card";
 
 const MenuCard = ({ name }) => {
 

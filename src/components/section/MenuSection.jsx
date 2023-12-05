@@ -1,11 +1,11 @@
-import { Section, SectionTitle } from "./ui/Section";
-import Overlay from "./ui/Overlay";
+import { Section, SectionTitle } from "../ui/Section";
+import Overlay from "../ui/Overlay";
 import { useEffect, useState } from "react";
-import PopUp from "./PopUp";
-import useSpecialMenu from "../hooks/useSpecialMenu";
+import useSpecialMenu from "../../hooks/useSpecialMenu";
+import MenuModal from "../menu/MenuModal";
 
 const MenuSection = () => {
-  const [openPopup, setOpenPopup] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [dishType, setDishType] = useState("");
   const { specialMenu } = useSpecialMenu();
   const [todaysSpecial, setTodaysSpecial] = useState([]);
@@ -13,35 +13,32 @@ const MenuSection = () => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const handleClick = (name) => {
-    // Handle the card click event here
-    console.log(name);
-    setDishType(name);
-    setOpenPopup(true);
+  const showModal = (type) => {
+    setDishType(type);
+    setIsOpen(true);
   };
+
+  const hideModal = () => setIsOpen(false);
 
   useEffect(() => {
     for (let i = 0; i < specialMenu.length; i++) {
-      const fetchedDateObject = new Date(specialMenu[i].day);
-      fetchedDateObject.setHours(0, 0, 0, 0);
+      const startDate = new Date(specialMenu[i].start_date);
+      const endDate = new Date(specialMenu[i].end_date);
 
-      if (fetchedDateObject > today) {
-        console.log("Fetched date is in the future");
-      } else if (fetchedDateObject < today) {
-        console.log("Fetched date is in the past");
-      } else {
+      startDate.setHours(0, 0, 0, 0);
+      endDate.setHours(0,0,0,0);
+
+      if (startDate <= today && today <= endDate) {
         setIsToday(true)
-        setTodaysSpecial(specialMenu[i])
+        setTodaysSpecial(specialMenu[0])
+      } else  {
+        console.log("Fetched date is not within range");
       }
     }
   }, [today]);
 
-  console.log(todaysSpecial);
-
-  const HandleRemovePopUp = () => setOpenPopup(false);
-
   return (
-    <Section id="menu" sectionClass="h-[65vh] lg:h-screen flex items-center justify-center max-w-screen bg-hero-section bg-cover bg-center">
+    <Section id="menu" sectionClass="h-[65vh] h-screen flex items-center justify-center max-w-screen bg-hero-section bg-cover bg-center">
       <Overlay color="bg-black/80" />
       <div className="relative text-center max-w-4xl mx-auto">
         <SectionTitle label="Our Menu" />
@@ -53,15 +50,10 @@ const MenuSection = () => {
           bread included in the portions contains gluten.) v= Vegan (It is
           possible to get the serving as vegan.)
         </p>
-        {/*         <ButtonGroup>
-          <Button outlined className="w-48" onClick={handleClick("Alacarte")}>
-            A La Carte
-          </Button>
-          <Button className="w-48" onClick={handleClick("Lunch")}>Lunch Menu</Button>
-        </ButtonGroup> */}
+        
         <div className="flex flex-col md:flex-row items-center justify-center md:gap-16">
           <a
-            onClick={() => handleClick("Lunch")}
+            onClick={() => showModal("Lunch")}
             className="px-10 py-2 inline-block bg-orange-500 text-white font-bold text-xl hover:bg-orange-700 transition-colors mt-10 rounded"
             target="_blank"
             rel="noopener noreferrer"
@@ -71,8 +63,8 @@ const MenuSection = () => {
             Lunch Menu{" "}
           </a>
           <a
-            onClick={() => handleClick("Alacarte")}
-            className="px-10 py-2 inline-block  bg-orange-500 text-white font-bold text-xl hover:bg-orange-700 transition-colors mt-10 rounded"
+            onClick={() => showModal("Alacarte")}
+            className="px-10 py-2 inline-block bg-orange-500 text-white font-bold text-xl hover:bg-orange-700 transition-colors mt-10 rounded"
             target="_blank"
             rel="noopener noreferrer"
             style={{ maxWidth: "200px" }}
@@ -82,22 +74,22 @@ const MenuSection = () => {
           </a>
           {isToday && (
             <a
-              onClick={() => handleClick("Special")}
+              onClick={() => showModal("Special Menu")}
               className="px-10 py-2 inline-block bg-orange-500 text-white font-bold text-xl hover:bg-orange-700 transition-colors mt-10 rounded"
               target="_blank"
               rel="noopener noreferrer"
               style={{ maxWidth: "250px" }}
             >
               {" "}
-              Today's Special{" "}
+              Special Menu{" "}
           </a>
           )}
         </div>
       </div>
       <div>
-        <PopUp
-          openPopUp={openPopup}
-          closePopUp={HandleRemovePopUp}
+        <MenuModal
+          isOpen={isOpen} 
+          hideModal={hideModal}
           dishType={dishType}
           special={todaysSpecial}
         />

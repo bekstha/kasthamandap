@@ -1,23 +1,22 @@
-import OpeningHours from "./OpeningHours";
-import Contact from "./Contact";
-
-import logo from "../assets/images/temple_n_fork_n_spoon_II.svg";
+import OpeningHours from "../utils/OpeningHours";
+import Contact from "../utils/Contact";
+import logo from "../../assets/images/resturantlogo.png";
 
 const FooterItemTitle = ({ label }) => (
-  <h3 className="py-4 text-xl font-semibold">{label}</h3>
+  <h3 className="py-4 text-xl font-semibold text-black">{label}</h3>
 );
 
 const Footer = () => {
   const googleMapsUrl =
     "https://www.google.com/maps/dir/?api=1&destination=60.4666° N, 26.9442° E";
   return (
-    <footer id="contact-us" className="max-container bg-black/80 md:pt-10">
+    <footer id="contact-us" className="max-container bg-white md:pt-10">
       <div className="lg:flex justify-between gap-8 pb-6 md:pb-10">
-        <div className="flex justify-center md:block md:w-40">
+        <div className="flex justify-center lg:block lg:w-80">
           <img
             src={logo}
             alt="Kasthamandap logo"
-            className="w-20 object-contain"
+            className="w-45 md:h-80 object-contain mt-20"
           />
         </div>
         <div className="flex-1 mt-6 md:mt-0">
@@ -36,25 +35,25 @@ const Footer = () => {
             href={googleMapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-md overflow-hidden  h-10 md:h-7 block text-sm"
+            className="rounded-md overflow-hidden  h-10 md:h-7 block text-sm text-black"
           >
             Get Directions on Google Maps
           </a>
         </div>
-        <div className="mt-6 md:mt-0">
-          <FooterItemTitle label="Opening hours" />
-          <OpeningHours />
 
+        <div className="mt-6 lg:mt-0 md:flex gap-12 justify-between lg:block">
+          <div className="mt-6 lg:mt-0">
+            <FooterItemTitle label="Opening hours" />
+            <OpeningHours />
+          </div>
           <div className="mt-6">
-            <FooterItemTitle title="Contact us" />
-            <span className="block font-light">
-              <Contact />
-            </span>
+            <FooterItemTitle label="Contact us" />
+            <Contact />
           </div>
         </div>
       </div>
-      <hr className="border-white/30" />
-      <p className="py-6 md:py-10 text-center">
+      <hr className="border-black/30" />
+      <p className="py-6 md:py-10 text-center text-black">
         &copy; 2023. All Rights Reserved.
       </p>
     </footer>

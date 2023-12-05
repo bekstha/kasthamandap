@@ -1,6 +1,6 @@
 import React from "react";
 
-const btnClasses = "w-36 md:w-48 text-lg rounded-md duration-200";
+const btnClasses = "w-28 md:w-32 text-lg rounded-md duration-200";
 
 const colors = {
   blue: "border-blue-600 bg-blue-600 hover:bg-blue-500 hover:border-blue-500",
@@ -48,7 +48,7 @@ const Button = ({
       title={title}
       className={`border-2 ${btnClasses} ${colorClasses} ${sizeClasses} ${
         outlined
-          ? "bg-transparent hover:bg-transparent hover:!text-orange-500"
+          ? "bg-transparent hover:bg-red-500 hover:!text-white"
           : ""
       } ${className}`}
       onClick={() => onClick && onClick()}

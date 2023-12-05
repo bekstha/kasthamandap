@@ -1,13 +1,13 @@
 import { useState } from "react";
 
-import { Input, InputLabel } from "./ui/Input";
-import Overlay from "./ui/Overlay";
-import { Section } from "./ui/Section";
+import { Input, InputLabel } from "../ui/Input";
+import Overlay from "../ui/Overlay";
+import { Section } from "../ui/Section";
 
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "../config/firebase";
-import Button from "./ui/Button";
-import { POST } from "../services/sendEmail";
+import { db } from "../../config/firebase";
+import Button from "../ui/Button";
+import { POST } from "../../services/sendEmail";
 
 const ReservationSection = () => {
   const [state, setState] = useState({
@@ -109,7 +109,7 @@ const ReservationSection = () => {
   };
 
   return (
-    <Section sectionClass="bg-reservation-section">
+    <Section id='reservation' sectionClass="bg-reservation-section">
       <Overlay color="bg-black/80" />
       <div className="relative max-w-md mx-auto p-6 rounded-2xl bg-white/20 shadow-lg shadow-[rgba(0,0,0,0.1)] backdrop-blur">
         {/* <SectionTitle label="Reserve a table" /> */}
@@ -152,7 +152,7 @@ const ReservationSection = () => {
             />
           </div>
           <div className="mt-2">
-            <InputLabel label="How many guest are you bringing?" />
+            <InputLabel label="Total number of guests" />
             <Input
               type="number"
               placeholder="1"
@@ -184,6 +184,13 @@ const ReservationSection = () => {
           <Button className="md:w-full w-full mt-8" disabled={isLoading}>
             {isLoading ? "Submitting..." : "Submit Reservation"}
           </Button>
+          <div className="h-3"></div>
+          <div style={{ display: "inline" }}>
+            <a href="#contact-us" style={{ color: "orange" }}>
+              Contact us
+            </a>
+            <p style={{ display: "inline" }}> for guests more than 14</p>
+          </div>
         </form>
       </div>
     </Section>

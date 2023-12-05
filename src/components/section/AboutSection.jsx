@@ -1,5 +1,5 @@
-import OpeningHours from "./OpeningHours";
-import { Section, SectionTitle } from "./ui/Section";
+import OpeningHours from "../utils/OpeningHours";
+import { Section, SectionTitle } from "../ui/Section";
 
 const AboutSection = () => {
   return (
@@ -26,10 +26,10 @@ const AboutSection = () => {
         where you can enjoy delicious Nepalese food with friends and family.
       </p>
 
-      <div className="py-8">
-          <h3 className="font-bold text-center text-2xl mb-5">Opening hours</h3>
-          <OpeningHours />
-        </div>
+      <div className="py-8 ">
+        <h3 className="font-bold text-center text-2xl mb-5">Opening hours</h3>
+        <OpeningHours />
+      </div>
     </Section>
   );
 };

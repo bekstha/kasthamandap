@@ -1,16 +1,12 @@
 import Navbar from "./components/navigation/Navbar";
-import Banner from "./components/Banner";
-import Footer from "./components/Footer";
-
-import routes from "./routes";
-
+import Footer from "./components/section/Footer";
 import "./App.css";
-import AboutSection from "./components/AboutSection";
-import HeroSection from "./components/HeroSection";
-import MenuSection from "./components/MenuSection";
-import ReviewSection from "./components/ReviewSection";
-import ReservationSection from "./components/ReservationSection";
-import CancelPage from "./components/CancelPage";
+import Banner from "./components/ui/Banner";
+import HeroSection from "./components/section/HeroSection";
+import AboutSection from "./components/section/AboutSection";
+import MenuSection from "./components/section/MenuSection";
+import ReservationSection from "./components/section/ReservationSection";
+import ReviewSection from "./components/section/ReviewSection";
 
 const App = () => {
   return (
