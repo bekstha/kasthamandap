@@ -38,11 +38,18 @@ const CancelPage = () => {
           {cancellationComplete ? (
             <p>Cancellation complete. Redirecting...</p>
           ) : (
-            <>
-              <p>Are you sure you want to cancel?</p>
-              <button onClick={handleCancel}>Yes</button>
-              <button onClick={handleNo}>No</button>
-            </>
+            <Section id="reservation" sectionClass="bg-reservation-section">
+              <Overlay color="bg-black/80" />
+              <div className="relative max-w-md mx-auto p-6 rounded-2xl bg-white/20 shadow-lg shadow-[rgba(0,0,0,0.1)] backdrop-blur">
+                <p className="font-bold text-xl mb-6 text-center">
+                  Are you sure you want to cancel?
+                </p>
+                <div className="flex items-center justify-between gap-4">
+                  <Button onClick={handleCancel}>Yes</Button>
+                  <Button onClick={handleNo}>No</Button>
+                </div>
+              </div>
+            </Section>
           )}
         </div>
       ) : (

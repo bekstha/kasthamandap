@@ -1,24 +1,18 @@
 import Navbar from "./components/navigation/Navbar";
 import Footer from "./components/section/Footer";
+import routes from "./routes";
 import "./App.css";
 import Banner from "./components/ui/Banner";
-import HeroSection from "./components/section/HeroSection";
-import AboutSection from "./components/section/AboutSection";
-import MenuSection from "./components/section/MenuSection";
-import ReservationSection from "./components/section/ReservationSection";
-import ReviewSection from "./components/section/ReviewSection";
-
+import HomePage from "./components/HomePage";
 const App = () => {
   return (
     <>
       <Navbar />
       <Banner />
-      <HeroSection />
-      <AboutSection />
-      <MenuSection />
-      <ReviewSection />
-      <ReservationSection />
-      <main className="overflow-x-hidden">{routes}</main>
+      <main className="overflow-x-hidden">
+        {routes}
+        <HomePage />
+      </main>
       <Footer />
     </>
   );

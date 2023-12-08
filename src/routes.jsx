@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-
 import HomePage from "./components/HomePage";
-import ReservationDecision from "./components/ReservationDecision";
+import ReservationDecision from "./components/utils/ReservationDecision";
 import CancelPage from "./components/CancelPage";
 
 export default (

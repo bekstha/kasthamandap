@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { updateDoc, doc } from "firebase/firestore";
 
-import useReservation from "../hooks/useReservation";
-import { db } from "../config/firebase";
-import { POST } from "../services/sendEmail";
+import useReservation from "../../hooks/useReservation";
+import { db } from "../../config/firebase";
+import { POST } from "../../services/sendEmail";
 
 const ReservationDecision = () => {
   const params = useParams();

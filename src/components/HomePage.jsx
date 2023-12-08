@@ -1,8 +1,8 @@
-import HeroSection from "./HeroSection";
-import AboutSection from "./AboutSection";
-import MenuSection from "./MenuSection";
-import ReviewSection from "./ReviewSection";
-import ReservationSection from "./ReservationSection";
+import HeroSection from "./section/HeroSection";
+import AboutSection from "./section/AboutSection";
+import MenuSection from "./section/MenuSection";
+import ReviewSection from "./section/ReviewSection";
+import ReservationSection from "./section/ReservationSection";
 
 const HomePage = () => {
   return (
