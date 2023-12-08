@@ -156,34 +156,6 @@ const ReviewSection = () => {
         </>
       ) : (
         <>
-          {/*           <Popconfirm
-            title={
-              <span>
-                Agree to{" "}
-                <span
-                  style={{ color: "blue", cursor: "pointer" }}
-                  onClick={() => {
-                    setPrivacyPolicyVisible(true);
-                    setPopconfirmVisible(false);
-                  }}
-                >
-                  terms and conditions
-                </span>
-              </span>
-            }
-            description="Before signing in, please agree to terms and conditions."
-            onConfirm={showSignIn}
-            okText="Agree"
-            cancelText="Cancel"
-            open={popconfirmVisible}
-            onOpenChange={(visible) => setPopconfirmVisible(visible)}
-            okButtonProps={{
-              style: { background: "green", color: "white" },
-            }}
-            cancelButtonProps={{
-              style: { background: "red", color: "white" },
-            }}
-          > */}
           <button
             type="button"
             onClick={showSignIn}
@@ -205,9 +177,7 @@ const ReviewSection = () => {
               ></path>
             </svg>
             Sign in with Google
-          </button>
-          {/*           </Popconfirm>
-           */}{" "}
+          </button>{" "}
           <p>
             By signing in, you agree with our{" "}
             <span

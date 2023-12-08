@@ -1,7 +1,11 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
-
+import {
+  getAuth,
+  GoogleAuthProvider,
+  setPersistence,
+  browserSessionPersistence,
+} from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBW9lhlIzhSsU6lcwQSi6iP_zvdzKLPCAo",
@@ -10,13 +14,15 @@ const firebaseConfig = {
   storageBucket: "kasthamandap-cdfd4.appspot.com",
   messagingSenderId: "1081740869330",
   appId: "1:1081740869330:web:4ac36754773302d327770b",
-  measurementId: "G-J90358NT9J"
+  measurementId: "G-J90358NT9J",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app)
+const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-export {auth, provider}
+setPersistence(auth, browserSessionPersistence);
+
+export { auth, provider };
 export const db = getFirestore(app);

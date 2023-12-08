@@ -177,7 +177,7 @@ const ReservationSection = () => {
             </div>
           </div>
           <Button className="md:w-full w-full mt-8" disabled={isLoading}>
-            {isLoading ? "Submitting..." : "Submit Reservation"}
+            {isLoading ? "Sending request..." : "Request a Reservation"}
           </Button>
           <div className="h-3"></div>
           <div style={{ display: "inline" }}>
