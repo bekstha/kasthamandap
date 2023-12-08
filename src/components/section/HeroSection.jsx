@@ -43,7 +43,7 @@ const HeroSection = () => {
           <h1 className="text-2xl md:text-8xl font-extrabold font-cursive leading-tight">
             Welcome to Kasthamandap
           </h1>
-          <p className="mt-4 text-base text-sm md:text-3xl font-cursive">
+          <p className="mt-4 text-base md:text-3xl font-cursive">
             Experience the Flavors of Nepal in the Heart of Kotka
           </p>
         </div>
