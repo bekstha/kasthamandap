@@ -8,11 +8,22 @@ import Divider from "../ui/Divider";
 const MenuCardItems = ({ itemName }) => {
   const { alaCarte } = useFoodMenu();
 
+  const checkGLP = (itemName) => {
+    const components = [];
+  
+    if (itemName.gluten_free) components.push("G");
+    if (itemName.lactose_free) components.push("L");
+    if (itemName.nut_free) components.push("P");
+  
+    return `(${components.join(', ')})`;
+  };
+
   const DishItems = ({ dishName, index }) => {
+    const valueGLP = checkGLP(dishName);
     return (
       <React.Fragment key={index}>
         <div className="bg-slate-100 p-3 mt-6 border shadow-md rounded-lg h-24">
-          <CardHeader dish={dishName.title} price={dishName.price + `\u20AC`} />
+          <CardHeader dish={dishName.title + " " + valueGLP} price={dishName.price + `\u20AC`} />
           <Divider />
           <CardBody desc={dishName.description} />
         </div>
