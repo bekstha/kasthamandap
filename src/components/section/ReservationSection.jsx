@@ -179,6 +179,13 @@ const ReservationSection = () => {
           <Button className="md:w-full w-full mt-8" disabled={isLoading}>
             {isLoading ? "Submitting..." : "Submit Reservation"}
           </Button>
+          <div className="h-3"></div>
+          <div style={{ display: "inline" }}>
+            <a href="#contact-us" style={{ color: "orange" }}>
+              Contact us
+            </a>
+            <p style={{ display: "inline" }}> for guests more than 14</p>
+          </div>
         </form>
       </div>
     </Section>
