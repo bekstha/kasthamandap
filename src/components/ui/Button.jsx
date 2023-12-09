@@ -5,11 +5,11 @@ const colors = {
   orange:
     "border-orange-600 bg-orange-600 hover:bg-orange-500 hover:border-orange-500 text-white",
   pink: "border-pink-600 bg-pink-600 hover:bg-pink-500 hover:border-pink-500",
-  red: "border-red-600 bg-red-600", 
+  red: "border-red-600 bg-red-600 hover:bg-red-500 hover:border-red-500", 
 };
 
 const hoverCases = {
-  red:" hover:bg-red-500 hover:border-red-500",
+  red:"hover:bg-red-500 hover:border-red-500",
   green:"hover:bg-green-500 hover:border-green-500",
   orange:"hover:bg-orange-500 hover:border-orange-500"
 }
@@ -57,7 +57,7 @@ const Button = ({
       title={title}
       className={`border ${btnClasses} ${colorClasses} ${sizeClasses} ${
         outlined
-        ? `bg-transparent ${hoverClasses} ${
+        ? `${hoverClasses} ${
           disabled ? '' : 'hover:!text-white'
         }`
       : ''

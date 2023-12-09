@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Rate, Tooltip, Modal } from "antd";
+import { Rate, Tooltip, Modal, message } from "antd";
 import DeleteIcon from "@mui/icons-material/Delete";
 import useReviews from "../../hooks/useReviews";
 import EditReview from "./EditReview";
@@ -28,6 +28,7 @@ const ReviewItems = ({
     try {
       setIsDeleting(true);
       await deleteReview(reviewId);
+      message.success("Your review has been deleted successfully.")
     } catch (error) {
       console.error("Error deleting review:", error);
     } finally {

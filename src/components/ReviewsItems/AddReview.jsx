@@ -172,7 +172,7 @@ const AddReview = ({ displayName, userId, userEmail }) => {
               onChange={handleManualRatingChange}
             />{" "}
             <Tooltip
-              title="You can either manually set a rating or use our AI model below to generate a rating based on your review."
+              title="You have the choice to set a rating manually or use our AI model below for a quick suggestion. Keep in mind that the AI-generated rating may not capture all nuances. Feel free to rearrange the rating based on your true evaluation, even after using the AI model."
               placement="bottom"
             >
               <InfoIcon className="hover:cursor-pointer" />
