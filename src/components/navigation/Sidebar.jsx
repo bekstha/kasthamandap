@@ -1,5 +1,3 @@
-import React from "react";
-
 import NavToggler from "./NavToggler";
 
 const Sidebar = ({ children, showMenu = true, toggleMenu }) => {

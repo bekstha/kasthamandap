@@ -17,7 +17,7 @@ const MainProvider = ({ children }) => {
         );
         const detector = await LanguageDetector.createFromOptions(text, {
           baseOptions: {
-            modelAssetPath: "/src/assets/language_detector.tflite",
+            modelAssetPath: `https://storage.googleapis.com/mediapipe-models/language_detector/language_detector/float32/1/language_detector.tflite`,
           },
         });
         setLanguageDetector(detector);
@@ -33,7 +33,7 @@ const MainProvider = ({ children }) => {
         );
         const classifier = await TextClassifier.createFromOptions(text, {
           baseOptions: {
-            modelAssetPath: "/src/assets/bert_classifier.tflite",
+            modelAssetPath: `https://storage.googleapis.com/mediapipe-models/text_classifier/bert_classifier/float32/1/bert_classifier.tflite`,
           },
           maxResults: 5,
         });

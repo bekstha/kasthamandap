@@ -1,21 +1,17 @@
-import React from "react";
-
 import { navLinks } from "../../constants";
-import { useNavigate } from "react-router-dom";
 
 const mobileClasses = "flex-col justify-center gap-1 mt-10";
 const desktopClasses = "items-center gap-2";
 
 const Navs = ({ isMobile = false, className }) => {
-
   const handleBooking = () => {
-    window.location.href = "#reservation"
-  }
+    window.location.href = "#reservation";
+  };
 
   return (
     <nav
       role="list"
-      className={`flex text-sm ${
+      className={`flex gap-5 text-xl ${
         isMobile ? mobileClasses : desktopClasses
       } ${className}`}
     >

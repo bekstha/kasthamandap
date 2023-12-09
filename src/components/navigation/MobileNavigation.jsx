@@ -1,9 +1,6 @@
-import React from "react";
-
 import Sidebar from "./Sidebar";
 import Navs from "./Navs";
 import NavToggler from "./NavToggler";
-
 import useToggler from "../../hooks/useToggler";
 
 const MobileNavigation = () => {

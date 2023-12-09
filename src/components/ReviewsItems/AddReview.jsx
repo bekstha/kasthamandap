@@ -1,17 +1,13 @@
 import { Modal, Rate, Tooltip, message } from "antd";
 import { useContext, useState } from "react";
-import {
-  LanguageDetector,
-  TextClassifier,
-  FilesetResolver,
-} from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-text@0.10.0";
 import { InputLabel, Textarea } from "../ui/Input";
 import ButtonGroup from "../ui/ButtonGroup";
-import Button from "../ui/Button";
 import InfoIcon from "@mui/icons-material/Info";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import useReviews from "../../hooks/useReviews";
 import { MainContext } from "../../context/MainContext";
+import iso6391 from "iso-639-1";
+import Button from "../ui/Button";
 
 const AddReview = ({ displayName, userId, userEmail }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,9 +15,19 @@ const AddReview = ({ displayName, userId, userEmail }) => {
   const [positiveScore, setPositiveScore] = useState(null);
   const [manualRating, setManualRating] = useState(0);
   const { addReview } = useReviews();
+  const [detectedLanguage, setDetectedLanguage] = useState(null);
+
+  const resetForm = () => {
+    setManualRating(0);
+    setReview("");
+    setDetectedLanguage(null);
+  };
 
   const showModal = () => setIsOpen(true);
-  const hideModal = () => setIsOpen(false);
+  const hideModal = () => {
+    setIsOpen(false);
+    resetForm();
+  };
 
   const { textClassifier, languageDetector } = useContext(MainContext);
 
@@ -35,16 +41,23 @@ const AddReview = ({ displayName, userId, userEmail }) => {
   };
 
   const handleReviewChange = (event) => {
-    setReview(event.target.value);
+    const newReview = event.target.value;
+
+    // Reset detected language if the review is empty
+    if (newReview.trim() === "") {
+      setDetectedLanguage(null);
+      setManualRating(null);
+    }
+
+    setReview(newReview);
   };
 
   const handleClassifyClick = async () => {
     if (review === "") {
-      alert("Please fill the review section.");
+      message.warning("Please fill the review section.");
       return;
     }
     if (!textClassifier || !languageDetector) {
-      console.error("Text classifier or language detector is not initialized");
       return;
     }
     try {
@@ -53,12 +66,13 @@ const AddReview = ({ displayName, userId, userEmail }) => {
       const detectedLanguage =
         languageResult.languages && languageResult.languages[0]?.languageCode;
 
-      console.log("Detected Language:", detectedLanguage);
+      if (detectedLanguage) {
+        const languageName = iso6391.getName(detectedLanguage);
+        setDetectedLanguage(languageName);
+      }
       const result = await textClassifier.classify(review, {
         displayNamesLocale: detectedLanguage,
       });
-
-      console.log("Detected result:", result.classifications[0].categories);
 
       // Find the category with the name "positive"
       const positiveCategory = result.classifications[0].categories.find(
@@ -67,11 +81,10 @@ const AddReview = ({ displayName, userId, userEmail }) => {
 
       if (positiveCategory) {
         const rawScore = positiveCategory.score.toFixed(2);
-        const outOfFive = (parseFloat(rawScore) * 5) / 1.0; // Convert to a scale out of 5
-        const roundedScore = Math.round(outOfFive * 2) / 2; // Round to the nearest 0.5
+        const outOfFive = (parseFloat(rawScore) * 5) / 1.0;
+        const roundedScore = Math.round(outOfFive * 2) / 2;
         setPositiveScore(roundedScore);
-        setManualRating(roundedScore);
-        console.log(roundedScore);
+        setManualRating(positiveScore);
       } else {
         console.error("Positive category not found");
       }
@@ -82,7 +95,9 @@ const AddReview = ({ displayName, userId, userEmail }) => {
 
   const handleSubmit = async () => {
     if (review.trim() === "" || !(manualRating > 0 && manualRating <= 5)) {
-      message.warning("Please fill the review section and provide a valid rating.");
+      message.warning(
+        "Please fill the review section and provide a valid rating."
+      );
       return;
     }
 
@@ -95,6 +110,7 @@ const AddReview = ({ displayName, userId, userEmail }) => {
         manualRating,
         new Date()
       );
+      message.success("Review successfully added!");
       hideModal();
       setManualRating(0);
       setReview("");
@@ -120,16 +136,24 @@ const AddReview = ({ displayName, userId, userEmail }) => {
         onCancel={hideModal}
         width={350}
         footer={() => (
-          <ButtonGroup className="!mt-6">
-            <Button className="flex-1" onClick={handleClassifyClick}>
-              Auto rate
-            </Button>
+          <ButtonGroup className="flex-col md:flex-row">
             <Button
-              className={`flex-1 ${
-                isSubmitDisabled()
-                  ? "opacity-50 cursor-not-allowed"
-                  : "hover:bg-gray-800"
-              }`}
+              size="small"
+              outlined
+              color="gray"
+              className="flex-1 md:mr-2 !text-black border-black"
+              onClick={handleClassifyClick}
+              hover="green"
+            >
+              Auto Rate
+            </Button>
+
+            <Button
+              size="small"
+              outlined
+              color="gray"
+              hover="green"
+              className="flex-1 !text-black border-gray-600"
               onClick={handleSubmit}
               disabled={isSubmitDisabled()}
             >
@@ -138,7 +162,7 @@ const AddReview = ({ displayName, userId, userEmail }) => {
           </ButtonGroup>
         )}
       >
-        <div className="mb-2 flex flex-col justify-center items-center gap-5">
+        <div className="flex flex-col justify-center items-center gap-5">
           <InputLabel label="Write a Review" />
 
           <div className="flex justify-center items-center gap-3">
@@ -147,12 +171,23 @@ const AddReview = ({ displayName, userId, userEmail }) => {
               value={manualRating}
               onChange={handleManualRatingChange}
             />{" "}
-            <Tooltip title="You can either manually set a rating or use our AI model below to generate a rating based on your review.">
+            <Tooltip
+              title="You have the choice to set a rating manually or use our AI model below for a quick suggestion. Keep in mind that the AI-generated rating may not capture all nuances. Feel free to rearrange the rating based on your true evaluation, even after using the AI model."
+              placement="bottom"
+            >
               <InfoIcon className="hover:cursor-pointer" />
             </Tooltip>
           </div>
 
           <Textarea value={review} onChange={handleReviewChange} />
+
+          <div className="h-5">
+            {detectedLanguage && (
+              <p className="h-full text-sm text-gray-500 p-0 m-0">
+                Detected Language: {detectedLanguage}
+              </p>
+            )}
+          </div>
         </div>
       </Modal>
     </>

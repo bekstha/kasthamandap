@@ -9,6 +9,7 @@ import {
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../config/firebase";
+import { message } from "antd";
 
 const useUsers = () => {
   const [users, setUsers] = useState([]);
@@ -33,9 +34,8 @@ const useUsers = () => {
       const userSnapshot = await getDoc(userRef);
       if (userSnapshot.exists()) {
         await deleteDoc(userRef);
-        console.log("User deleted successfully!");
       } else {
-        console.log("User does not exist!");
+        message.warning("User does not exist!");
       }
     } catch (error) {
       console.error("Error deleting user:", error);
@@ -51,7 +51,6 @@ const useUsers = () => {
         name,
         emailVerified,
       });
-      console.log("User added successfully!");
     } catch (error) {
       console.error("Error adding user:", error);
       throw error;

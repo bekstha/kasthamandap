@@ -1,6 +1,7 @@
 import OpeningHours from "../utils/OpeningHours";
 import Contact from "../utils/Contact";
 import logo from "../../assets/images/resturantlogo.png";
+import DirectionsIcon from "@mui/icons-material/Directions";
 
 const FooterItemTitle = ({ label }) => (
   <h3 className="py-4 text-xl font-semibold text-black">{label}</h3>
@@ -35,9 +36,10 @@ const Footer = () => {
             href={googleMapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-md overflow-hidden  h-10 md:h-7 block text-sm text-black"
+            className="flex items-center justify-center gap-1 rounded-md  h-10 md:h-7  text-sm text-black w-fit border border-gray-300 py-4 px-1 my-2"
           >
-            Get Directions on Google Maps
+            <DirectionsIcon style={{ color: "#8ab4f8" }} />
+            Directions
           </a>
         </div>
 

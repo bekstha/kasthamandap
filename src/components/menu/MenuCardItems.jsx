@@ -1,8 +1,7 @@
 import React from "react";
 import useFoodMenu from "../../hooks/useFoodMenu";
-import {CardBody} from "../ui/Card";
-import {CardHeader} from "../ui/Card";
-import {CardTitle} from "../ui/Card";
+import { CardBody } from "../ui/Card";
+import { CardHeader } from "../ui/Card";
 import Divider from "../ui/Divider";
 
 const MenuCardItems = ({ itemName }) => {
@@ -32,28 +31,29 @@ const MenuCardItems = ({ itemName }) => {
   };
 
   const itemFilters = {
-    Starters: 'starter',
-    Vegetarian: 'veg_dish',
-    Lamb: 'lamb_dish',
-    Chicken: 'chicken_dish',
-    Tandoor: 'tandoor_dish',
-    Vegan: 'vegan',
-    Drinks : 'drinks'
+    Starters: "starter",
+    Vegetarian: "veg_dish",
+    Lamb: "lamb_dish",
+    Chicken: "chicken_dish",
+    Tandoor: "tandoor_dish",
+    Vegan: "vegan",
+    Drinks: "drinks",
   };
 
   const filteredItems = alaCarte
     .filter((item) => item[itemFilters[itemName]])
     .map((filteredItem, index) => (
       <DishItems dishName={filteredItem} key={index} />
-  ));
+    ));
 
   return (
     <div className="w-full p-3 transform slide-in-down">
-      <CardTitle dishName={itemName}></CardTitle>
       {filteredItems.length > 0 ? (
         filteredItems
       ) : (
-        <p className="flex justify-center font-bold text-2xl text-orange-400">No menu found for {itemName}.</p>
+        <p className="flex justify-center font-bold text-2xl text-orange-400">
+          No menu found for {itemName}.
+        </p>
       )}
       <hr className="mt-10" />
     </div>

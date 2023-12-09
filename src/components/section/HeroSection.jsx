@@ -8,7 +8,6 @@ import Banner from "../ui/Banner";
 import useSpecialMenu from "../../hooks/useSpecialMenu";
 import { useEffect, useState } from "react";
 
-
 const HeroSection = () => {
   const { contact } = useContact();
   const { specialMenu } = useSpecialMenu();
@@ -17,15 +16,13 @@ const HeroSection = () => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  console.log(isToday);
-
   useEffect(() => {
     for (let i = 0; i < specialMenu.length; i++) {
       const startDate = new Date(specialMenu[i].start_date);
       const endDate = new Date(specialMenu[i].end_date);
 
       startDate.setHours(0, 0, 0, 0);
-      endDate.setHours(0,0,0,0);
+      endDate.setHours(0, 0, 0, 0);
 
       if (startDate <= today && today <= endDate) {
         setIsToday(true)
@@ -37,7 +34,7 @@ const HeroSection = () => {
   }, [today]);
 
   return (
-    <Section sectionClass="h-[65vh] lg:h-screen flex items-center justify-center max-w-screen bg-hero-section bg-cover bg-center">
+    <Section sectionClass="h-[65vh] h-screen flex items-center justify-center max-w-screen bg-hero-section bg-cover bg-center">
       <Overlay />
       <Banner />
       <Slider sliderType="heroSection">
@@ -46,7 +43,7 @@ const HeroSection = () => {
           <h1 className="text-2xl md:text-8xl font-extrabold font-cursive leading-tight">
             Welcome to Kasthamandap
           </h1>
-          <p className="mt-4 text-base text-sm md:text-3xl font-cursive">
+          <p className="mt-4 text-base md:text-3xl font-cursive">
             Experience the Flavors of Nepal in the Heart of Kotka
           </p>
         </div>
@@ -91,7 +88,7 @@ const HeroSection = () => {
         {isToday && (
           <div className="relative z-40 text-center my-6 text-white">
             <h1 className="text-3xl md:text-8xl font-extrabold font-cursive leading-tight">
-                {todaysSpecial.title}
+              {todaysSpecial.title}
             </h1>
             <p className="mt-4 text-xs md:text-4xl font-cursive">
             {todaysSpecial.message}

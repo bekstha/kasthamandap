@@ -1,19 +1,18 @@
-import React from "react";
-
 import MobileNavigation from "./MobileNavigation";
 import Navs from "./Navs";
 
-import logo from "../../assets/images/temple_n_fork_n_spoon_II.svg";
-
 const Navbar = () => {
   return (
-    <header className="bg-black sticky top-0 h-20 flex justify-between items-center py-2 max-container md:py-3 z-50">
-      <a href="/" className="text-white">
+    <header className="bg-black sticky top-0 max-h-20 flex justify-between items-center py-5 px-3 lg:px-24 z-50">
+      <a href="/" className="text-white gap-1 flex justify-center items-center">
         <img
-          src={logo}
+          src="/resturantlogo.png"
           alt="Kasthamandap Logo"
-          className="h-9 w-9 object-cover"
+          className="object-contain w-20 h-28 md:w-32 p-3"
         />
+        <h1 className="hidden md:block md:text-3xl font-extrabold font-cursive leading-tight">
+          Kasthamandap
+        </h1>
       </a>
       {/* Mobile navigation */}
       <MobileNavigation />

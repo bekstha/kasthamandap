@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { Rate, Tooltip, Modal } from "antd";
+import { Rate, Tooltip, Modal, message } from "antd";
 import DeleteIcon from "@mui/icons-material/Delete";
 import useReviews from "../../hooks/useReviews";
 import EditReview from "./EditReview";
-import useUsers from "../../hooks/useUser";
 
 const ReviewItems = ({
   review,
@@ -29,6 +28,7 @@ const ReviewItems = ({
     try {
       setIsDeleting(true);
       await deleteReview(reviewId);
+      message.success("Your review has been deleted successfully.")
     } catch (error) {
       console.error("Error deleting review:", error);
     } finally {
@@ -53,7 +53,11 @@ const ReviewItems = ({
       <div className="flex justify-between gap-3 my-3">
         {review}
         <div className="flex gap-5">
-        <EditReview oldReview={review} oldRating={rating} reviewId={reviewId} />
+          <EditReview
+            oldReview={review}
+            oldRating={rating}
+            reviewId={reviewId}
+          />
           <Tooltip title="Delete review" placement="top">
             <button
               className="hover:cursor"

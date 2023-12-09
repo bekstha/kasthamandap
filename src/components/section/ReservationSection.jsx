@@ -109,7 +109,7 @@ const ReservationSection = () => {
   };
 
   return (
-    <Section id='reservation' sectionClass="bg-reservation-section">
+    <Section id="reservation" sectionClass="bg-reservation-section">
       <Overlay color="bg-black/80" />
       <div className="relative max-w-md mx-auto p-6 rounded-2xl bg-white/20 shadow-lg shadow-[rgba(0,0,0,0.1)] backdrop-blur">
         {/* <SectionTitle label="Reserve a table" /> */}
@@ -182,11 +182,11 @@ const ReservationSection = () => {
             </div>
           </div>
           <Button className="md:w-full w-full mt-8" disabled={isLoading}>
-            {isLoading ? "Submitting..." : "Submit Reservation"}
+            {isLoading ? "Sending request..." : "Request a Reservation"}
           </Button>
-          <div className="h-3"></div>
-          <div style={{ display: "inline" }}>
-            <a href="#contact-us" style={{ color: "orange" }}>
+
+          <div className="text-center mt-3">
+            <a href="#contact-us" className="text-orange-400">
               Contact us
             </a>
             <p style={{ display: "inline" }}> for guests more than 14</p>
