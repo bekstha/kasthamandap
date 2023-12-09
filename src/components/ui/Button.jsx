@@ -1,6 +1,7 @@
 const btnClasses = "w-28 md:w-32 text-lg rounded-md duration-200";
 
 const colors = {
+  transparent:"bg-transparent",
   blue: "border-blue-600 bg-blue-600 hover:bg-blue-500 hover:border-blue-500",
   orange:
     "border-orange-600 bg-orange-600 hover:bg-orange-500 hover:border-orange-500 text-white",

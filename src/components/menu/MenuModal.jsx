@@ -51,7 +51,7 @@ const MenuModal = ({ dishType, special, hideModal, isOpen }) => {
         <button
           onClick={() => handleCardClick(item)}
           type="button"
-          className={`font-medium italic rounded-md text-sm sm:text-base px-1 py-1 border border-black ${
+          className={`italic rounded-md md:text-lg text-base px-2 py-1 border ${
             dishName === item ? "bg-green-500 text-white animate-wiggle" : ""
           }`}
         >
@@ -72,7 +72,7 @@ const MenuModal = ({ dishType, special, hideModal, isOpen }) => {
         <Button
           size="small"
           outlined
-          color="orange"
+          color="transparent"
           className="!text-black flex-1 border-gray-200"
           onClick={hideModal}
           hover="red"
