@@ -1,10 +1,18 @@
 import { Routes, Route } from "react-router-dom";
-import AboutPage from "./components/AboutPage";
-import AlaCarteMenuPage from "./components/AlaCarteMenuPage";
+import HomePage from "./components/HomePage";
+import ReservationDecision from "./components/utils/ReservationDecision";
+import CancelPage from "./components/CancelPage";
 
 export default (
   <Routes>
-    <Route index element={<AboutPage />} />
-    <Route path="/aLaCarteMenu" element={<AlaCarteMenuPage />} />
+    <Route index element={<HomePage />} />
+    <Route
+      path="/reservation/:reservationID/:decision"
+      element={<ReservationDecision />}
+    />
+    <Route
+      path="/cancel/confirmation/:reservationID"
+      element={<CancelPage />}
+    />
   </Routes>
 );

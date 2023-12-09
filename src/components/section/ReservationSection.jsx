@@ -21,7 +21,7 @@ const ReservationSection = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  const clearState = () =>
+  const clearState = () => {
     setState({
       firstname: "",
       lastname: "",
@@ -31,6 +31,8 @@ const ReservationSection = () => {
       reservationDate: "",
       reservationTime: "",
     });
+  };
+
   const getCurrentDate = () => {
     const today = new Date();
     const yyyy = today.getFullYear();
@@ -65,7 +67,8 @@ const ReservationSection = () => {
         reservationTime,
       } = state;
       const reservationCollection = collection(db, "Reservations");
-      await addDoc(reservationCollection, {
+
+      const reservationData = await addDoc(reservationCollection, {
         firstname,
         lastname,
         email,
@@ -73,7 +76,9 @@ const ReservationSection = () => {
         guestCount,
         reservationDate,
         reservationTime,
+        status: "pending",
       });
+
       const response = await POST("email/response", {
         useremail: "shresrthaasmita@gmail.com",
         username: "Kasthamandap",
@@ -82,6 +87,7 @@ const ReservationSection = () => {
         guestCount,
         reservationDate,
         reservationTime,
+        reservationID: reservationData?.id,
       });
 
       if (response?.success) {
@@ -94,7 +100,6 @@ const ReservationSection = () => {
           guestCount,
         });
       }
-
       clearState();
     } catch (error) {
       console.error("Error submitting form:", { error });
