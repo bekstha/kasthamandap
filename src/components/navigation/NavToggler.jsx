@@ -1,4 +1,3 @@
-import React from "react";
 import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
 
 const NavToggler = ({ className, showMenu, toggleMenu }) => {

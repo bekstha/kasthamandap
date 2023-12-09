@@ -105,7 +105,9 @@ const PrivacyPolicyDrawer = ({ onClose, open }) => {
           </a>
         </p>
 
-        <p className="text-center mt-3 italic">This Privacy Policy was last updated on 28/11/2023.</p>
+        <p className="text-center mt-3 italic">
+          This Privacy Policy was last updated on 28/11/2023.
+        </p>
       </div>
     </Drawer>
   );

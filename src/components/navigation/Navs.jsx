@@ -4,10 +4,9 @@ const mobileClasses = "flex-col justify-center gap-1 mt-10";
 const desktopClasses = "items-center gap-2";
 
 const Navs = ({ isMobile = false, className }) => {
-
   const handleBooking = () => {
-    window.location.href = "#reservation"
-  }
+    window.location.href = "#reservation";
+  };
 
   return (
     <nav

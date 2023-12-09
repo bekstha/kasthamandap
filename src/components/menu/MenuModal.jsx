@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import LunchMenu from "./LunchMenu";
 import MenuCardItems from "./MenuCardItems";
 import SpecialMenu from "./SpecialMenu";
@@ -51,7 +51,7 @@ const MenuModal = ({ dishType, special, hideModal, isOpen }) => {
         <button
           onClick={() => handleCardClick(item)}
           type="button"
-          className={`font-medium italic rounded-md text-sm px-1 py-1 border border-black ${
+          className={`text-lg italic rounded-md  px-2 py-1 border border-gray ${
             dishName === item ? "bg-green-500 text-white animate-wiggle" : ""
           }`}
         >
@@ -73,10 +73,11 @@ const MenuModal = ({ dishType, special, hideModal, isOpen }) => {
           size="small"
           outlined
           color="orange"
-          className="!text-black flex-1 border-gray-600"
+          className="!text-black flex-1 border-gray-200"
           onClick={hideModal}
+          hover="red"
         >
-          Cancel
+          Close
         </Button>
       )}
     >

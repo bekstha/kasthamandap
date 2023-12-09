@@ -1,9 +1,10 @@
-import { Button, Modal, Tooltip, message } from "antd";
+import { Modal, Tooltip, message } from "antd";
 import { useEffect, useState } from "react";
 import PersonIcon from "@mui/icons-material/Person";
 import useReviews from "../../hooks/useReviews";
 import ReviewItems from "./ReviewItems";
-import { ButtonGroup } from "@mui/material";
+import ButtonGroup from "../ui/ButtonGroup";
+import Button from "../ui/Button";
 import {
   getAuth,
   GoogleAuthProvider,
@@ -16,7 +17,8 @@ const MyReviews = ({ userId, email }) => {
   const { reviews, deleteAllReviewsForUser } = useReviews();
   const [isOpen, setIsOpen] = useState(false);
   const [filteredReviews, setFilteredReviews] = useState([]);
-  const [isDeleteAllReviewsDisabled, setIsDeleteAllReviewsDisabled] = useState(true);
+  const [isDeleteAllReviewsDisabled, setIsDeleteAllReviewsDisabled] =
+    useState(true);
   const showModal = () => setIsOpen(true);
   const hideModal = () => setIsOpen(false);
   const { deleteUser } = useUsers();
@@ -48,7 +50,7 @@ const MyReviews = ({ userId, email }) => {
   const handleDeleteMyAccount = async () => {
     try {
       // Reauthenticate the user
-       const isReauthenticated = await reauthenticate();
+      const isReauthenticated = await reauthenticate();
 
       if (!isReauthenticated) {
         message.error("Reauthentication failed. Please try again.");
@@ -59,7 +61,7 @@ const MyReviews = ({ userId, email }) => {
       Modal.confirm({
         title: "Confirm Delete",
         content:
-          "This action will delete your reviews as well. Are you sure you want to delete your account?",
+          "This action will not delete your reviews, If you want please be sure to delete them beforehand. Are you sure you want to continue deleting your account?",
         okButtonProps: { className: "bg-rose-600 text-white" },
         onOk: async () => {
           try {
@@ -79,6 +81,7 @@ const MyReviews = ({ userId, email }) => {
 
             // Close the modal
             hideModal();
+            message.success("Your account is deleted successfully!");
           } catch (error) {
             console.error("Error deleting account:", error);
           }
@@ -97,6 +100,7 @@ const MyReviews = ({ userId, email }) => {
       okButtonProps: { className: "bg-green-500 text-white" },
       onOk: () => {
         deleteAllReviewsForUser(userId);
+        message.success("Your reviews are deleted successfully!");
         hideModal();
       },
       onCancel: () => {},
@@ -121,16 +125,22 @@ const MyReviews = ({ userId, email }) => {
         footer={() => (
           <ButtonGroup className="flex-col md:flex-row mt-10">
             <Button
-              outlined="true"
-              className="flex-1 border-gray-600 mt-6 md:mt-0 md:mr-2"
+              size="small"
+              outlined
+              color="gray"
+              hover="red"
+              className="flex-1 !text-black border-gray-600"
               onClick={handleDeleteAllReviews}
               disabled={isDeleteAllReviewsDisabled}
             >
               Delete All Reviews
             </Button>
             <Button
-              outlined="true"
-              className="flex-1 border-red-600 bg-rose-600 mt-6 md:mt-0 text-white"
+              size="small"
+              outlined
+              color="red"
+              hover="red"
+              className="flex-1 !text-white border-gray-600"
               onClick={handleDeleteMyAccount}
             >
               Delete My Account

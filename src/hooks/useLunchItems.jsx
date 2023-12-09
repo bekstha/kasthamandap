@@ -12,8 +12,6 @@ const useLunchItems = () => {
         );
         const data = await response.json();
 
-        console.log("Data from API:", data);
-
         if (data.ads && data.ads.length > 0) {
           const weeklyLunchAd = data.ads.find(
             (item) =>

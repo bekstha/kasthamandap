@@ -62,7 +62,6 @@ const EditReview = ({ oldReview, oldRating, reviewId }) => {
         const roundedScore = Math.round(outOfFive * 2) / 2; // Round to the nearest 0.5
         setPositiveScore(roundedScore);
         setManualRating(roundedScore);
-        console.log(roundedScore);
       } else {
         console.error("Positive category not found");
       }
@@ -91,6 +90,7 @@ const EditReview = ({ oldReview, oldRating, reviewId }) => {
 
       // Call the updateReview function
       await updateReview(reviewId, newData);
+      message.success("Review updated successfully!");
       hideModal();
     } catch (error) {
       console.error("Error updating review:", error);
@@ -111,15 +111,22 @@ const EditReview = ({ oldReview, oldRating, reviewId }) => {
         width={350}
         footer={() => (
           <ButtonGroup className="!mt-6">
-            <Button className="flex-1" onClick={handleClassifyClick}>
+            <Button
+              size="small"
+              outlined
+              color="gray"
+              className="flex-1 md:mr-2 !text-black border-black"
+              onClick={handleClassifyClick}
+              hover="green"
+            >
               Auto rate
             </Button>
             <Button
-              className={`flex-1 ${
-                isSubmitDisabled()
-                  ? "opacity-50 cursor-not-allowed"
-                  : "hover:bg-gray-800"
-              }`}
+              size="small"
+              outlined
+              color="gray"
+              hover="green"
+              className="flex-1 !text-black border-gray-600"
               onClick={handleSubmit}
               disabled={isSubmitDisabled()}
             >

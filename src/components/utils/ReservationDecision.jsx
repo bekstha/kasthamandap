@@ -1,7 +1,6 @@
-import { addDoc, updateDoc } from "firebase/firestore";
+import { updateDoc } from "firebase/firestore";
 import { useEffect } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { db } from "../../config/firebase";
 
 const ReservationDecision = () => {
   const location = useLocation();

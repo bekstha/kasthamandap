@@ -3,7 +3,10 @@ import { Section, SectionTitle } from "../ui/Section";
 
 const AboutSection = () => {
   return (
-    <Section id="about-us" sectionClass="bg-white text-black text-center flex flex-col justify-center items-center">
+    <Section
+      id="about-us"
+      sectionClass="bg-white text-black text-center flex flex-col justify-center items-center"
+    >
       <SectionTitle label="About us" />
       <p className="mt-4 text-lg text-left text-gray-700">
         Kasthamandap (Sanskrit: काष्ठमण्डप, Nepal Bhasa:मरु सत: Maru Satta:;
@@ -27,7 +30,9 @@ const AboutSection = () => {
       </p>
 
       <div className="py-8 flex flex-col">
-        <h3 className="font-extrabold text-center text-2xl mb-3">Opening hours</h3>
+        <h3 className="font-extrabold text-center text-2xl mb-3">
+          Opening hours
+        </h3>
         <OpeningHours />
       </div>
     </Section>

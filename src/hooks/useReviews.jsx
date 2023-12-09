@@ -47,7 +47,6 @@ const useReviews = () => {
         rating,
         timestamp,
       });
-      console.log("Review added successfully!");
     } catch (error) {
       console.error("Error adding review:", error);
       throw error;
@@ -69,8 +68,6 @@ const useReviews = () => {
       });
 
       await batch.commit();
-
-      console.log("All reviews for the user deleted successfully!");
     } catch (error) {
       console.error("Error deleting reviews for the user:", error);
       throw error;
@@ -81,14 +78,19 @@ const useReviews = () => {
     try {
       const reviewRef = doc(db, "Reviews", reviewId);
       await setDoc(reviewRef, newData, { merge: true });
-      console.log("Review updated successfully!");
     } catch (error) {
       console.error("Error updating review:", error);
       throw error;
     }
   };
 
-  return { reviews, deleteReview, addReview, deleteAllReviewsForUser, updateReview };
+  return {
+    reviews,
+    deleteReview,
+    addReview,
+    deleteAllReviewsForUser,
+    updateReview,
+  };
 };
 
 export default useReviews;

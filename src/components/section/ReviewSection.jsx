@@ -81,8 +81,7 @@ const ReviewSection = () => {
     }
   };
 
-  const cancel = (e) => {
-    console.log(e);
+  const cancel = () => {
     message.error("Signing out cancelled");
   };
 

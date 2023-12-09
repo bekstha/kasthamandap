@@ -1,7 +1,6 @@
-import { useState } from "react";
 import useFoodMenu from "../../hooks/useFoodMenu";
 import useLunchItems from "../../hooks/useLunchItems";
-import {CardHeader, CardBody, CardTitle} from "../ui/Card";
+import { CardHeader, CardBody } from "../ui/Card";
 import Divider from "../ui/Divider";
 import LoadingScreen from "../ui/LoadingScreen";
 
@@ -9,14 +8,14 @@ const LunchMenu = ({ day }) => {
   const { weeklyLunch, loading } = useLunchItems();
   const { lunchItem } = useFoodMenu();
 
-  const filteredMenu = lunchItem.filter(item => item.day.includes(day));
+  const filteredMenu = lunchItem.filter((item) => item.day.includes(day));
 
   const filterDescription = (desc) => {
     const startIndex = desc.indexOf(day); // Find the index of the day
     const endIndex = desc.indexOf('<div class="lunchHeader', startIndex); // Find the index of the next day header
     let filteredDesc = desc.slice(startIndex, endIndex).trim(); // Extract the portion between the day and the next header
 
-    // Remove numbers like 1), 2), etc.
+    // Remove numbers like 1), 2) .
     filteredDesc = filteredDesc.replace(/\d+\)/g, "").trim();
 
     // Filter out any lines that contain "lounaan Hinta" and "lounas tarjolla"
@@ -25,40 +24,46 @@ const LunchMenu = ({ day }) => {
       .filter(
         (line) =>
           !line.includes("lounaan Hinta") &&
+          !line.includes("Lounaan Hinta") &&
+          !line.includes("Lounas tarjolla") &&
           !line.includes("lounas tarjolla") &&
           !line.includes("kello") &&
           line.includes(" ")
       )
-      .map(line => line.replace(/<\/?[^>]+(>|$)/g, "")
-      .trim());
+      .map((line) => line.replace(/<\/?[^>]+(>|$)/g, "").trim());
 
     return filteredLines;
   };
 
   return (
     <div>
-      <CardTitle dishName={day}></CardTitle>
       {loading ? (
         <LoadingScreen />
       ) : weeklyLunch ? (
         <div className="p-3">
-           <CardHeader dish="Lounaan Hinta" price={"12.50 \u20AC"} />
-           <Divider />
+          <CardHeader dish="Lounaan Hinta" price={"12.50 \u20AC"} />
+          <Divider />
           {filterDescription(weeklyLunch.desc).map((line, index) => (
-            <div key={index} className="w-full bg-slate-100 p-3 mt-6 h-16 border shadow-md rounded-lg">
+            <div
+              key={index}
+              className="w-full bg-slate-100 p-3 mt-6 h-16 border shadow-md rounded-lg"
+            >
               <CardBody desc={line} />
             </div>
           ))}
         </div>
       ) : (
         <div className="p-3">
-           <CardHeader dish="Lounaan Hinta" price={"12.50 \u20AC"} />
-           <Divider />
-           {filteredMenu.map((item, index) => (
-            <div key={index} className="w-full bg-slate-100 p-3 mt-6 shadow-md rounded-lg">
+          <CardHeader dish="Lounaan Hinta" price={"12.50 \u20AC"} />
+          <Divider />
+          {filteredMenu.map((item, index) => (
+            <div
+              key={index}
+              className="w-full bg-slate-100 p-3 mt-6 shadow-md rounded-lg"
+            >
               <CardBody desc={item.description} />
             </div>
-          ))}    
+          ))}
         </div>
       )}
       <hr className="my-6" />

@@ -1,7 +1,5 @@
-import React from "react";
-
 const SectionTitle = ({ label }) => (
-  <h2 className="mb-8 text-4xl md:text-6xl font-bold">{label}</h2>
+  <h2 className="text-2xl md:text-6xl font-extrabold font-cursive leading-tight">{label}</h2>
 );
 
 const Section = ({ children, id, sectionClass }) => {

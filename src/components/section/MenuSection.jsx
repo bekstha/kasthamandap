@@ -26,19 +26,22 @@ const MenuSection = () => {
       const endDate = new Date(specialMenu[i].end_date);
 
       startDate.setHours(0, 0, 0, 0);
-      endDate.setHours(0,0,0,0);
+      endDate.setHours(0, 0, 0, 0);
 
       if (startDate <= today && today <= endDate) {
-        setIsToday(true)
-        setTodaysSpecial(specialMenu[0])
-      } else  {
+        setIsToday(true);
+        setTodaysSpecial(specialMenu[0]);
+      } else {
         console.log("Fetched date is not within range");
       }
     }
   }, [today]);
 
   return (
-    <Section id="menu" sectionClass="h-[65vh] h-screen flex items-center justify-center max-w-screen bg-menu-section bg-cover bg-center">
+    <Section
+      id="menu"
+      sectionClass="h-[65vh] h-screen flex items-center justify-center max-w-screen bg-menu-section bg-cover bg-center"
+    >
       <Overlay color="bg-black/80" />
       <div className="relative text-center max-w-4xl mx-auto">
         <SectionTitle label="Our Menu" />
@@ -50,7 +53,7 @@ const MenuSection = () => {
           bread included in the portions contains gluten.) v= Vegan (It is
           possible to get the serving as vegan.)
         </p>
-        
+
         <div className="flex flex-col md:flex-row items-center justify-center md:gap-16">
           <a
             onClick={() => showModal("Lunch")}
@@ -82,13 +85,13 @@ const MenuSection = () => {
             >
               {" "}
               Special Menu{" "}
-          </a>
+            </a>
           )}
         </div>
       </div>
       <div>
         <MenuModal
-          isOpen={isOpen} 
+          isOpen={isOpen}
           hideModal={hideModal}
           dishType={dishType}
           special={todaysSpecial}
