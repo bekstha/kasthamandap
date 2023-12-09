@@ -23,10 +23,10 @@ const SpecialMenu = ({ dishName }) => {
   };
   return (
     <div className="p-3">
-      <div className="flex justify-center text-2xl mb-5">
+      <div className="flex justify-center text-base sm:text-2xl mb-5">
         <h1 className="font-bold capitalize">{dishName.title}</h1>
       </div>
-      <div className="flex justify-center text-lg mb-6">
+      <div className="flex justify-center text-sm sm:text-lg mb-6">
         <p>
           hinta {dishName.price[0]} {`\u20AC`}, lapset(6-12v){" "}
           {dishName.price[1]} {`\u20AC`}, lapset(3-5v) {dishName.price[2]}{" "}

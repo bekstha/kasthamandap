@@ -6,21 +6,21 @@ const Card = ({ children }) => {
 };
 
 const CardBody = ({ desc }) => (
-  <p className="text-sm italic tracking-wide mb-6">{desc}</p>
+  <p className="text-sm sm:text-base italic tracking-wide">{desc}</p>
 );
 
 const CardHeader = ({ dish, price }) => {
   return (
     <div className="flex justify-between gap-10">
-      <div><h2 className="text-lg font-semibold capitalize">{dish}</h2></div>
-      <div><h2 className="text-lg font-semibold">{price}</h2></div>
+      <div><h2 className="text-base sm:text-lg font-semibold capitalize">{dish}</h2></div>
+      <div><h2 className="text-base sm:text-lg font-semibold">{price}</h2></div>
     </div>
   );
 };
 
 const CardTitle = ({ dishName }) => {
   return (
-    <h2 className="text-md font-nanum font-bold underline underline-offset-8 leading-relaxed text-3xl text-center mb-5">
+    <h2 className="text-lg sm:text-3xl font-nanum font-bold underline underline-offset-8 leading-relaxed text-3xl text-center mb-5">
       {dishName}
     </h2>
   );
