@@ -9,10 +9,7 @@ const App = () => {
     <>
       <Navbar />
       <Banner />
-      <main className="overflow-x-hidden">
-        {routes}
-        <HomePage />
-      </main>
+      <main className="overflow-x-hidden">{routes}</main>
       <Footer />
     </>
   );
