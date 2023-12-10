@@ -50,7 +50,7 @@ const LunchMenu = ({ day }) => {
           {filterDescription(weeklyLunch.desc).map((line, index) => (
             <div
               key={index}
-              className="w-full bg-slate-100 p-3 mt-6 h-16 border shadow-md rounded-lg"
+              className="w-full bg-slate-100 p-3 mt-6 h-fit border shadow-md rounded-lg"
             >
               <CardBody desc={line} />
             </div>
