@@ -4,8 +4,14 @@ import MenuCardItems from "./MenuCardItems";
 import SpecialMenu from "./SpecialMenu";
 import Button from "../ui/Button";
 import { Modal } from "antd";
+import useLunchItems from "../../hooks/useLunchItems";
 
 const MenuModal = ({ dishType, special, hideModal, isOpen }) => {
+
+  const { weeklyLunch, loading } = useLunchItems();
+  const dateRangeMatch = weeklyLunch?.header.match(/\d+\.\d+\.\s*-\s*\d+\.\d+/);
+  const dateRange = dateRangeMatch ? dateRangeMatch[0] : null;
+
   const d = new Date();
   const [dishName, setDishName] = useState("");
   const days = [
@@ -66,7 +72,11 @@ const MenuModal = ({ dishType, special, hideModal, isOpen }) => {
       open={isOpen}
       onOk={hideModal}
       onCancel={hideModal}
-      title={dishType}
+      title={
+        dishType === "Lunch"
+          ? `${dishType} ( ${dateRange || "No Date"})`
+          : dishType
+      }
       width={700}
       footer={() => (
         <Button
