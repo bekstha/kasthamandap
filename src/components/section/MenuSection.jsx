@@ -45,7 +45,7 @@ const MenuSection = () => {
       <Overlay color="bg-black/80" />
       <div className="relative text-center max-w-4xl mx-auto">
         <SectionTitle label="Our Menu" />
-        <p className="mt-4  text-lg md:text-2xl text-justify">
+        <p className="mt-4 text-base md:text-lg text-justify">
           All dishes include basmati rice, naan bread and a dash of sauce. The
           food can be increased if heat is needed. Remember to inform the staff
           about allergies. l= Lactose-free (the raita sauce and naan bread

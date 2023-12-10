@@ -9,7 +9,7 @@ const FooterItemTitle = ({ label }) => (
 
 const Footer = () => {
   const googleMapsUrl =
-    "https://www.google.com/maps/dir/?api=1&destination=60.4666° N, 26.9442° E";
+    "https://www.google.com/maps/dir/?api=1&destination=60.4668625° N, 26.9422409° E";
   return (
     <footer id="contact-us" className="max-container bg-white md:pt-10">
       <div className="lg:flex justify-between gap-8 pb-6 md:pb-10">
@@ -28,7 +28,7 @@ const Footer = () => {
               title="Google Map"
               style={{ border: 0 }}
               className="h-full w-full"
-              src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyCwegKtCIqjsEt0yIRi8RUgfWiW-08B7-8&q=60.4666° N, 26.9442° E`}
+              src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyCwegKtCIqjsEt0yIRi8RUgfWiW-08B7-8&q=60.466613144922654° N, 26.944228606294285° E`}
               allowFullScreen
             ></iframe>
           </div>
