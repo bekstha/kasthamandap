@@ -5,7 +5,9 @@ const useToggler = () => {
 
   const toggleMenu = () => setShowMenu((prev) => !prev);
 
-  return { showMenu, toggleMenu };
+  const hideMenu = () => setShowMenu(false);
+
+  return { showMenu, hideMenu, toggleMenu };
 };
 
 export default useToggler;

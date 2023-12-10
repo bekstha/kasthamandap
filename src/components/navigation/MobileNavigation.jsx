@@ -4,7 +4,7 @@ import NavToggler from "./NavToggler";
 import useToggler from "../../hooks/useToggler";
 
 const MobileNavigation = () => {
-  const { showMenu, toggleMenu } = useToggler();
+  const { showMenu, hideMenu, toggleMenu } = useToggler();
 
   return (
     <>
@@ -13,7 +13,7 @@ const MobileNavigation = () => {
         showMenu={showMenu}
         toggleMenu={toggleMenu}
       />
-      <Sidebar showMenu={showMenu} toggleMenu={toggleMenu}>
+      <Sidebar showMenu={showMenu} hideMenu={hideMenu} toggleMenu={toggleMenu}>
         <Navs isMobile />
       </Sidebar>
     </>
