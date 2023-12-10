@@ -6,9 +6,14 @@ import { db } from "../config/firebase";
 import { Section } from "./ui/Section";
 import Overlay from "./ui/Overlay";
 import Button from "./ui/Button";
+
 const CancelPage = () => {
-  const { reservationID } = useParams();
+  const params = useParams();
+  console.log("Params:", params);
+  const { reservationID } = params;
+  console.log("Reservation ID:", reservationID);
   const { reservationData, loading } = useReservation(reservationID);
+
   const [cancellationComplete, setCancellationComplete] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(true);
   const navigate = useNavigate();
