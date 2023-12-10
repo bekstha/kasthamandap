@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
 import useReservation from "../hooks/useReservation";
 import { db } from "../config/firebase";
-
+import { Section } from "./ui/Section";
+import Overlay from "./ui/Overlay";
+import Button from "./ui/Button";
 const CancelPage = () => {
   const { reservationID } = useParams();
-  const { reservations } = useReservation(reservationID);
+  const { reservationData, loading } = useReservation(reservationID);
   const [cancellationComplete, setCancellationComplete] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(true);
   const navigate = useNavigate();
 
   const handleCancel = async () => {
+    if (!reservationID || loading || !reservationData) {
+      console.error("Invalid parameters or reservationData is not available.");
+      return;
+    }
     try {
       await updateDoc(doc(db, "Reservations", reservationID), {
         status: "canceled",
@@ -31,6 +37,10 @@ const CancelPage = () => {
     setShowConfirmation(false);
     navigate("/");
   };
+  if (loading) {
+    return <p>Loading...</p>; // You can render a loading indicator while data is being fetched
+  }
+
   return (
     <div>
       {showConfirmation ? (

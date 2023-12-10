@@ -3,24 +3,33 @@ import { db } from "../config/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
 const useReservation = (reservationID) => {
-  const [reservations, setReservations] = useState([]);
+  const [reservationData, setReservationData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getReservationById = async () => {
-      const docRef = doc(db, "Reservations", reservationID);
-      const docSnap = await getDoc(docRef);
+    const fetchReservation = async () => {
+      try {
+        const docRef = doc(db, "Reservations", reservationID);
+        const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        setReservations(docSnap.data());
-      } else {
-        console.log("No such document!");
+        if (docSnap.exists()) {
+          setReservationData(docSnap.data());
+        } else {
+          console.log("No such document!");
+        }
+      } catch (error) {
+        console.error("Error fetching reservation:", error);
+      } finally {
+        setLoading(false); // Set loading to false regardless of success or failure
       }
     };
 
-    getReservationById();
-  }, []);
+    if (reservationID) {
+      fetchReservation();
+    }
+  }, [reservationID]);
 
-  return { reservations };
+  return { reservationData, loading };
 };
 
 export default useReservation;

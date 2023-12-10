@@ -82,6 +82,7 @@ const ReservationSection = () => {
       const response = await POST("email/response", {
         useremail: "shresrthaasmita@gmail.com",
         username: "Kasthamandap",
+        customerEmail: email,
         customerName: `${firstname} ${lastname}`,
         phoneNumber,
         guestCount,
