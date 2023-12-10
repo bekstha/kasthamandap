@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { updateDoc, doc } from "firebase/firestore";
+import { db } from "../../config/firebase";
 
 import useReservation from "../../hooks/useReservation";
 import { POST } from "../../services/sendEmail";
@@ -15,10 +16,6 @@ const ReservationDecision = () => {
       if (!reservationID || !decision) {
         return null;
       }
-
-      // if (reservations?.status !== "pending") {
-      //   return null;
-      // }
 
       if (decision === "approve") {
         await updateDoc(doc(db, "Reservations", reservationID), {
@@ -55,7 +52,7 @@ const ReservationDecision = () => {
 
     reviewDecision();
   }, [reservationID]);
-  return Navigate("/");
+  return <Navigate to="/" />;
 };
 
 export default ReservationDecision;
