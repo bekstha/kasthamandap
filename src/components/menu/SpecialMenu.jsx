@@ -6,10 +6,10 @@ const SpecialMenu = ({ dishName }) => {
   const DishItems = ({ itemName }) => {
     return (
       <React.Fragment>
-        <div className="bg-slate-100 p-3 mt-6 border shadow-md rounded-lg h-fit">
+        <div className="bg-slate-100 p-3 w-full mt-6 border shadow-md rounded-lg h-fit">
           <CardHeader dish={itemName} />
           <Divider />
-          <div style={{ display: "flex" }}>
+          <div style={{ display: "flex", flexWrap: "wrap"}}>
             {dishName[itemName].map((item, index) => (
               <React.Fragment key={index}>
                 <p className="capitalize">{item}</p>
