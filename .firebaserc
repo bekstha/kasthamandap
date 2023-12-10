@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "kasthamandap-cdfd4"
-  }
+  },
+  "targets": {
+    "kasthamandap-cdfd4": {
+      "hosting": {
+        "public": [
+          "kasthamandap-cdfd4"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
