@@ -30,7 +30,7 @@ const Banner = () => {
             setIsToday(true)
             setDescription(specialMenu[i].message)
           } else  {
-            console.log("Fetched date is not within range");
+            console.error("Fetched date is not within range");
           }
         }
       }, [today]);
