@@ -6,6 +6,7 @@ import LoadingScreen from "../ui/LoadingScreen";
 
 const LunchMenu = ({ day }) => {
   const { weeklyLunch, loading } = useLunchItems();
+  const currentDay = new Date().getDay(); 
   const { lunchItem } = useFoodMenu();
 
   const filteredMenu = lunchItem.filter((item) => item.day.includes(day));
@@ -34,6 +35,7 @@ const LunchMenu = ({ day }) => {
 
     return filteredLines;
   };
+  console.log(currentDay !== 0);
 
   return (
     <div>
@@ -41,7 +43,9 @@ const LunchMenu = ({ day }) => {
         <LoadingScreen />
       ) : weeklyLunch ? (
         <div className="p-3">
-          <CardHeader dish="Lounaan Hinta" price={"12.50 \u20AC"} />
+          {day !== "Lauantai" && day !== "Sunnuntai" && (
+            <CardHeader dish="Lounaan Hinta" price={"12.50 \u20AC"} />
+          )}
           <Divider />
           {filterDescription(weeklyLunch.desc).map((line, index) => (
             <div
@@ -54,7 +58,9 @@ const LunchMenu = ({ day }) => {
         </div>
       ) : (
         <div className="p-3">
-          <CardHeader dish="Lounaan Hinta" price={"12.50 \u20AC"} />
+          {day !== "Lauantai" && day !== "Sunnuntai" && (
+            <CardHeader dish="Lounaan Hinta" price={"12.50 \u20AC"} />
+          )}
           <Divider />
           {filteredMenu.map((item, index) => (
             <div
