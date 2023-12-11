@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://kasthamandap-api.firebaseapp.com/api/v1";
+const API_BASE_URL = "https://kasthamandap-api.web.app/api/v1";
 
 export const POST = (url, data) =>
   fetch(`${API_BASE_URL}/${url}`, {
