@@ -1,7 +1,6 @@
 @font-face {
-  font-family: Manrope;
+  font-family: 'Manrope';
   src: url("./assets/fonts/Manrope.ttf");
-  font-display: optional;
 }
 
 @tailwind base;
@@ -35,4 +34,5 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
   scroll-margin-top: 40px;
+  font-family: 'Manrope' !important;
 }

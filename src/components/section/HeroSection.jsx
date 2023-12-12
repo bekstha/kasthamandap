@@ -54,7 +54,7 @@ const HeroSection = () => {
           <h1 className="text-2xl md:text-6xl font-bold leading-tight">
             Order Delicious Food
           </h1>
-          <p className="mt-4 text-lg md:text-4xl">
+          <p className="mt-4 text-lg md:text-2xl">
             Make an order at
             <a
               href={`tel:+${contact[0]?.phoneNumber}`}
@@ -63,7 +63,7 @@ const HeroSection = () => {
               {""} + {contact[0]?.phoneNumber}
             </a>
           </p>
-          <p className="mt-4 text-lg md:text-4xl ">
+          <p className="mt-2 text-lg md:text-xl ">
             Or you can use one of our partners below
           </p>
           <ButtonGroup>
