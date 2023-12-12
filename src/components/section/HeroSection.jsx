@@ -25,9 +25,9 @@ const HeroSection = () => {
       endDate.setHours(0, 0, 0, 0);
 
       if (startDate <= today && today <= endDate) {
-        setIsToday(true)
-        setTodaysSpecial(specialMenu[0])
-      } else  {
+        setIsToday(true);
+        setTodaysSpecial(specialMenu[0]);
+      } else {
         console.log("Fetched date is not within range");
       }
     }
@@ -40,20 +40,21 @@ const HeroSection = () => {
       <Slider sliderType="heroSection">
         {/* Slide 1 */}
         <div className="relative z-40 text-center my-6 text-white">
-          <h1 className="text-2xl md:text-8xl font-extrabold font-cursive leading-tight">
-            Welcome to Kasthamandap
+          <h1 className="text-2xl md:text-6xl font-bold leading-tight">
+            Welcome to
+            <span className="block text-8xl">Kasthamandap</span>
           </h1>
-          <p className="mt-4 text-base md:text-3xl font-cursive">
+          <p className="mt-4 text-base md:text-3xl ">
             Experience the Flavors of Nepal in the Heart of Kotka
           </p>
         </div>
 
         {/* Slide 2 */}
         <div className="relative z-40 text-center text-white">
-          <h1 className="text-4xl md:text-8xl font-extrabold font-cursive leading-tight">
+          <h1 className="text-2xl md:text-6xl font-bold leading-tight">
             Order Delicious Food
           </h1>
-          <p className="mt-4 text-lg md:text-4xl font-cursive">
+          <p className="mt-4 text-lg md:text-4xl">
             Make an order at
             <a
               href={`tel:+${contact[0]?.phoneNumber}`}
@@ -62,7 +63,7 @@ const HeroSection = () => {
               {""} + {contact[0]?.phoneNumber}
             </a>
           </p>
-          <p className="mt-4 text-lg md:text-4xl font-cursive">
+          <p className="mt-4 text-lg md:text-4xl ">
             Or you can use one of our partners below
           </p>
           <ButtonGroup>
@@ -91,7 +92,7 @@ const HeroSection = () => {
               {todaysSpecial.title}
             </h1>
             <p className="mt-4 text-xs md:text-4xl font-cursive">
-            {todaysSpecial.message}
+              {todaysSpecial.message}
             </p>
           </div>
         )}

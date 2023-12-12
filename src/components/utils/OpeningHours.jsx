@@ -41,7 +41,7 @@ const OpeningHours = () => {
 
       {lunchHours && (
         <>
-          <h3 className="font-extrabold mt-10 mb-3 text-black">Lunch Hour</h3>
+          <h3 className="font-bold mt-10 mb-3 text-black">Lunch Hour</h3>
           <HourList
             day="Monday - Friday"
             openingHour={lunchHours.opens}
