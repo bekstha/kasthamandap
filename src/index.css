@@ -1,6 +1,7 @@
 @font-face {
   font-family: Manrope;
   src: url("./assets/fonts/Manrope.ttf");
+  font-display: optional;
 }
 
 @tailwind base;
