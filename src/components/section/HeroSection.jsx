@@ -42,7 +42,7 @@ const HeroSection = () => {
         <div className="relative z-40 text-center my-6 text-white">
           <h1 className="text-2xl md:text-6xl font-bold leading-tight">
             Welcome to
-            <span className="block text-8xl">Kasthamandap</span>
+            <span className="block text-3xl md:text-8xl">Kasthamandap</span>
           </h1>
           <p className="mt-4 text-base md:text-3xl ">
             Experience the Flavors of Nepal in the Heart of Kotka
