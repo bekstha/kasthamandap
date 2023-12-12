@@ -47,7 +47,7 @@ const MenuSection = () => {
         <SectionTitle label="Our Menu" />
         <p className="mt-4 text-base md:text-lg text-justify">
           All dishes include basmati rice, naan bread and a dash of sauce. The
-          food can be increased if heat is needed. Remember to inform the staff
+          food hotness can be adjusted according to your preference. Remember to inform the staff
           about allergies. l= Lactose-free (the raita sauce and naan bread
           included in the portions contain lactose.) g= Lactose-free (the naan
           bread included in the portions contains gluten.) v= Vegan (It is

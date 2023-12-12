@@ -28,8 +28,8 @@ const SpecialMenu = ({ dishName }) => {
       </div>
       <div className="flex justify-center text-sm sm:text-lg mb-6">
         <p>
-          hinta {dishName.price[0]} {`\u20AC`}, lapset(6-12v){" "}
-          {dishName.price[1]} {`\u20AC`}, lapset(3-5v) {dishName.price[2]}{" "}
+          Prive {dishName.price[0]} {`\u20AC`}, childern(6-12y){" "}
+          {dishName.price[1]} {`\u20AC`}, children(3-5y) {dishName.price[2]}{" "}
           {`\u20AC`}{" "}
         </p>
       </div>
