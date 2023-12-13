@@ -10,7 +10,7 @@ const Navbar = () => {
           alt="Kasthamandap Logo"
           className="object-contain w-20 h-28 md:w-32 p-3"
         />
-        <h1 className="hidden md:block md:text-3xl font-extrabold font-cursive leading-tight">
+        <h1 className="hidden md:block md:text-3xl font-extrabold leading-tight">
           Kasthamandap
         </h1>
       </a>

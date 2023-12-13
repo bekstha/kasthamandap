@@ -32,7 +32,7 @@ const MenuSection = () => {
         setIsToday(true);
         setTodaysSpecial(specialMenu[0]);
       } else {
-        console.log("Fetched date is not within range");
+        console.error("Fetched date is not within range");
       }
     }
   }, [today]);
