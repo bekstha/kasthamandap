@@ -68,7 +68,7 @@ const ReservationDecision = () => {
     return <p>Loading...</p>; // You can render a loading indicator while data is being fetched
   }
 
-  return <Navigate to="https://kasthamandap-cdfd4.web.app/" />;
+  return <Navigate to="https://kasthamandap.fi/" />;
 };
 
 export default ReservationDecision;

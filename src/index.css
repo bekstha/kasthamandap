@@ -34,5 +34,5 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
   scroll-margin-top: 40px;
-  font-family: 'Manrope' !important;
+  font-family: 'Manrope', sans-serif;
 }

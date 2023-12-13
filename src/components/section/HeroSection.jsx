@@ -34,18 +34,18 @@ const HeroSection = () => {
   }, [today]);
 
   return (
-    <Section sectionClass="h-[65vh] h-screen flex items-center justify-center max-w-screen bg-hero-section bg-cover bg-center">
+    <Section sectionClass="h-[100dvh] flex items-center justify-center max-w-screen bg-hero-section bg-cover bg-center">
       <Overlay />
       <Banner />
       <Slider sliderType="heroSection">
         {/* Slide 1 */}
         <div className="relative z-40 text-center my-6 text-white">
-          <h1 className="text-2xl md:text-6xl font-bold leading-tight">
+          <h1 className="text-3xl md:text-6xl font-bold leading-tight italic">
             Welcome to
-            <span className="block text-3xl md:text-8xl">Kasthamandap</span>
+            <span className="block text-4xl md:text-8xl">Kasthamandap</span>
           </h1>
           <p className="mt-4 text-base md:text-3xl ">
-            Experience the Flavors of Nepal in the Heart of Kotka
+            Experience the Flavors of Nepal in <br /> the Heart of Kotka
           </p>
         </div>
 
