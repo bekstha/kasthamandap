@@ -1,5 +1,5 @@
 @font-face {
-  font-family: 'Manrope';
+  font-family: Manrope;
   src: url("./assets/fonts/Manrope.ttf");
 }
 
@@ -14,7 +14,7 @@
 }
 
 :root {
-  font-family: "Manrope";
+  font-family: "Manrope", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -34,5 +34,4 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
   scroll-margin-top: 40px;
-  font-family: 'Manrope', sans-serif;
 }

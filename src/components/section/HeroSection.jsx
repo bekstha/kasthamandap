@@ -88,10 +88,10 @@ const HeroSection = () => {
         {/* Slide 3 */}
         {isToday && (
           <div className="relative z-40 text-center my-6 text-white">
-            <h1 className="text-3xl md:text-8xl font-extrabold leading-tight italic">
+            <h1 className="text-3xl md:text-8xl font-extrabold font-cursive leading-tight">
               {todaysSpecial.title}
             </h1>
-            <p className="mt-4 text-xs md:text-4xl italic">
+            <p className="mt-4 text-xs md:text-4xl font-cursive">
               {todaysSpecial.message}
             </p>
           </div>
