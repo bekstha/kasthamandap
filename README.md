@@ -35,7 +35,7 @@ Kasthamandap Nepali Restaurant Website is a dynamic web application designed to 
 
 Visit the public site and explore the delicious offerings from our restaurant. Whether you're looking for appetizers, main courses, or desserts, our menu has something for everyone.
 
-[Click here to explore the Restaurant Public Site](https://kasthamandap-cdfd4.web.app/)
+[Click here to explore the Restaurant Public Site](https://kasthamandap.fi/)
 
 
 ## Get In Touch
