@@ -10,6 +10,28 @@ import Button from "../ui/Button";
 import { POST } from "../../services/sendEmail";
 
 const ReservationSection = () => {
+  const quandooScript = document.querySelector(
+    "script[src='https://booking-widget.quandoo.com/index.js']"
+  );
+  console.log("Quandoo script element:", quandooScript);
+  return (
+    <Section id="reservation" sectionClass="bg-reservation-section">
+      <Overlay color="bg-black/80" />
+      <div id="quandoo-booking-widget"></div>
+      <script
+        src="https://booking-widget.quandoo.com/index.js"
+        data-merchant-id="94886"
+        data-theme="light"
+        data-primary-color="202020"
+      ></script>
+    </Section>
+  );
+};
+
+export default ReservationSection;
+
+/*
+const ReservationSection = () => {
   const [state, setState] = useState({
     firstname: "",
     lastname: "",
@@ -195,6 +217,4 @@ const ReservationSection = () => {
       </div>
     </Section>
   );
-};
-
-export default ReservationSection;
+};*/
